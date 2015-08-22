@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: de.fischzegel.viszegel.configuration.SecurityConfigTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.744 sec <<< FAILURE! - in de.fischzegel.viszegel.configuration.SecurityConfigTest
+loginTest(de.fischzegel.viszegel.configuration.SecurityConfigTest)  Time elapsed: 0.741 sec  <<< FAILURE!
+java.lang.AssertionError: Model attribute 'loggedin' expected:<true> but was:<false>
+	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:60)
+	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:89)
+	at org.springframework.test.web.servlet.result.ModelResultMatchers$2.match(ModelResultMatchers.java:70)
+	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:149)
+	at de.fischzegel.viszegel.configuration.SecurityConfigTest.loginTest(SecurityConfigTest.java:59)
+

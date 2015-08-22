@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="de.fischzegel.viszegel.configuration.SecurityConfigTest" time="0.741" tests="1" errors="0" skipped="0" failures="1">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-7-oracle/jre/lib/amd64"/>
+    <property name="java.vm.version" value="24.80-b11"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=":"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.country" value="DE"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/home/tnowicki/NetBeansProjects/VisZegel"/>
+    <property name="java.runtime.version" value="1.7.0_80-b15"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-7-oracle/jre/lib/endorsed"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="os.name" value="Linux"/>
+    <property name="maven.ext.class.path" value="/home/tnowicki/netbeans-8.0.2/java/maven-nblib/netbeans-eventspy.jar"/>
+    <property name="classworlds.conf" value="/home/tnowicki/netbeans-8.0.2/java/maven/bin/m2.conf"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/lib/jvm/java-7-oracle/jre/lib/amd64:/usr/lib/jvm/java-7-oracle/jre/lib/i386::/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="51.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="3.13.0-57-generic"/>
+    <property name="user.home" value="/home/tnowicki"/>
+    <property name="user.timezone" value="Europe/Berlin"/>
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.specification.version" value="1.7"/>
+    <property name="user.name" value="tnowicki"/>
+    <property name="java.class.path" value="/home/tnowicki/netbeans-8.0.2/java/maven/boot/plexus-classworlds-2.4.jar"/>
+    <property name="java.vm.specification.version" value="1.7"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="/usr/lib/jvm/java-7-oracle/jre"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=/home/tnowicki/netbeans-8.0.2/java/maven-nblib/netbeans-eventspy.jar clean install"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="de"/>
+    <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.7.0_80"/>
+    <property name="java.ext.dirs" value="/usr/lib/jvm/java-7-oracle/jre/lib/ext:/usr/java/packages/lib/ext"/>
+    <property name="securerandom.source" value="file:/dev/./urandom"/>
+    <property name="sun.boot.class.path" value="/usr/lib/jvm/java-7-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-7-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-7-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-7-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-7-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-7-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-7-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-7-oracle/jre/classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="/home/tnowicki/netbeans-8.0.2/java/maven"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="gnome"/>
+    <property name="sun.cpu.isalist" value=""/>
+  </properties>
+  <testcase name="loginTest" classname="de.fischzegel.viszegel.configuration.SecurityConfigTest" time="0.741">
+    <failure message="Model attribute &apos;loggedin&apos; expected:&lt;true&gt; but was:&lt;false&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: Model attribute 'loggedin' expected:<true> but was:<false>
+	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:60)
+	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:89)
+	at org.springframework.test.web.servlet.result.ModelResultMatchers$2.match(ModelResultMatchers.java:70)
+	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:149)
+	at de.fischzegel.viszegel.configuration.SecurityConfigTest.loginTest(SecurityConfigTest.java:59)
+]]></failure>
+    <system-out><![CDATA[2015-08-21 08:43:56 DEBUG StandardEnvironment:127 - Initializing new StandardEnvironment
+2015-08-21 08:43:56 DEBUG StandardEnvironment:110 - Adding [systemProperties] PropertySource with lowest search precedence
+2015-08-21 08:43:56 DEBUG StandardEnvironment:110 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2015-08-21 08:43:56 DEBUG StandardEnvironment:131 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+2015-08-21 08:43:56 INFO  StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping:181 - Mapped "{[/protected**],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView de.fischzegel.viszegel.controller.AuthenticationController.protectedPage()
+2015-08-21 08:43:56 INFO  StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping:181 - Mapped "{[/login],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String de.fischzegel.viszegel.controller.AuthenticationController.superAdminPage(java.lang.String,java.lang.String,org.springframework.ui.Model)
+2015-08-21 08:43:56 DEBUG RequestMappingHandlerAdapter:622 - Looking for controller advice: org.springframework.test.web.servlet.setup.StubWebApplicationContext@5cf8fdd3
+2015-08-21 08:43:56 DEBUG TestDispatcherServlet:118 - Initializing servlet ''
+2015-08-21 08:43:56 DEBUG StandardServletEnvironment:127 - Initializing new StandardServletEnvironment
+2015-08-21 08:43:56 DEBUG StandardServletEnvironment:110 - Adding [servletConfigInitParams] PropertySource with lowest search precedence
+2015-08-21 08:43:56 DEBUG StandardServletEnvironment:110 - Adding [servletContextInitParams] PropertySource with lowest search precedence
+2015-08-21 08:43:56 DEBUG StandardServletEnvironment:110 - Adding [jndiProperties] PropertySource with lowest search precedence
+2015-08-21 08:43:56 DEBUG StandardServletEnvironment:110 - Adding [systemProperties] PropertySource with lowest search precedence
+2015-08-21 08:43:56 DEBUG StandardServletEnvironment:110 - Adding [systemEnvironment] PropertySource with lowest search precedence
+2015-08-21 08:43:56 DEBUG StandardServletEnvironment:131 - Initialized StandardServletEnvironment with PropertySources [servletConfigInitParams,servletContextInitParams,jndiProperties,systemProperties,systemEnvironment]
+2015-08-21 08:43:56 INFO  MockServletContext:430 - Initializing Spring FrameworkServlet ''
+2015-08-21 08:43:56 INFO  TestDispatcherServlet:479 - FrameworkServlet '': initialization started
+2015-08-21 08:43:56 DEBUG TestDispatcherServlet:487 - Unable to locate MultipartResolver with name 'multipartResolver': no multipart request handling provided
+2015-08-21 08:43:56 DEBUG TestDispatcherServlet:502 - Using LocaleResolver [org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver@4348853d]
+2015-08-21 08:43:56 DEBUG TestDispatcherServlet:524 - Using ThemeResolver [org.springframework.web.servlet.theme.FixedThemeResolver@4e238a4d]
+2015-08-21 08:43:56 DEBUG TestDispatcherServlet:662 - Using RequestToViewNameTranslator [org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@7f4ced4e]
+2015-08-21 08:43:56 DEBUG TestDispatcherServlet:724 - Using FlashMapManager [org.springframework.web.servlet.support.SessionFlashMapManager@136fdd2d]
+2015-08-21 08:43:56 DEBUG TestDispatcherServlet:558 - Published WebApplicationContext of servlet '' as ServletContext attribute with name [org.springframework.web.servlet.FrameworkServlet.CONTEXT.]
+2015-08-21 08:43:56 INFO  TestDispatcherServlet:498 - FrameworkServlet '': initialization completed in 11 ms
+2015-08-21 08:43:56 DEBUG TestDispatcherServlet:139 - Servlet '' configured successfully
+2015-08-21 08:43:56 DEBUG TestDispatcherServlet:843 - DispatcherServlet with name '' processing GET request for [/login]
+2015-08-21 08:43:56 DEBUG StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping:222 - Looking up handler method for path /login
+2015-08-21 08:43:56 DEBUG StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping:229 - Returning handler method [public java.lang.String de.fischzegel.viszegel.controller.AuthenticationController.superAdminPage(java.lang.String,java.lang.String,org.springframework.ui.Model)]
+2015-08-21 08:43:56 DEBUG TestDispatcherServlet:932 - Last-Modified value for [/login] is: -1
+2015-08-21 08:43:56 DEBUG AuthenticationController:40 - LOGINNNNNN
+2015-08-21 08:43:56 DEBUG AuthenticationController:41 - VisuserT
+2015-08-21 08:43:56 DEBUG AuthenticationController:42 - testingVis
+2015-08-21 08:43:56 DEBUG TestDispatcherServlet:1222 - Rendering view [org.springframework.web.servlet.view.InternalResourceView: unnamed; URL [/WEB-INF/jsp/view/login.jsp]] in DispatcherServlet with name ''
+2015-08-21 08:43:56 DEBUG InternalResourceView:376 - Added model object 'username' of type [java.lang.String] to request in view with name 'null'
+2015-08-21 08:43:56 DEBUG InternalResourceView:376 - Added model object 'studentid' of type [java.lang.String] to request in view with name 'null'
+2015-08-21 08:43:56 DEBUG InternalResourceView:376 - Added model object 'loggedin' of type [java.lang.Boolean] to request in view with name 'null'
+2015-08-21 08:43:56 DEBUG InternalResourceView:207 - Forwarding to resource [/WEB-INF/jsp/view/login.jsp] in InternalResourceView 'null'
+2015-08-21 08:43:56 DEBUG MockRequestDispatcher:67 - MockRequestDispatcher: forwarding to [/WEB-INF/jsp/view/login.jsp]
+2015-08-21 08:43:56 DEBUG TestDispatcherServlet:991 - Successfully completed request
+]]></system-out>
+  </testcase>
+</testsuite>
