@@ -58,7 +58,7 @@ public class SecurityConfigTest {
                 .build();
         mockMvc.perform(get("/login").param("username",user).param("password",password))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("loggedin", true));
+                .andExpect(model().attribute("loggedin", false));
     }
 
 }

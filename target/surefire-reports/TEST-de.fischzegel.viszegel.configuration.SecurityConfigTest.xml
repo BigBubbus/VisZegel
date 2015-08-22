@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.fischzegel.viszegel.configuration.SecurityConfigTest" time="0.741" tests="1" errors="0" skipped="0" failures="1">
+<testsuite name="de.fischzegel.viszegel.configuration.SecurityConfigTest" time="0.548" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-7-oracle/jre/lib/amd64"/>
@@ -59,53 +59,5 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="loginTest" classname="de.fischzegel.viszegel.configuration.SecurityConfigTest" time="0.741">
-    <failure message="Model attribute &apos;loggedin&apos; expected:&lt;true&gt; but was:&lt;false&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: Model attribute 'loggedin' expected:<true> but was:<false>
-	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:60)
-	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:89)
-	at org.springframework.test.web.servlet.result.ModelResultMatchers$2.match(ModelResultMatchers.java:70)
-	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:149)
-	at de.fischzegel.viszegel.configuration.SecurityConfigTest.loginTest(SecurityConfigTest.java:59)
-]]></failure>
-    <system-out><![CDATA[2015-08-21 08:43:56 DEBUG StandardEnvironment:127 - Initializing new StandardEnvironment
-2015-08-21 08:43:56 DEBUG StandardEnvironment:110 - Adding [systemProperties] PropertySource with lowest search precedence
-2015-08-21 08:43:56 DEBUG StandardEnvironment:110 - Adding [systemEnvironment] PropertySource with lowest search precedence
-2015-08-21 08:43:56 DEBUG StandardEnvironment:131 - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
-2015-08-21 08:43:56 INFO  StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping:181 - Mapped "{[/protected**],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView de.fischzegel.viszegel.controller.AuthenticationController.protectedPage()
-2015-08-21 08:43:56 INFO  StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping:181 - Mapped "{[/login],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String de.fischzegel.viszegel.controller.AuthenticationController.superAdminPage(java.lang.String,java.lang.String,org.springframework.ui.Model)
-2015-08-21 08:43:56 DEBUG RequestMappingHandlerAdapter:622 - Looking for controller advice: org.springframework.test.web.servlet.setup.StubWebApplicationContext@5cf8fdd3
-2015-08-21 08:43:56 DEBUG TestDispatcherServlet:118 - Initializing servlet ''
-2015-08-21 08:43:56 DEBUG StandardServletEnvironment:127 - Initializing new StandardServletEnvironment
-2015-08-21 08:43:56 DEBUG StandardServletEnvironment:110 - Adding [servletConfigInitParams] PropertySource with lowest search precedence
-2015-08-21 08:43:56 DEBUG StandardServletEnvironment:110 - Adding [servletContextInitParams] PropertySource with lowest search precedence
-2015-08-21 08:43:56 DEBUG StandardServletEnvironment:110 - Adding [jndiProperties] PropertySource with lowest search precedence
-2015-08-21 08:43:56 DEBUG StandardServletEnvironment:110 - Adding [systemProperties] PropertySource with lowest search precedence
-2015-08-21 08:43:56 DEBUG StandardServletEnvironment:110 - Adding [systemEnvironment] PropertySource with lowest search precedence
-2015-08-21 08:43:56 DEBUG StandardServletEnvironment:131 - Initialized StandardServletEnvironment with PropertySources [servletConfigInitParams,servletContextInitParams,jndiProperties,systemProperties,systemEnvironment]
-2015-08-21 08:43:56 INFO  MockServletContext:430 - Initializing Spring FrameworkServlet ''
-2015-08-21 08:43:56 INFO  TestDispatcherServlet:479 - FrameworkServlet '': initialization started
-2015-08-21 08:43:56 DEBUG TestDispatcherServlet:487 - Unable to locate MultipartResolver with name 'multipartResolver': no multipart request handling provided
-2015-08-21 08:43:56 DEBUG TestDispatcherServlet:502 - Using LocaleResolver [org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver@4348853d]
-2015-08-21 08:43:56 DEBUG TestDispatcherServlet:524 - Using ThemeResolver [org.springframework.web.servlet.theme.FixedThemeResolver@4e238a4d]
-2015-08-21 08:43:56 DEBUG TestDispatcherServlet:662 - Using RequestToViewNameTranslator [org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@7f4ced4e]
-2015-08-21 08:43:56 DEBUG TestDispatcherServlet:724 - Using FlashMapManager [org.springframework.web.servlet.support.SessionFlashMapManager@136fdd2d]
-2015-08-21 08:43:56 DEBUG TestDispatcherServlet:558 - Published WebApplicationContext of servlet '' as ServletContext attribute with name [org.springframework.web.servlet.FrameworkServlet.CONTEXT.]
-2015-08-21 08:43:56 INFO  TestDispatcherServlet:498 - FrameworkServlet '': initialization completed in 11 ms
-2015-08-21 08:43:56 DEBUG TestDispatcherServlet:139 - Servlet '' configured successfully
-2015-08-21 08:43:56 DEBUG TestDispatcherServlet:843 - DispatcherServlet with name '' processing GET request for [/login]
-2015-08-21 08:43:56 DEBUG StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping:222 - Looking up handler method for path /login
-2015-08-21 08:43:56 DEBUG StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping:229 - Returning handler method [public java.lang.String de.fischzegel.viszegel.controller.AuthenticationController.superAdminPage(java.lang.String,java.lang.String,org.springframework.ui.Model)]
-2015-08-21 08:43:56 DEBUG TestDispatcherServlet:932 - Last-Modified value for [/login] is: -1
-2015-08-21 08:43:56 DEBUG AuthenticationController:40 - LOGINNNNNN
-2015-08-21 08:43:56 DEBUG AuthenticationController:41 - VisuserT
-2015-08-21 08:43:56 DEBUG AuthenticationController:42 - testingVis
-2015-08-21 08:43:56 DEBUG TestDispatcherServlet:1222 - Rendering view [org.springframework.web.servlet.view.InternalResourceView: unnamed; URL [/WEB-INF/jsp/view/login.jsp]] in DispatcherServlet with name ''
-2015-08-21 08:43:56 DEBUG InternalResourceView:376 - Added model object 'username' of type [java.lang.String] to request in view with name 'null'
-2015-08-21 08:43:56 DEBUG InternalResourceView:376 - Added model object 'studentid' of type [java.lang.String] to request in view with name 'null'
-2015-08-21 08:43:56 DEBUG InternalResourceView:376 - Added model object 'loggedin' of type [java.lang.Boolean] to request in view with name 'null'
-2015-08-21 08:43:56 DEBUG InternalResourceView:207 - Forwarding to resource [/WEB-INF/jsp/view/login.jsp] in InternalResourceView 'null'
-2015-08-21 08:43:56 DEBUG MockRequestDispatcher:67 - MockRequestDispatcher: forwarding to [/WEB-INF/jsp/view/login.jsp]
-2015-08-21 08:43:56 DEBUG TestDispatcherServlet:991 - Successfully completed request
-]]></system-out>
-  </testcase>
+  <testcase name="loginTest" classname="de.fischzegel.viszegel.configuration.SecurityConfigTest" time="0.548"/>
 </testsuite>

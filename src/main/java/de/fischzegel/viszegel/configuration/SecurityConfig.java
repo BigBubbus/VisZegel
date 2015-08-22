@@ -5,6 +5,7 @@
  */
 package de.fischzegel.viszegel.configuration;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -34,9 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .logout()
                 .permitAll();
     }
-
+protected static final Logger logger = Logger.getLogger(AbstractConfig.class);
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        logger.debug("CONFIGURING GLOBAL SECURITY!!!");
         auth
             .inMemoryAuthentication()
                 .withUser("user").password("password").roles("USER");

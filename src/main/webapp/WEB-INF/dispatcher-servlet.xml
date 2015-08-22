@@ -11,13 +11,28 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd" >
-    <context:component-scan base-package="de.fischzegel.viszegel.controller" />
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                              http://www.springframework.org/schema/security
+                        http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+    <context:component-scan base-package="de.fischzegel.viszegel" />
 
 
 
-    <bean name="starter" init-method="start" class="de.fischzegel.viszegel.configuration.PropertyLoader">
-   
+    
+    <bean name="starter" init-method="start" class="de.fischzegel.viszegel.configuration.PropertyLoader"/>
+<bean id="daoAuthenticationProvider"
+    class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+    <property name="userDetailsService" ref="userDetailsService"></property>
+</bean>   
+    <bean id="authenticationManager"
+          class="org.springframework.security.authentication.ProviderManager">
+        <constructor-arg>
+            <list>
+                <ref bean="daoAuthenticationProvider" />
+            </list>
+        </constructor-arg>
+    </bean>
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"

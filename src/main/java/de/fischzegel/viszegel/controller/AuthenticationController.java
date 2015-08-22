@@ -5,7 +5,14 @@
  */
 package de.fischzegel.viszegel.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,17 +43,36 @@ public class AuthenticationController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String superAdminPage(@RequestParam(value = "username", required=false) String user, @RequestParam(value = "password", required=false) String password, Model model) {
+    public String superAdminPage(HttpServletRequest request, @RequestParam(value = "username", required = false) String user, @RequestParam(value = "password", required = false) String password, Model model) {
         logger.debug("LOGINNNNNN");
         logger.debug(user);
         logger.debug(password);
-        if(user == null && password == null)
+        if (user == null && password == null) {
             return "login";
+        }
         model.addAttribute("username", user);
         model.addAttribute("studentid", password);
         model.addAttribute("loggedin", false);
-
+        doAutoLogin(user, password, request);
         return "login";
 
     }
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    private void doAutoLogin(String username, String password, HttpServletRequest request) {
+
+    try {
+        // Must be called from request filtered by Spring Security, otherwise SecurityContextHolder is not updated
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+        token.setDetails(new WebAuthenticationDetails(request));
+        Authentication authentication = this.authenticationManager.authenticate(token);
+        logger.debug("Logging in with "+authentication.getName());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    } catch (Exception e) {
+        SecurityContextHolder.getContext().setAuthentication(null);
+        logger.error("Failure in autoLogin", e);
+    }
+
+}
+
 }

@@ -1,3 +1,4 @@
 /home/tnowicki/NetBeansProjects/VisZegel/src/main/java/de/fischzegel/viszegel/configuration/SecurityConfig.java
 /home/tnowicki/NetBeansProjects/VisZegel/src/main/java/de/fischzegel/viszegel/configuration/PropertyLoader.java
+/home/tnowicki/NetBeansProjects/VisZegel/src/main/java/de/fischzegel/viszegel/configuration/AbstractConfig.java
 /home/tnowicki/NetBeansProjects/VisZegel/src/main/java/de/fischzegel/viszegel/controller/AuthenticationController.java
