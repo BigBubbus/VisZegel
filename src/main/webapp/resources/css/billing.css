@@ -1,0 +1,15 @@
+@CHARSET "ISO-8859-1";
+#heading{
+	width : 100%;
+	text-align : center;
+	background-color:black;
+}
+.menuPoint{
+	font-size: 250%;
+}
+.menuPoint:hover {
+	background-color: blue;
+}
+#lineBreaker{
+	height:30px;
+}
