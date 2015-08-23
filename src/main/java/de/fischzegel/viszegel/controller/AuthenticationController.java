@@ -53,26 +53,11 @@ public class AuthenticationController {
         model.addAttribute("username", user);
         model.addAttribute("studentid", password);
         model.addAttribute("loggedin", false);
-        doAutoLogin(user, password, request);
         return "login";
 
     }
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    private void doAutoLogin(String username, String password, HttpServletRequest request) {
 
-    try {
-        // Must be called from request filtered by Spring Security, otherwise SecurityContextHolder is not updated
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
-        token.setDetails(new WebAuthenticationDetails(request));
-        Authentication authentication = this.authenticationManager.authenticate(token);
-        logger.debug("Logging in with "+authentication.getName());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-    } catch (Exception e) {
-        SecurityContextHolder.getContext().setAuthentication(null);
-        logger.error("Failure in autoLogin", e);
-    }
 
 }
 
-}
+
