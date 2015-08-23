@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import de.fischzegel.viszegel.model.Customer;
 
-
 @Controller
 public class BillingController extends AbstractController {
 	@RequestMapping(value = "/billingIndex", method = RequestMethod.GET)
-	public String billingMain(HttpServletRequest request,
-			@RequestParam(value = "mode", required = false) String mode, Model model) {
+	public String billingMain(HttpServletRequest request, @RequestParam(value = "mode", required = false) String mode,
+			Model model) {
 		if (mode == null) {
 			return "billingIndex";
 		} else {
@@ -23,13 +22,22 @@ public class BillingController extends AbstractController {
 		}
 
 	}
+
 	@RequestMapping(value = "/operation", method = RequestMethod.GET)
 	public String superAdminPage(HttpServletRequest request,
-			@RequestParam(value = "mode", required = false) String mode, Model model) {
-		if(mode.toLowerCase().equals("createcustomer")){
+			@RequestParam(value = "mode", required = false) String mode,
+			@RequestParam(value = "id", required = false) Integer id, Model model) {
+		if (mode.toLowerCase().equals("createcustomer")) {
+			Customer cus = new Customer();
+			cus.setName("HANNES");
+			if(id != null)
+				model.addAttribute("customer", cus);
+			else
+				logger.info("NO ID");
 			return "billing/createCustomer";
 		}
 		return "login";
 
 	}
+
 }

@@ -20,28 +20,45 @@
 		</thead>
 		<tr>
 			<td>klantid</td>
-			<td><input type="text" class="klantInput" name="fname" value="<c:out value='${customer.name}'/>"></td>
+			<td><input type="text" class="klantInput" name="fname"
+				value="<c:out value='${customer.name}'/>"></td>
 		</tr>
 		<tr>
 			<td>Name</td>
 			<td><input type="text" class="klantInput" name="fname"></td>
 		</tr>
-
+		<tr>
+			<td>Result</td>
+			<td><input id="clientName" type="text" class="klantInput"
+				name="fname"></td>
+		</tr>
+<button onclick="myFunction()">Click me</button>
 	</table>
-	<div id="result_addcustomer"></div>
-	<script>
+	<div id="result_addcustomer">
+		<c:out value='${customer.name}' />
+	</div>
+	<script type="text/javascript">
+	function myFunction(){
+	$('#clientName').val("shit");
+	}
 		// Lets get our Attribute here and pass on to another jsp submodule in /billing
 		$(".klantInput").keyup(function() {
-			/*
-			 $.ajax({
-			 type : "GET",
-			 data : "mode=" + $(this).attr("id"),
-			 url : "/operation"
-			 }).done(function(data) {
-			 $("#result_addcustomer").html(data);
 
-			 });
-			 */
+			$.ajax({
+				type : "GET",
+				data : "mode=createcustomer&id=10",
+				url : "/operation"
+			}).done(function(data) {
+				$('#result_addcustomer').html(data);
+				$('#result_addcustomer').html(data);
+				var message = '<c:out value="${customer.name}"/>';
+				alert(message);
+
+				//$('#clientName').val("<c:out value='${customer.name}'/>");
+				
+
+			});
+
 		});
 	</script>
 </body>
