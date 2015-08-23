@@ -16,8 +16,8 @@
 	<context:component-scan base-package="de.fischzegel.viszegel" />
 
 
-
-
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:annotation-driven />
 	<bean name="starter" init-method="start"
 		class="de.fischzegel.viszegel.configuration.PropertyLoader" />
 
