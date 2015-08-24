@@ -1,5 +1,9 @@
 package de.fischzegel.viszegel.controller;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -28,15 +32,41 @@ public class BillingController extends AbstractController {
 			@RequestParam(value = "mode", required = false) String mode,
 			@RequestParam(value = "id", required = false) Integer id, Model model) {
 		if (mode.toLowerCase().equals("createcustomer")) {
-			Customer cus = new Customer();
-			cus.setName("HANNES");
-			if(id != null)
-				model.addAttribute("customer", cus);
-			else
-				logger.info("NO ID");
 			return "billing/createCustomer";
 		}
 		return "login";
+
+	}
+
+	@RequestMapping(value = "/create_customer", method = RequestMethod.GET)
+	public String add_customer(@RequestParam Map<String, String> allParams, Model model) {
+		Iterator it = allParams.entrySet().iterator();
+		Customer cus = new Customer();
+		while (it.hasNext()) {
+			Entry thisEntry = (Entry) it.next();
+			String key = (String) thisEntry.getKey();
+			String value = (String) thisEntry.getValue();
+			if (key.equals("customer_name"))
+				cus.setName(value);
+			if (key.equals("customer_address"))
+				cus.setAdress(value);
+			if (key.equals("customer_extra_rules"))
+				cus.setExtra_rules(value);
+			if (key.equals("customer_house_number"))
+				cus.setHouse_number(Integer.parseInt(value));
+			if (key.equals("customer_postcode"))
+				cus.setPostcode(Integer.parseInt(value));
+			if (key.equals("customer_location"))
+				cus.setName(value);
+			if (key.equals("customer_email"))
+				cus.setEmail(value);
+			if (key.equals("customer_website"))
+				cus.setWebsite(value);
+			if (key.equals("customer_btw"))
+				cus.setBtw_number(Integer.parseInt(value));
+		}
+		model.addAttribute("result", "Success!!");
+		return "billing/result";
 
 	}
 

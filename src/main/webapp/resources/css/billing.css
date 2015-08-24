@@ -1,15 +1,30 @@
 @CHARSET "ISO-8859-1";
-#heading{
-	width : 100%;
-	text-align : center;
-	background-color:black;
+
+#heading {
+	width: 100%;
+	text-align: center;
+	background-color: black;
 }
-.menuPoint{
+
+#menuPointWrapper {
+	width: 100%;
+}
+
+#mainContent {
+	clear: both;
+}
+
+.menuPoint {
+
+	border-right: thick double #ff0000;
+	float: left;
 	font-size: 250%;
 }
+
 .menuPoint:hover {
 	background-color: blue;
 }
-#lineBreaker{
-	height:30px;
+
+#lineBreaker {
+	height: 30px;
 }

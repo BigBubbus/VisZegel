@@ -19,23 +19,15 @@
 		<img src="<c:url value='/resources/images/fischzegel.jpg' />" />
 	</div>
 	<!--  This is where all modules will paste their results due to our ajax calls! -->
-	<div id="mainContent">
-		<!-- Line Break -->
-		<div id="lineBreaker"></div>
-		<div id="createCustomer" class="menuPoint" style="cursor: pointer;">Klanten toevogen</div>
-		<!-- Line Break -->
-		<div id="lineBreaker"></div>
+	<div id="menuPointWrapper">
+		<div id="createCustomer" class="menuPoint" style="cursor: pointer;">Klanten
+			toevogen</div>
 		<div id="checkBill" class="menuPoint" style="cursor: pointer;">Rekenining
 			bekijken</div>
-		<!-- Line Break -->
-		<div id="lineBreaker"></div>
 		<div id="test" class="menuPoint" style="cursor: pointer;">Dummy</div>
-		<!-- Line Break -->
-		<div id="lineBreaker"></div>
-		<div id="createBill" class="menuPoint" style="cursor: pointer;">Dummy</div>
-		<!-- Line Break -->
-		<div id="lineBreaker"></div>
-		<div id="createBill" class="menuPoint" style="cursor: pointer;">Dummy</div>
+	</div>
+	<br>
+	<div id="mainContent">
 	</div>
 	<script>
 		// Lets get our Attribute here and pass on to another jsp submodule in /billing
