@@ -16,9 +16,9 @@
 
 .menuPoint {
 
-	border-right: thick double #ff0000;
+	border: solid 5px #000000;
 	float: left;
-	font-size: 250%;
+	font-size: 150%;
 }
 
 .menuPoint:hover {
