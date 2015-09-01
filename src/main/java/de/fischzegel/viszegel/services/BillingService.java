@@ -5,6 +5,8 @@
  */
 package de.fischzegel.viszegel.services;
 
+import de.fischzegel.viszegel.daos.BillDAO;
+import de.fischzegel.viszegel.model.Bill;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.HashMap;
@@ -18,7 +20,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,11 +33,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BillingService extends AbstractService {
-
+    
     public BillingService() {
-
+        
     }
-
+    
     public void viewBill() {
 //// get the JRXML template as a stream
 //        InputStream template = JasperReportsApplication.class
@@ -52,7 +53,14 @@ public class BillingService extends AbstractService {
     @Autowired
     @Qualifier("dataSource")
     private DataSource dataSource;
-
+    
+    @Autowired
+    BillDAO billingDAO;
+    
+    public void saveBill(Bill bill) {
+        logger.info("Got a bill with name:" + bill.getPayment_method());
+        billingDAO.save(bill);
+    }
 
     public JasperPrint generateBill(int id, String path) {
         try {
@@ -65,32 +73,32 @@ public class BillingService extends AbstractService {
             File pathi = resource.getFile();
             try {
                 JasperReport jasperReport = null;
-
+                
                 FileInputStream configStream = new FileInputStream(pathi);
                 logger.debug("---> retrieved template");
-
+                
                 JasperDesign jasperDesign = JRXmlLoader.load(configStream);
                 logger.debug("---> loaded template");
-
+                
                 jasperReport = JasperCompileManager.compileReport(jasperDesign);
                 logger.debug("---> loaded template and list");
-
+                
                 Map<String, Object> parameters = new HashMap<>();
                 parameters.put("billID", id);
 //            parameters.put("vat_number", payment.getVatNo());
 
                 JasperPrint print = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
-                  JasperExportManager.exportReportToPdfFile(print, outDir);
+                JasperExportManager.exportReportToPdfFile(print, outDir);
                 logger.debug("---> generated output");
                 return print;
             } catch (Exception ex) {
-
+                
                 logger.error(ex.getMessage());
             }
-
+            
             return null;
         } catch (Exception ex) {
-
+            
             Logger.getLogger(BillingService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;

@@ -36,7 +36,25 @@
     background-color: gray;
 
 }
-
+.add_input{
+    
+    width :100%;
+}
 #lineBreaker {
     height: 30px;
+}
+
+#customer_table{
+    width: 1500px;
+
+
+}
+#customer_table td{
+    width: 10px;
+    border: 1px solid #CCC;
+}
+
+#customer_table thead {
+background: #F3F3F3; /* Light grey background */
+font-weight: bold; /* Make sure they're bold */
 }

@@ -22,6 +22,7 @@
         <div id="menuPointWrapper">
             <div id="createCustomer" class="menuPoint" style="cursor: pointer;">Klanten
                 toevogen</div>
+            <div id="viewCustomers" class="menuPoint" style="cursor: pointer;">Klanten bekijken</div>
             <div id="checkBill" class="menuPoint" style="cursor: pointer;">Rekenining
                 bekijken</div>
             <div id="test" class="menuPoint" style="cursor: pointer;">Dummy</div>
@@ -30,7 +31,7 @@
 
 
 
-        
+
         <div id="mainContent">
         </div>
         <script>

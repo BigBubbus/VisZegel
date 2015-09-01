@@ -1,5 +1,3 @@
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
-
 <form:form id="add_customer_form" method="post" modelAttribute="customer-entity" action="/create_customer">  
     <table id="customer_table" style="width: 442px;">
         <thead>
@@ -77,4 +75,3 @@
 
     });
 </script>
-

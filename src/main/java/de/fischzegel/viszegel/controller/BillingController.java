@@ -1,5 +1,6 @@
 package de.fischzegel.viszegel.controller;
 
+import de.fischzegel.viszegel.model.Bill;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import de.fischzegel.viszegel.model.Customer;
+import de.fischzegel.viszegel.model.ShoppingItem;
 import de.fischzegel.viszegel.services.BillingService;
+import de.fischzegel.viszegel.services.CustomerService;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,8 @@ public class BillingController extends AbstractController {
 
     @Autowired
     BillingService billingService;
+    @Autowired
+    CustomerService customerService;
 
     @RequestMapping(value = "/billingIndex", method = RequestMethod.GET)
     public String billingMain(HttpServletRequest request, @RequestParam(value = "mode", required = false) String mode,
@@ -48,6 +53,12 @@ public class BillingController extends AbstractController {
         }
         if (mode.toLowerCase().equals("checkbill")) {
             return "redirect:/checkbill";
+        }
+        if (mode.toLowerCase().equals("createbill")) {
+            return "redirect:/createbill";
+        }
+        if (mode.toLowerCase().equals("viewcustomers")) {
+            return "redirect:/view_customers";
         }
         return "login";
 
@@ -74,21 +85,14 @@ public class BillingController extends AbstractController {
     //public String add_customer(@RequestParam Map<String, String> allParams, Model model) {
     public String add_customer_result(@ModelAttribute Customer cus, Model mod) {
         mod.addAttribute("result", "Kunde hinzugefügt");
+        customerService.saveCustomer(cus);
         return "billing/add_customer_result";
     }
-    
-        @RequestMapping(value = "/view_customers", method = {RequestMethod.GET, RequestMethod.POST})
-    public String view_customers(Model mod) {
-        List<Customer> customers = new ArrayList<>();
-        for (int i = 0; i < 100; i++){
-            Customer cus = new Customer();
-            cus.setName(i+ " YO");
-            customers.add(cus);
-        }
-        mod.addAttribute("customers", customers);
-        mod.addAttribute("user", new Customer());
-        return "billing/view_customers";
 
+    @RequestMapping(value = "/view_customers", method = {RequestMethod.GET, RequestMethod.POST})
+    public String view_customers(Model mod) {
+        mod.addAttribute("customers", customerService.getCustomers());
+        return "billing/view_customers";
     }
 
     @RequestMapping(value = "/viewBill", method = {RequestMethod.GET, RequestMethod.POST})
@@ -112,7 +116,7 @@ public class BillingController extends AbstractController {
             response.setDateHeader("Expires", 0);
             response.setContentType("application/pdf");
             response.setHeader("Content-disposition",
-                    "attachment; filename=" + pdfResult + ""); 
+                    "attachment; filename=" + pdfResult + "");
             response.setContentLength(data.length);
             logger.info("Content-disposition"
                     + "attachment; filename=" + pdfResult + "");
@@ -130,6 +134,22 @@ public class BillingController extends AbstractController {
     @RequestMapping(value = "/checkbill", method = {RequestMethod.GET, RequestMethod.POST})
     //public String add_customer(@RequestParam Map<String, String> allParams, Model model) {
     public String checkBill(@RequestParam(value = "billID", required = false) Integer billID, HttpServletResponse response, HttpServletRequest httpServletRequest) {
+        Bill test = new Bill();
+        ShoppingItem st = new ShoppingItem();
+        st.setDelivery_text("YO");
+        st.setBill(test);
+        test.getShopping_items().add(st);
+        logger.info(test.getBill_id()+ " OUR BILL IDDDD");
+        billingService.saveBill(test);
+
+        return "billing/checkBill";
+
+    }
+
+    @RequestMapping(value = "/createbill", method = {RequestMethod.GET, RequestMethod.POST})
+    //public String add_customer(@RequestParam Map<String, String> allParams, Model model) {
+    public String createBill(@RequestParam(value = "billID", required = false) Integer billID, HttpServletResponse response, HttpServletRequest httpServletRequest) {
+
         return "billing/checkBill";
 
     }

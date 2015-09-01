@@ -1,15 +1,17 @@
 package de.fischzegel.viszegel.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Entity;
+
 
 @Entity
-@Table(name = "Kunde")
-public class Customer {
+@Table(name = "Kunden")
+public class Customer extends AbstractModel {
 	@Id
 	@GeneratedValue
 	@Column(name = "id")
@@ -18,7 +20,7 @@ public class Customer {
 	private String extra_rules;
 	private String adress;
 	private int house_number;
-	private int postcode;
+	private String postcode;
 	private String location;
 	private String country;
 	private String email;
@@ -66,11 +68,11 @@ public class Customer {
 		this.house_number = house_number;
 	}
 
-	public int getPostcode() {
+	public String getPostcode() {
 		return postcode;
 	}
 
-	public void setPostcode(int postcode) {
+	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
 
