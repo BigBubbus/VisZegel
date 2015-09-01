@@ -5,6 +5,7 @@
  */
 package de.fischzegel.viszegel.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,7 +30,7 @@ public class ShoppingItem extends AbstractModel{
     private int id;
 
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
     @JoinColumn(name = "rechnungs_id")
     private Bill bill;
     

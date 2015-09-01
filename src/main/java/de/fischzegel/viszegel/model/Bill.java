@@ -13,8 +13,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,7 +27,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "Rechnungen")
-public class Bill extends AbstractModel{
+public class Bill extends AbstractModel {
 
     @Id
     @GeneratedValue
@@ -39,8 +40,12 @@ public class Bill extends AbstractModel{
     @Column(name = "Datum")
     private Date date;
 
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY,mappedBy = "bill")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "bill")
     private List<ShoppingItem> shopping_items = new ArrayList<>();
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "kunden_id")
+    private Customer cus_bill;
 
     /**
      * @return the payment_method
@@ -96,5 +101,19 @@ public class Bill extends AbstractModel{
      */
     public void setBill_id(int bill_id) {
         this.bill_id = bill_id;
+    }
+
+    /**
+     * @return the cus_bill
+     */
+    public Customer getCus_bill() {
+        return cus_bill;
+    }
+
+    /**
+     * @param cus_bill the cus_bill to set
+     */
+    public void setCus_bill(Customer cus_bill) {
+        this.cus_bill = cus_bill;
     }
 }

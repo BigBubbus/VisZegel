@@ -12,13 +12,12 @@ import java.util.List;
  *
  * @author tnowicki
  */
-
 public interface CustomerDAO {
 
- 
     public void save(Customer p);
-     
+
+    public void delete(Customer p);
+
     public List<Customer> list();
-     
 
 }

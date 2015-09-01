@@ -5,30 +5,40 @@
  */
 package de.fischzegel.viszegel.daos;
 
+import de.fischzegel.viszegel.model.Bill;
 import de.fischzegel.viszegel.model.Customer;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
  *
  * @author tnowicki
  */
+public class CustomerDAOImpl extends AbstractDAO implements CustomerDAO {
 
-public class CustomerDAOImpl extends AbstractDAO implements CustomerDAO{
-
-     
     @Override
     public void save(Customer p) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        session.persist(p);
+        for (Bill b : p.getBills()) {
+            b.setCus_bill(p);
+        }
+        session.saveOrUpdate(p);
         tx.commit();
         session.close();
     }
- 
+
+    @Override
+    public void delete(Customer p) {
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        session.delete(p);
+        tx.commit();
+        session.close();
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public List<Customer> list() {
@@ -37,6 +47,5 @@ public class CustomerDAOImpl extends AbstractDAO implements CustomerDAO{
         session.close();
         return personList;
     }
-
 
 }

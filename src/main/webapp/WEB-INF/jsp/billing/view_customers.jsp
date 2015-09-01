@@ -5,7 +5,7 @@
 
 
 
-<table id="customer_table">
+<table class="customer_table">
     <thead>
         <tr>
             <td>ID</td> 
@@ -22,14 +22,16 @@
             <td>Edit</td>
         </tr>
     </thead>
-    <%
-        List<Customer> custs = ((List<Customer>) request.getAttribute("customers"));
-        for (int i = 0; i < custs.size(); i++) {
-            Customer cust = custs.get(i);
-            request.setAttribute("temp_cust", cust);
-    %>
+</table>
+<%
+    List<Customer> custs = ((List<Customer>) request.getAttribute("customers"));
+    for (int i = 0; i < custs.size(); i++) {
+        Customer cust = custs.get(i);
+        request.setAttribute("temp_cust", cust);
+%>
 
-    <form:form id="add_customer_form" method="post" modelAttribute="temp_cust" action="/create_customer">  
+<form:form method="post" class="inclass" modelAttribute="temp_cust" onsubmit="submitThis()">  
+    <table class="customer_table">
         <tbody>
             <tr>
                 <td><form:input class ="add_input" path="id"></form:input></td>  
@@ -47,26 +49,29 @@
                 </tr>
 
             </tbody>
-    </form:form>
-    <% }%>
+        </table
+</form:form>
+<% }%>
 </table>
 
 
 <div id="customer_add_result"></div>
 
 <script type="text/javascript">
+    $(".inclass").submit(function(event) {
+    event.preventDefault();
+}
+            }
     // Lets get our Attribute here and pass on to another jsp submodule in /billing
     $("#button").click(function () {
-        var str = $("#add_customer_form").serialize();
-        $.ajax({
+    var str = $("#add_customer_form").serialize();
+            $.ajax({
             type: "POST",
-            data: str,
-            url: "/create_customer_result"
-        }).done(function (data) {
-            $("#customer_add_result").html(data);
-
-        });
-
+                    data: str,
+                    url: "/create_customer_result"
+            }).done(function (data) {
+    $("#customer_add_result").html(data);
+    });
     });
 </script>
 

@@ -71,8 +71,7 @@ public class BillingController extends AbstractController {
      */
     @RequestMapping(value = "/create_customer", method = {RequestMethod.GET, RequestMethod.POST})
     //public String add_customer(@RequestParam Map<String, String> allParams, Model model) {
-    public ModelAndView add_customer() {
-
+    public ModelAndView add_customer(Customer custom) {      
         logger.info("CREATING CUSTOMER VIEW");
         ModelAndView mav = new ModelAndView();
         mav.setViewName("billing/createCustomer");
@@ -83,10 +82,17 @@ public class BillingController extends AbstractController {
 
     @RequestMapping(value = "/create_customer_result", method = RequestMethod.POST)
     //public String add_customer(@RequestParam Map<String, String> allParams, Model model) {
-    public String add_customer_result(@ModelAttribute Customer cus, Model mod) {
+    public Model add_customer_result(@ModelAttribute Customer cus, Model mod) {
         mod.addAttribute("result", "Kunde hinzugefügt");
         customerService.saveCustomer(cus);
-        return "billing/add_customer_result";
+        return mod;
+    }
+    @RequestMapping(value = "/change_customer_result", method = RequestMethod.POST)
+    //public String add_customer(@RequestParam Map<String, String> allParams, Model model) {
+    public Model change_customer_result(@ModelAttribute Customer cus, Model mod) {
+        mod.addAttribute("result", "Kunde hinzugefügt");
+        customerService.saveCustomer(cus);
+        return mod;
     }
 
     @RequestMapping(value = "/view_customers", method = {RequestMethod.GET, RequestMethod.POST})
@@ -139,7 +145,11 @@ public class BillingController extends AbstractController {
         st.setDelivery_text("YO");
         st.setBill(test);
         test.getShopping_items().add(st);
-        logger.info(test.getBill_id()+ " OUR BILL IDDDD");
+        Customer cus = new Customer();
+        cus.setName("FritzCascadus");
+        test.setCus_bill(cus);
+        cus.getBills().add(test);
+        logger.info(test.getBill_id() + " OUR BILL IDDDD");
         billingService.saveBill(test);
 
         return "billing/checkBill";
@@ -148,9 +158,15 @@ public class BillingController extends AbstractController {
 
     @RequestMapping(value = "/createbill", method = {RequestMethod.GET, RequestMethod.POST})
     //public String add_customer(@RequestParam Map<String, String> allParams, Model model) {
-    public String createBill(@RequestParam(value = "billID", required = false) Integer billID, HttpServletResponse response, HttpServletRequest httpServletRequest) {
+    public String createBill(Bill bill, Model model) {
+        if (bill == null) {
+            bill = new Bill();
+        } else {
+            billingService.saveBill(bill);
+        }
+        model.addAttribute("bill-entity", bill);
 
-        return "billing/checkBill";
+        return "billing/createBill";
 
     }
 }

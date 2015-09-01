@@ -37,24 +37,26 @@
 
 }
 .add_input{
-    
+
     width :100%;
 }
 #lineBreaker {
     height: 30px;
 }
 
-#customer_table{
-    width: 1500px;
-
+.customer_table{
+    width: 1400px;
+    table-layout:fixed;
 
 }
-#customer_table td{
-    width: 10px;
+.customer_table td{
+
     border: 1px solid #CCC;
+    overflow:hidden;
+    word-wrap:break-word;
 }
 
-#customer_table thead {
-background: #F3F3F3; /* Light grey background */
-font-weight: bold; /* Make sure they're bold */
+.customer_table thead {
+    background: #F3F3F3; /* Light grey background */
+    font-weight: bold; /* Make sure they're bold */
 }

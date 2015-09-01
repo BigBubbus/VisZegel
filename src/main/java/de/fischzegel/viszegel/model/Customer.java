@@ -1,127 +1,147 @@
 package de.fischzegel.viszegel.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-
 
 @Entity
 @Table(name = "Kunden")
 public class Customer extends AbstractModel {
-	@Id
-	@GeneratedValue
-	@Column(name = "id")
-	private int id;
-	private String name;
-	private String extra_rules;
-	private String adress;
-	private int house_number;
-	private String postcode;
-	private String location;
-	private String country;
-	private String email;
-	private String website;
-	private int btw_number;
-	private int btw_number_final;
 
-	public int getId() {
-		return id;
-	}
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
+    private int id;
+    private String name;
+    private String extra_rules;
+    private String adress;
+    private int house_number;
+    private String postcode;
+    private String location;
+    private String country;
+    private String email;
+    private String website;
+    private int btw_number;
+    private int btw_number_final;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cus_bill")
+    private List<Bill> bills = new ArrayList<>();
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getExtra_rules() {
-		return extra_rules;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setExtra_rules(String extra_rules) {
-		this.extra_rules = extra_rules;
-	}
+    public String getExtra_rules() {
+        return extra_rules;
+    }
 
-	public String getAdress() {
-		return adress;
-	}
+    public void setExtra_rules(String extra_rules) {
+        this.extra_rules = extra_rules;
+    }
 
-	public void setAdress(String adress) {
-		this.adress = adress;
-	}
+    public String getAdress() {
+        return adress;
+    }
 
-	public int getHouse_number() {
-		return house_number;
-	}
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
 
-	public void setHouse_number(int house_number) {
-		this.house_number = house_number;
-	}
+    public int getHouse_number() {
+        return house_number;
+    }
 
-	public String getPostcode() {
-		return postcode;
-	}
+    public void setHouse_number(int house_number) {
+        this.house_number = house_number;
+    }
 
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
-	}
+    public String getPostcode() {
+        return postcode;
+    }
 
-	public String getLocation() {
-		return location;
-	}
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public String getLocation() {
+        return location;
+    }
 
-	public String getCountry() {
-		return country;
-	}
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    public String getCountry() {
+        return country;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getWebsite() {
-		return website;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setWebsite(String website) {
-		this.website = website;
-	}
+    public String getWebsite() {
+        return website;
+    }
 
-	public int getBtw_number() {
-		return btw_number;
-	}
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 
-	public void setBtw_number(int btw_number) {
-		this.btw_number = btw_number;
-	}
+    public int getBtw_number() {
+        return btw_number;
+    }
 
-	public int getBtw_number_final() {
-		return btw_number_final;
-	}
+    public void setBtw_number(int btw_number) {
+        this.btw_number = btw_number;
+    }
 
-	public void setBtw_number_final(int btw_number_final) {
-		this.btw_number_final = btw_number_final;
-	}
+    public int getBtw_number_final() {
+        return btw_number_final;
+    }
+
+    public void setBtw_number_final(int btw_number_final) {
+        this.btw_number_final = btw_number_final;
+    }
+
+    /**
+     * @return the bills
+     */
+    public List<Bill> getBills() {
+        return bills;
+    }
+
+    /**
+     * @param bills the bills to set
+     */
+    public void setBills(List<Bill> bills) {
+        this.bills = bills;
+    }
 
 }
