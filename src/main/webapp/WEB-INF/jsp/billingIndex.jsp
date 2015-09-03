@@ -17,7 +17,7 @@
 
     <body>
         <div id="heading">
-            <img src="<c:url value='/resources/images/fischzegel.jpg' />" />
+            <img src="<c:url value='/resources/images/fischzegel.jpg' />"/>
         </div>
         <!--  This is where all modules will paste their results due to our ajax calls! -->
         <div id="menuPointWrapper">
