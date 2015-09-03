@@ -5,9 +5,11 @@
  */
 package de.fischzegel.viszegel.daos;
 
+import de.fischzegel.viszegel.daos.interfaces.CustomerDAO;
 import de.fischzegel.viszegel.model.Bill;
 import de.fischzegel.viszegel.model.Customer;
 import java.util.List;
+import org.hibernate.Hibernate;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -46,6 +48,25 @@ public class CustomerDAOImpl extends AbstractDAO implements CustomerDAO {
         List<Customer> personList = session.createQuery("from Customer").list();
         session.close();
         return personList;
+    }
+
+    @Override
+    public Customer get(int id) {
+        logger.info("retrieving Customer with id : " + id);
+        Session session = this.sessionFactory.openSession();
+        Customer customer;
+        try {
+            
+            logger.info("Starting retrieaval ...");
+            customer = (Customer) session.get(Customer.class, id);
+            logger.info("Customer retrieved!");
+            session.close();
+        } catch (NullPointerException e ){
+            logger.warn("No User Found");
+            return null;
+        }
+
+        return customer;
     }
 
 }

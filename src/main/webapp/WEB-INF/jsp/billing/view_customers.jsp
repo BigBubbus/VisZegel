@@ -20,6 +20,7 @@
             <td>Website</td> 
             <td>BTW_Nummer</td>  
             <td>Edit</td>
+            <td>Delete</td>
         </tr>
     </thead>
 </table>
@@ -30,10 +31,11 @@
         request.setAttribute("temp_cust", cust);
 %>
 
-<form:form method="post" class="inclass" modelAttribute="temp_cust" onsubmit="submitThis()">  
+<form:form method="post" class="inclass" modelAttribute="temp_cust" action="/change_delete_result">  
     <table class="customer_table">
         <tbody>
             <tr>
+
                 <td><form:input class ="add_input" path="id"></form:input></td>  
                 <td><form:input class ="add_input" path="name"></form:input></td>  
                 <td><form:input class ="add_input" path="adress"></form:input></td>  
@@ -45,33 +47,40 @@
                 <td><form:input class ="add_input" path="email"></form:input></td>   
                 <td><form:input class ="add_input" path="website"></form:input></td>   
                 <td><form:input class ="add_input" path="btw_number"></form:input></td>  
-                    <td> <input type="submit" value="Edit"/></td>
+                    <td><input type="submit" class="subbiButt" name="edit" value="Edit" /></td>
+                    <td><input type="submit" class="subbiButt" name="delete" value="Delete" /></td>
                 </tr>
 
             </tbody>
-        </table
+        </table>
 </form:form>
 <% }%>
-</table>
+
 
 
 <div id="customer_add_result"></div>
 
 <script type="text/javascript">
-    $(".inclass").submit(function(event) {
-    event.preventDefault();
-}
-            }
-    // Lets get our Attribute here and pass on to another jsp submodule in /billing
-    $("#button").click(function () {
-    var str = $("#add_customer_form").serialize();
-            $.ajax({
+
+    var show_mode = "";
+    $(".subbiButt").click(function (event) {
+        show_mode = $(this).attr('name');
+    });
+
+    $(".inclass").submit(function (event) {
+
+        event.preventDefault();
+        var str = $(this).serialize() + "&mode=" + show_mode;
+
+        $.ajax({
             type: "POST",
-                    data: str,
-                    url: "/create_customer_result"
-            }).done(function (data) {
-    $("#customer_add_result").html(data);
+            data: str,
+            url: "/change_delete_result"
+        }).done(function (data) {
+            alert("Success!");
+            $("#mainContent").html(data);
+        });
     });
-    });
+
 </script>
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.fischzegel.viszegel.daos;
+package de.fischzegel.viszegel.daos.interfaces;
 
 import de.fischzegel.viszegel.model.Customer;
 import java.util.List;
@@ -17,6 +17,8 @@ public interface CustomerDAO {
     public void save(Customer p);
 
     public void delete(Customer p);
+    
+    public Customer get(int id);
 
     public List<Customer> list();
 

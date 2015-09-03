@@ -5,7 +5,7 @@
  */
 package de.fischzegel.viszegel.services;
 
-import de.fischzegel.viszegel.daos.CustomerDAO;
+import de.fischzegel.viszegel.daos.interfaces.CustomerDAO;
 import de.fischzegel.viszegel.model.Customer;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,11 @@ public class CustomerService extends AbstractService {
     public void saveCustomer(Customer cus) {
         logger.info("Got a customer with name : " + cus.getName());
         customerDAO.save(cus);
+    }
+
+    public void deleteCustomer(Customer cus) {
+        logger.info("Deleting a customer with name : " + cus.getName());
+        customerDAO.delete(cus);
     }
 
     public List<Customer> getCustomers() {

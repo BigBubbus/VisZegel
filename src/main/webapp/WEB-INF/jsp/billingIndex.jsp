@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -23,7 +24,7 @@
             <div id="createCustomer" class="menuPoint" style="cursor: pointer;">Klanten
                 toevogen</div>
             <div id="viewCustomers" class="menuPoint" style="cursor: pointer;">Klanten bekijken</div>
-            <div id="checkBill" class="menuPoint" style="cursor: pointer;">Rekenining
+            <div id="createBill" class="menuPoint" style="cursor: pointer;">Rekenining
                 bekijken</div>
             <div id="test" class="menuPoint" style="cursor: pointer;">Dummy</div>
         </div>

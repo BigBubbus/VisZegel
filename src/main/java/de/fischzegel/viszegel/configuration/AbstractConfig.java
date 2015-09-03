@@ -5,7 +5,6 @@
  */
 package de.fischzegel.viszegel.configuration;
 
-import de.fischzegel.viszegel.controller.AuthenticationController;
 import org.apache.log4j.Logger;
 
 /**

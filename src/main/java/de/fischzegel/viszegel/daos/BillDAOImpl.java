@@ -5,6 +5,7 @@
  */
 package de.fischzegel.viszegel.daos;
 
+import de.fischzegel.viszegel.daos.interfaces.BillDAO;
 import de.fischzegel.viszegel.model.Bill;
 import java.math.BigInteger;
 import org.hibernate.Session;
