@@ -6,6 +6,7 @@
 package de.fischzegel.viszegel.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,7 +22,7 @@ import javax.persistence.Table;
  * @author tnowicki
  */
 @Entity
-@Table(name = "Kunden")
+@Table(name = "Produkt")
 public class Product extends AbstractModel {
 
     /**
@@ -60,7 +61,7 @@ public class Product extends AbstractModel {
     private BtwCategory btwCategory;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
-    private List<ShoppingItem> shopi;
+    private List<ShoppingItem> shopi = new ArrayList<>();
 
     /**
      * @return the product_id

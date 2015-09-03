@@ -34,7 +34,7 @@
                 <td><form:input path="postcode"></form:input></td>  
                 </tr>
                 <tr>
-                    <td><form:label path="location">Location</form:label></td>  
+                    <td><form:label path="location">Plaats</form:label></td>  
                 <td><form:input path="location"></form:input></td>  
                 </tr>
                 <tr>

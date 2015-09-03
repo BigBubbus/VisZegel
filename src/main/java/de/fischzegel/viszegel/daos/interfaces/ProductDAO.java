@@ -13,4 +13,5 @@ import de.fischzegel.viszegel.model.Product;
  */
 public interface ProductDAO {
     public Product get(int id);
+    public void save(Product p);
 }

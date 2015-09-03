@@ -21,12 +21,14 @@
         </div>
         <!--  This is where all modules will paste their results due to our ajax calls! -->
         <div id="menuPointWrapper">
-            <div id="createCustomer" class="menuPoint" style="cursor: pointer;">Klanten
+            <div id="createCustomer" class="menuPoint" style="cursor: pointer;">Klant
                 toevogen</div>
             <div id="viewCustomers" class="menuPoint" style="cursor: pointer;">Klanten bekijken</div>
+             <div id="createProduct" class="menuPoint" style="cursor: pointer;">Product toevoegen</div>
             <div id="createBill" class="menuPoint" style="cursor: pointer;">Rekenining
                 bekijken</div>
-            <div id="test" class="menuPoint" style="cursor: pointer;">Dummy</div>
+           
+            
         </div>
         <br>
 

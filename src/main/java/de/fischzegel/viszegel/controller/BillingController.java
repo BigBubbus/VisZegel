@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import de.fischzegel.viszegel.model.Customer;
+import de.fischzegel.viszegel.model.Product;
 import de.fischzegel.viszegel.model.ShoppingItem;
 import de.fischzegel.viszegel.services.BillingService;
 import de.fischzegel.viszegel.services.CustomerService;
@@ -47,14 +48,18 @@ public class BillingController extends AbstractController {
     public String superAdminPage(HttpServletRequest request,
             @RequestParam(value = "mode", required = false) String mode,
             @RequestParam(value = "id", required = false) Integer id, Model model) {
-        if (mode.toLowerCase().equals("createcustomer")) {
-            return "redirect:/create_customer_view";
-        }
+
         if (mode.toLowerCase().equals("createbill")) {
             return "redirect:/createbill";
         }
+        if (mode.toLowerCase().equals("createcustomer")) {
+            return "redirect:/create_customer_view";
+        }
         if (mode.toLowerCase().equals("viewcustomers")) {
             return "redirect:/view_customers";
+        }
+        if (mode.toLowerCase().equals("createproduct")) {
+            return "redirect:/create_product_view";
         }
         return "login";
 
@@ -117,11 +122,15 @@ public class BillingController extends AbstractController {
 
     @RequestMapping(value = "/createbill", method = {RequestMethod.GET, RequestMethod.POST})
     public String createBill(Model model) throws ParseException {
+        logger.info("Creating a new Bill");
         Bill bill = new Bill();
         Date myDate = new Date();
         bill.setDate(new SimpleDateFormat("yyyy-MM-dd").format(myDate));
         ShoppingItem item = new ShoppingItem();
         item.setDelivery_text("TESTINGDELIVERY");
+        Product p = new Product();
+        p.setDescription("SOMETHING NICE");
+        item.setProduct(p);
         bill.getShopping_items().add(item);
         model.addAttribute("billEntity", bill);
 
@@ -130,12 +139,13 @@ public class BillingController extends AbstractController {
     }
 
     @RequestMapping(value = "/createbill_result", method = {RequestMethod.GET, RequestMethod.POST})
-    public String createBill(Bill bill, Model model,@RequestParam(value = "addShoppingItem", required = false) boolean addShoppingItem) throws ParseException {
+    public String createBill(Bill bill, Model model, @RequestParam(value = "addShoppingItem", required = false) boolean addShoppingItem) throws ParseException {
         logger.info("Bill received" + bill.getDate());
         logger.info(addShoppingItem);
-        for(ShoppingItem item : bill.getShopping_items())
+        for (ShoppingItem item : bill.getShopping_items()) {
             logger.info(item.getDelivery_text());
-        bill = billingService.fillBill(bill,addShoppingItem);
+        }
+        bill = billingService.fillBill(bill, addShoppingItem);
         model.addAttribute("billEntity", bill);
 
         return "billing/createBill";

@@ -28,6 +28,20 @@ public class CustomerController extends AbstractController {
 
     /**
      *
+     * @param custom
+     * @param mod
+     * @return
+     */
+    @RequestMapping(value = "/create_customer_view", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView add_customer_view(Customer custom, Model mod) {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("billing/createCustomer");
+        mav.addObject("customer-entity", new Customer());
+        return mav;
+    }
+
+    /**
+     *
      * @param custom Customer that will be added
      * @return filled view
      */
@@ -36,15 +50,6 @@ public class CustomerController extends AbstractController {
     public String add_customer(Customer custom, Model mod) {
         customerService.saveCustomer(custom);
         return "redirect:/create_customer_view";
-    }
-
-    @RequestMapping(value = "/create_customer_view", method = {RequestMethod.GET, RequestMethod.POST})
-    //public String add_customer(@RequestParam Map<String, String> allParams, Model model) {
-    public ModelAndView add_customer_view(Customer custom, Model mod) {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("billing/createCustomer");
-        mav.addObject("customer-entity", new Customer());
-        return mav;
     }
 
     /**
