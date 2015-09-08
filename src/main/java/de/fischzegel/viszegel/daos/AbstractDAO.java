@@ -7,6 +7,7 @@ package de.fischzegel.viszegel.daos;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -15,6 +16,7 @@ import org.hibernate.SessionFactory;
 public class AbstractDAO {
 
     protected Logger logger = Logger.getLogger(AbstractDAO.class);
+    @Autowired
     protected SessionFactory sessionFactory;
 
     public void setSessionFactory(SessionFactory sessionFactory) {

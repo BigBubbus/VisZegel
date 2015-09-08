@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
-<%@page import="de.fischzegel.viszegel.model.Customer"%>
+<%@page import="de.fischzegel.viszegel.model.Product"%>
 <%@page import="java.util.List"%>
 
 
@@ -8,45 +8,34 @@
 <table class="customer_table">
     <thead>
         <tr>
-            <td>ID</td> 
-            <td>Name:</td>  
-            <td>Adresse</td> 
-            <td>Extra Regeln</td> 
-            <td>Hausnummer</td> 
-            <td>Postcode</td> 
-            <td>Location</td> 
-            <td>Land</td> 
-            <td>Email</td>  
-            <td>Website</td> 
-            <td>BTW_Nummer</td>  
-            <td>Edit</td>
-            <td>Delete</td>
+            <td>ID</td>
+            <td>Beschreibung</td> 
+            <td>Preis</td>  
+            <td>btwKategorie</td> 
+            <td>Edit</td> 
+            <td>Delete</td> 
         </tr>
     </thead>
 </table>
 <%
-    List<Customer> custs = ((List<Customer>) request.getAttribute("customers"));
-    for (int i = 0; i < custs.size(); i++) {
-        Customer cust = custs.get(i);
-        request.setAttribute("temp_cust", cust);
+    List<Product> prods = ((List<Product>) request.getAttribute("products"));
+    for (int i = 0; i < prods.size(); i++) {
+        Product cust = prods.get(i);
+        request.setAttribute("temp_prod", cust);
 %>
 
-<form:form method="post" class="inclass" modelAttribute="temp_cust" action="/change_delete_result">  
+<form:form method="post" class="inclass" modelAttribute="temp_prod" action="/change_delete_result">  
     <table class="customer_table">
         <tbody>
             <tr>
+                <td><form:input path="product_id"></form:input></td> 
+                <td><form:input path="description"></form:input></td>  
 
-                <td><form:input class ="add_input" path="id"></form:input></td>  
-                <td><form:input class ="add_input" path="name"></form:input></td>  
-                <td><form:input class ="add_input" path="adress"></form:input></td>  
-                <td><form:input class ="add_input" path="extra_rules"></form:input></td>  
-                <td><form:input class ="add_input" path="house_number"></form:input></td>   
-                <td><form:input class ="add_input" path="postcode"></form:input></td>   
-                <td><form:input class ="add_input" path="location"></form:input></td>  
-                <td><form:input class ="add_input" path="country"></form:input></td>   
-                <td><form:input class ="add_input" path="email"></form:input></td>   
-                <td><form:input class ="add_input" path="website"></form:input></td>   
-                <td><form:input class ="add_input" path="btw_number"></form:input></td>  
+                    <td><form:input path="price"></form:input></td>  
+
+
+
+                    <td><form:input path="btwCategory"></form:input></td>  
                     <td><input type="submit" class="subbiButt" name="edit" value="Edit" /></td>
                     <td><input type="submit" class="subbiButt" name="delete" value="Delete" /></td>
                 </tr>
@@ -75,7 +64,7 @@
         $.ajax({
             type: "POST",
             data: str,
-            url: "/change_delete_result"
+            url: "/change_delete_result_product"
         }).done(function (data) {
             alert("Success!");
             $("#mainContent").html(data);

@@ -5,26 +5,24 @@
     <table class="customer_table">
         <tr>
             <td><b>Datum:</b></td>
-            <td><form:input path="date"></form:input></td>
+            <td><form:input id="billDate" path="date"></form:input></td>
 
             </tr>
             <tr>
                 <td><b>Bezahlart:</b></td>
-                <td><form:select path="payment_method">
-                    <form:options/>
-                </form:select></td>
-        </tr>
+                <td><form:input id="billDate" path="payment_method"></form:input></td>
+            </tr>
 
-    </table>
-    <!-- 
-    --------------------------------------------------------------------------
-    Customer Start
-    --------------------------------------------------------------------------
-    -->
-    <div class="seperator30"></div>
-    <div>
-        Kunden ID : 
-        <form:input id="cusIdChange" class ="add_input" path="cus_bill.id"></form:input><input type="submit" class="billButtCus" value="Kunde füllen" />
+        </table>
+        <!-- 
+        --------------------------------------------------------------------------
+        Customer Start
+        --------------------------------------------------------------------------
+        -->
+        <div class="seperator30"></div>
+        <div>
+            Kunden ID : 
+        <form:input id="cusIdChange" class ="add_input" path="cus_bill.id"></form:input><div id="billButtCus" class="menuPoint">Kunde füllen</div>
         </div>
         <table class="customer_table">
             <thead>
@@ -68,12 +66,14 @@
         --------------------------------------------------------------------------
         -->
         <div class="seperator30"></div>
-        <input type="submit" class="billButt" value="Produkt hinzufügen" />
+        <div id="billButt" class="menuPoint">Produkt hinzufügen</div>
         <table class="customer_table">
             <thead>
                 <tr>
                     <td>Liefertext</td> 
                     <td>Produktbeschreibung</td>
+                    <td>BTWKategorie</td>
+                    <td>Preis</td>
                 </tr>
             </thead>
             <tbody>
@@ -82,9 +82,9 @@
                 <tr>
                     <td>   <form:input class ="add_input" path="shopping_items[${pStatus.index}].delivery_text"></form:input>       </td>         
                     <td>   <form:input class ="add_input" path="shopping_items[${pStatus.index}].product.description"></form:input>    </td> 
-
+                    <td><form:input path="shopping_items[${pStatus.index}].product.btwCategory"></form:input></td>  
+                    <td><form:input path="shopping_items[${pStatus.index}].product.price"></form:input></td>  
                     </tr>
-
             </c:forEach>
 
         </tbody>
@@ -104,16 +104,21 @@
 
 
 </form:form>
-<div id="button" class="menuPoint">CLICK ME ON READY</div>
+<div id="billSaveBill" class="menuPoint">Rechnung Erstellen</div>
 <div id="customer_add_result"></div>
 <script type="text/javascript">
-    $(".billButt").click(function (event) {
+    $('#billDate').datepicker({dateFormat: 'yy-mm-dd'});
+    $("#billButt").click(function (event) {
         event.preventDefault();
-        submitForm("&addShoppingItem=true");
+        submitForm("&addShoppingItem=true&saveBill=false");
     });
-    $(".billButtCus").click(function (event) {
+    $("#billSaveBill").click(function (event) {
         event.preventDefault();
-        submitForm("&addShoppingItem=false");
+        submitForm("&addShoppingItem=false&saveBill=true");
+    });
+    $("#billButtCus").click(function (event) {
+        event.preventDefault();
+        submitForm("&addShoppingItem=false&saveBill=false");
     });
     function fillCustomer() {
         submitForm();

@@ -5,8 +5,8 @@
  */
 package de.fischzegel.viszegel.controller;
 
+import de.fischzegel.viszegel.daos.interfaces.CustomerDAO;
 import de.fischzegel.viszegel.model.Customer;
-import de.fischzegel.viszegel.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -24,63 +23,46 @@ import org.springframework.web.servlet.ModelAndView;
 public class CustomerController extends AbstractController {
 
     @Autowired
-    CustomerService customerService;
-
+    CustomerDAO customerDAO;
     /**
-     *
-     * @param custom
-     * @param mod
-     * @return
-     */
-    @RequestMapping(value = "/create_customer_view", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView add_customer_view(Customer custom, Model mod) {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("billing/createCustomer");
-        mav.addObject("customer-entity", new Customer());
-        return mav;
-    }
-
-    /**
-     *
-     * @param custom Customer that will be added
-     * @return filled view
+     * @param custom Customer that will be added to Database
+     * @return Add Customer Form createCustomer.jsp
      */
     @RequestMapping(value = "/create_customer_result", method = {RequestMethod.GET, RequestMethod.POST})
     //public String add_customer(@RequestParam Map<String, String> allParams, Model model) {
     public String add_customer(Customer custom, Model mod) {
-        customerService.saveCustomer(custom);
-        return "redirect:/create_customer_view";
+        logger.info("Adding Customer to Database");
+        customerDAO.save(custom);
+        mod.addAttribute("customer-entity", new Customer());
+        return "billing/createCustomer";
     }
 
     /**
-     *
-     * @param cus
-     * @param mod
-     * @return
+     * @param mod Our Model
+     * @return List of Customers
      */
     @RequestMapping(value = "/view_customers", method = RequestMethod.GET)
-    public String mainView(@ModelAttribute Customer cus, Model mod) {
-        mod.addAttribute("customers", customerService.getCustomers());
+    public String mainView(Model mod) {
+        logger.info("--> Showing all Customers");
+        mod.addAttribute("customers", customerDAO.list());
         return "billing/view_customers";
     }
 
     /**
-     *
      * @param cus Customer that will be changed
      * @param mod Our model
-     * @return
+     * @return Our List view yet again
      */
     @RequestMapping(value = "/change_delete_result", method = RequestMethod.POST)
     public String change_customer(@ModelAttribute Customer cus, Model mod, @RequestParam(value = "mode", required = false) String mode) {
-
-        logger.info("Mode is set to : " + mode);
+        logger.info("--> Change Customer, Mode is set to : " + mode);
         if (mode.equals("edit")) {
-            customerService.saveCustomer(cus);
+            customerDAO.save(cus);
         }
         if (mode.equals("delete")) {
-            customerService.deleteCustomer(cus);
+            customerDAO.delete(cus);
         }
-        mod.addAttribute("customers", customerService.getCustomers());
+        mod.addAttribute("customers", customerDAO.list());
         return "billing/view_customers";
     }
 }

@@ -35,7 +35,6 @@
     <table class="customer_table">
         <tbody>
             <tr>
-
                 <td><form:input class ="add_input" path="id"></form:input></td>  
                 <td><form:input class ="add_input" path="name"></form:input></td>  
                 <td><form:input class ="add_input" path="adress"></form:input></td>  

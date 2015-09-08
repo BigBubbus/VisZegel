@@ -12,7 +12,10 @@
         <title>BillingIndex</title>
         <link href="<c:url value='/resources/css/billing.css' />"
               rel="stylesheet" type="text/css" />
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
     </head>
 
     <body>
@@ -24,11 +27,12 @@
             <div id="createCustomer" class="menuPoint" style="cursor: pointer;">Klant
                 toevogen</div>
             <div id="viewCustomers" class="menuPoint" style="cursor: pointer;">Klanten bekijken</div>
-             <div id="createProduct" class="menuPoint" style="cursor: pointer;">Product toevoegen</div>
+            <div id="createProduct" class="menuPoint" style="cursor: pointer;">Product toevoegen</div>
+            <div id="viewProducts" class="menuPoint" style="cursor: pointer;">Producten bekijken</div>
             <div id="createBill" class="menuPoint" style="cursor: pointer;">Rekenining
                 bekijken</div>
-           
-            
+
+
         </div>
         <br>
 
@@ -36,6 +40,7 @@
 
 
         <div id="mainContent">
+            Bitte einen Menüeintrag auswählen
         </div>
         <script>
             // Lets get our Attribute here and pass on to another jsp submodule in /billing

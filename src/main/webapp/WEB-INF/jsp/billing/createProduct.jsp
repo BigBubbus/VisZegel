@@ -25,9 +25,7 @@
                 </tr>
                 <tr>
                     <td><form:label path="btwCategory">BTWKategorie:</form:label></td>  
-                <td><form:select path="btwCategory">
-                        <form:options/>
-                    </form:select></td>
+                  <td><form:input path="btwCategory"></form:input></td> 
 
             </tr> 
         </tbody>

@@ -30,7 +30,7 @@ public class Customer extends AbstractModel {
     private String website;
     private int btw_number;
     private int btw_number_final;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "cus_bill")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true, mappedBy = "cus_bill")
     private List<Bill> bills = new ArrayList<>();
 
     public int getId() {

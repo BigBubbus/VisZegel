@@ -9,6 +9,7 @@ import de.fischzegel.viszegel.daos.interfaces.BillDAO;
 import de.fischzegel.viszegel.daos.interfaces.CustomerDAO;
 import de.fischzegel.viszegel.model.Bill;
 import de.fischzegel.viszegel.model.Customer;
+import de.fischzegel.viszegel.model.Product;
 import de.fischzegel.viszegel.model.ShoppingItem;
 import java.io.File;
 import java.io.FileInputStream;
@@ -68,7 +69,7 @@ public class BillingService extends AbstractService {
         billingDAO.save(bill);
     }
 
-    public Bill fillBill(Bill bill,boolean addShoppingitem) {
+    public Bill fillBill(Bill bill,boolean addShoppingitem, boolean saveBill) {
         int cusID = bill.getCus_bill().getId();
         Customer cust;
         if (cusID > 0) {
@@ -80,6 +81,11 @@ public class BillingService extends AbstractService {
             ShoppingItem item = new ShoppingItem();
             item.setBill(bill);
             bill.getShopping_items().add(item);
+            Product p = new Product();            
+            item.setProduct(p);
+            p.getShopi().add(item);
+        } if(saveBill){
+            billingDAO.save(bill);
         }
         return bill;
     }

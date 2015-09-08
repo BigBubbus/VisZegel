@@ -25,40 +25,36 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Rechnungen")
 public class Bill extends AbstractModel {
-    public static enum paymentMethods {
-
-        PayPal,Kreditkarte
-    }
     @Id
     @GeneratedValue
     @Column(name = "bill_id", unique = true, nullable = false)
     private int bill_id;
 
     @Column(name = "Bezahlart")
-    private paymentMethods payment_method;
+    private String payment_method;
     
     
     @Column(name = "Datum")
     private String date;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "bill")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "bill")
     private List<ShoppingItem> shopping_items = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "kunden_id")
     private Customer cus_bill;
 
     /**
      * @return the payment_method
      */
-    public paymentMethods getPayment_method() {
+    public String getPayment_method() {
         return payment_method;
     }
 
     /**
      * @param payment_method the payment_method to set
      */
-    public void setPayment_method(paymentMethods payment_method) {
+    public void setPayment_method(String payment_method) {
         this.payment_method = payment_method;
     }
 

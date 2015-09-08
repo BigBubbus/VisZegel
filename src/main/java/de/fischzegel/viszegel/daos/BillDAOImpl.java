@@ -7,6 +7,7 @@ package de.fischzegel.viszegel.daos;
 
 import de.fischzegel.viszegel.daos.interfaces.BillDAO;
 import de.fischzegel.viszegel.model.Bill;
+import de.fischzegel.viszegel.model.ShoppingItem;
 import java.math.BigInteger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -31,7 +32,13 @@ public class BillDAOImpl extends AbstractDAO implements BillDAO {
     public void save(Bill b) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        session.save(b);
+        for (ShoppingItem it : b.getShopping_items()){
+            it.setBill(b);            
+        }      
+        b.getCus_bill().getBills().add(b);
+        logger.info("SAVING BILL !!! FOR :  " +b.getCus_bill().getName());
+        logger.info("SAVING BILL !!! FOR :  " +b.getCus_bill().getId());
+        session.saveOrUpdate(b);
         tx.commit();
         session.close();
     }

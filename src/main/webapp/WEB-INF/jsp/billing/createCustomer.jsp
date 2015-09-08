@@ -61,7 +61,7 @@
             </tbody>
         </table>
 </form:form>
-<div id="button" class="menuPoint">CLICK ME ON READY</div>
+<div id="button" class="menuPoint">Kunde hinzufügen</div>
 <div id="customer_add_result"></div>
 <script type="text/javascript">
     // Lets get our Attribute here and pass on to another jsp submodule in /billing

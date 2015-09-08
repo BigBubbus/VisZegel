@@ -30,14 +30,14 @@ public class ShoppingItem extends AbstractModel{
     private int id;
 
     
-    @ManyToOne(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
     @JoinColumn(name = "rechnungs_id")
     private Bill bill;
     
     @Column(name = "Liefertext")
     private String delivery_text;
     
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private Product product;
 

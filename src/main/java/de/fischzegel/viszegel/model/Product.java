@@ -38,11 +38,6 @@ public class Product extends AbstractModel {
     public void setShopi(List<ShoppingItem> shopi) {
         this.shopi = shopi;
     }
-
-    public static enum BtwCategory {
-
-        tief, mittel, hoch
-    }
     @Id
     @GeneratedValue
     @Column(name = "product_id", unique = true, nullable = false)
@@ -58,9 +53,9 @@ public class Product extends AbstractModel {
     private boolean valid;
 
     @Column(name = "BTWKategorie")
-    private BtwCategory btwCategory;
+    private String btwCategory;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")
     private List<ShoppingItem> shopi = new ArrayList<>();
 
     /**
@@ -122,14 +117,14 @@ public class Product extends AbstractModel {
     /**
      * @return the btwCategory
      */
-    public BtwCategory getBtwCategory() {
+    public String getBtwCategory() {
         return btwCategory;
     }
 
     /**
      * @param btwCategory the btwCategory to set
      */
-    public void setBtwCategory(BtwCategory btwCategory) {
+    public void setBtwCategory(String btwCategory) {
         this.btwCategory = btwCategory;
     }
 

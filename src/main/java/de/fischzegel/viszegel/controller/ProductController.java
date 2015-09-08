@@ -5,14 +5,16 @@
  */
 package de.fischzegel.viszegel.controller;
 
+import de.fischzegel.viszegel.daos.interfaces.ProductDAO;
 import de.fischzegel.viszegel.model.Customer;
 import de.fischzegel.viszegel.model.Product;
-import de.fischzegel.viszegel.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -22,22 +24,46 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ProductController extends AbstractController {
 
-    
     @Autowired
-    ProductService productService;
-    
-    @RequestMapping(value = "/create_product_view", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView add_customer_view(Customer custom, Model mod) {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("billing/createProduct");
-        mav.addObject("productEntity", new Product());
-        return mav;
-    }
-    
-        @RequestMapping(value = "/create_product_result", method = {RequestMethod.GET, RequestMethod.POST})
+    ProductDAO productDAO;
+
+    @RequestMapping(value = "/create_product_result", method = {RequestMethod.GET, RequestMethod.POST})
     //public String add_customer(@RequestParam Map<String, String> allParams, Model model) {
-    public String add_customer(Product prod, Model mod) {
-        productService.saveProduct(prod);
-        return "redirect:/create_customer_view";
+    public String add_product(Product prod, Model mod) {
+        productDAO.save(prod);
+        mod.addAttribute("productEntity", new Product());
+        return "billing/createProduct";
+    }
+
+    /**
+     *
+     * @param cus
+     * @param mod
+     * @return
+     */
+    @RequestMapping(value = "/view_products", method = RequestMethod.GET)
+    public String mainView(@ModelAttribute Customer cus, Model mod) {
+        mod.addAttribute("products", productDAO.list());
+        return "billing/view_products";
+    }
+
+    /**
+     * 
+     * @param prod
+     * @param mod
+     * @param mode
+     * @return 
+     */
+    @RequestMapping(value = "/change_delete_result_product", method = RequestMethod.POST)
+    public String change_customer(@ModelAttribute Product prod, Model mod, @RequestParam(value = "mode", required = false) String mode) {
+        logger.info("--> Change Product, Mode is set to : " + mode);
+        if (mode.equals("edit")) {
+            productDAO.save(prod);
+        }
+        if (mode.equals("delete")) {
+            productDAO.delete(prod);
+        }
+        mod.addAttribute("products", productDAO.list());
+        return "billing/view_products";
     }
 }

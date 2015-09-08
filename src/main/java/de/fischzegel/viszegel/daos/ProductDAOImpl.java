@@ -7,31 +7,37 @@ package de.fischzegel.viszegel.daos;
 
 import de.fischzegel.viszegel.daos.interfaces.ProductDAO;
 import de.fischzegel.viszegel.model.Product;
-import de.fischzegel.viszegel.model.ShoppingItem;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import java.util.List;
+import javax.transaction.Transactional;
 
 /**
  *
  * @author tnowicki
  */
+@Transactional
 public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
-    
-    @Override
-    public Product get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+
     @Override
     public void save(Product p) {
-        Session session = this.sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        for (ShoppingItem item : p.getShopi()) {
-            item.setProduct(p);
-        }
-        session.saveOrUpdate(p);
-        tx.commit();
-        session.close();
+        this.sessionFactory.getCurrentSession().saveOrUpdate(p);
     }
-    
+
+    @Override
+    public void delete(Product p) {
+        this.sessionFactory.getCurrentSession().delete(p);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Product> list() {
+        return this.sessionFactory.getCurrentSession().createQuery("from Product").list();
+    }
+
+    @Override
+    public Product get(int id) {
+        logger.info("retrieving Product with id : " + id);
+        return (Product) this.sessionFactory.getCurrentSession().get(Product.class, id);
+
+    }
+
 }
