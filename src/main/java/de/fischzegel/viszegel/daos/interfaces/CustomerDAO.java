@@ -19,7 +19,11 @@ public interface CustomerDAO {
     public void delete(Customer p);
     
     public Customer get(int id);
+    
+    public Customer getByName(String name);
 
     public List<Customer> list();
+    
+    public List<String> getByPartName(String name);
 
 }

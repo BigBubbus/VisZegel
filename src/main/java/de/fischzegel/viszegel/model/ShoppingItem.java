@@ -5,6 +5,7 @@
  */
 package de.fischzegel.viszegel.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +33,7 @@ public class ShoppingItem extends AbstractModel{
     
     @ManyToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
     @JoinColumn(name = "rechnungs_id")
+    @JsonBackReference
     private Bill bill;
     
     @Column(name = "Liefertext")
@@ -39,6 +41,7 @@ public class ShoppingItem extends AbstractModel{
     
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
+    @JsonBackReference
     private Product product;
 
     /**

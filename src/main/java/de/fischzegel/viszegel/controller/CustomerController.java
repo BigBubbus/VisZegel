@@ -24,15 +24,22 @@ public class CustomerController extends AbstractController {
 
     @Autowired
     CustomerDAO customerDAO;
+
     /**
      * @param custom Customer that will be added to Database
      * @return Add Customer Form createCustomer.jsp
      */
-    @RequestMapping(value = "/create_customer_result", method = {RequestMethod.GET, RequestMethod.POST})
-    //public String add_customer(@RequestParam Map<String, String> allParams, Model model) {
+    @RequestMapping(value = "/create_customer_result_save", method = {RequestMethod.GET, RequestMethod.POST})
     public String add_customer(Customer custom, Model mod) {
         logger.info("Adding Customer to Database");
         customerDAO.save(custom);
+        mod.addAttribute("customer-entity", new Customer());
+        return "billing/createCustomer";
+    }
+
+    @RequestMapping(value = "/create_customer_result", method = {RequestMethod.GET, RequestMethod.POST})
+    public String add_customer_view(Customer custom, Model mod) {
+        logger.info("Showing Add View");
         mod.addAttribute("customer-entity", new Customer());
         return "billing/createCustomer";
     }
@@ -60,6 +67,8 @@ public class CustomerController extends AbstractController {
             customerDAO.save(cus);
         }
         if (mode.equals("delete")) {
+            // Bills are not passed by form so we have to load
+            cus = customerDAO.get(cus.getId());
             customerDAO.delete(cus);
         }
         mod.addAttribute("customers", customerDAO.list());

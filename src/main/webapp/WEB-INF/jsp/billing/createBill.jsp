@@ -1,6 +1,6 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<form:form  id="add_customer_form" method="post" modelAttribute="billEntity" action="/createbill_result">  
+<form:form  id="add_customer_form" class="inclass" method="post" modelAttribute="billEntity" action="/createbill_result">  
 
     <table class="customer_table">
         <tr>
@@ -20,14 +20,23 @@
         --------------------------------------------------------------------------
         -->
         <div class="seperator30"></div>
+        <table class="customer_table">
+            <tr>
+                <td>Kunden ID : </td>
+                <td> <form:input id="cusIdChange" class ="add_input" path="cus_bill.id"></form:input></td>
+            </tr>
+            <tr>
+                <td> Kunden Name : </td>
+                <td> <form:input id="cusNameChange" class ="add_input" path="cus_bill.name"></form:input></td>
+            </tr>
+        </table>
         <div>
-            Kunden ID : 
-        <form:input id="cusIdChange" class ="add_input" path="cus_bill.id"></form:input><div id="billButtCus" class="menuPoint">Kunde füllen</div>
+            <input id="billButtCus" type="submit" class="subbiButt" name="edit" value="Kunde füllen" />
         </div>
+
         <table class="customer_table">
             <thead>
                 <tr>
-                    <td>Name:</td>  
                     <td>Adresse</td> 
                     <td>Extra Regeln</td> 
                     <td>Hausnummer</td> 
@@ -41,7 +50,6 @@
             </thead>
             <tbody>
                 <tr>             
-                    <td><form:input class ="add_input" path="cus_bill.name"></form:input></td>  
                 <td><form:input class ="add_input" path="cus_bill.adress"></form:input></td>  
                 <td><form:input class ="add_input" path="cus_bill.extra_rules"></form:input></td>  
                 <td><form:input class ="add_input" path="cus_bill.house_number"></form:input></td>   
@@ -66,7 +74,7 @@
         --------------------------------------------------------------------------
         -->
         <div class="seperator30"></div>
-        <div id="billButt" class="menuPoint">Produkt hinzufügen</div>
+        <input id="billButt" type="submit" class="subbiButt" name="edit" value="Produkt hinzufügen" />
         <table class="customer_table">
             <thead>
                 <tr>
@@ -106,6 +114,7 @@
 </form:form>
 <div id="billSaveBill" class="menuPoint">Rechnung Erstellen</div>
 <div id="customer_add_result"></div>
+<div id="customer_name_result"></div>
 <script type="text/javascript">
     $('#billDate').datepicker({dateFormat: 'yy-mm-dd'});
     $("#billButt").click(function (event) {
@@ -118,8 +127,19 @@
     });
     $("#billButtCus").click(function (event) {
         event.preventDefault();
-        submitForm("&addShoppingItem=false&saveBill=false");
+        var str = $("#add_customer_form").serialize();
+        $.ajax({
+            type: "POST",
+            data: str,
+            url: "/fill_customer"
+        }).done(function (data) {
+            $("#mainContent").html(data);
+
+        });
     });
+
+
+
     function fillCustomer() {
         submitForm();
     }
@@ -138,5 +158,28 @@
     $("#button").click(function () {
         alert("BUTTON CLICKED");
         submitForm();
+    });
+
+    // ------------------------------------
+    // On Customer Name Change 
+    // ------------------------------------
+    $("#cusNameChange").keyup(function (event) {
+        var str = "" + $('#cusNameChange').val();
+        $.ajax({
+            type: "POST",
+            data: "cusName=" + str,
+            url: "/customer_name_change"
+        }).done(function (data) {
+            var cusNameArr = [
+            ];
+            var obj = data;
+            for (var i = 0; i < obj.length; i++) {
+                cusNameArr.push(obj[i])
+            }
+            $("#cusNameChange").autocomplete({
+                delay : 0,
+                source: cusNameArr
+            });
+        });
     });
 </script>

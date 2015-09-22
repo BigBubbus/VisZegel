@@ -36,7 +36,7 @@ public class MainController extends AbstractController {
         // Calls to Customer Controller
         // -------------------
         if (mode.toLowerCase().equals("createcustomer")) {
-            return "redirect:/create_customer_view";
+            return "redirect:/create_customer_result";
         }
         if (mode.toLowerCase().equals("viewcustomers")) {
             return "redirect:/view_customers";
@@ -46,7 +46,7 @@ public class MainController extends AbstractController {
         // Calls to Product Controller
         // -------------------
         if (mode.toLowerCase().equals("createproduct")) {
-            return "redirect:/create_product_view";
+            return "redirect:/create_product_result";
         }
         if (mode.toLowerCase().equals("viewproducts")) {
             return "redirect:/view_products";

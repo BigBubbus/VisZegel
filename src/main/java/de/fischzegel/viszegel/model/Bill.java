@@ -5,6 +5,8 @@
  */
 package de.fischzegel.viszegel.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -38,10 +40,12 @@ public class Bill extends AbstractModel {
     private String date;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "bill")
+    @JsonManagedReference
     private List<ShoppingItem> shopping_items = new ArrayList<>();
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "kunden_id")
+    @JsonBackReference
     private Customer cus_bill;
 
     /**

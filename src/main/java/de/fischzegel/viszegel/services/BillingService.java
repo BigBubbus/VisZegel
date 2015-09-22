@@ -69,22 +69,35 @@ public class BillingService extends AbstractService {
         billingDAO.save(bill);
     }
 
-    public Bill fillBill(Bill bill,boolean addShoppingitem, boolean saveBill) {
-        int cusID = bill.getCus_bill().getId();
-        Customer cust;
-        if (cusID > 0) {
-            cust = customerDAO.get(cusID);
-            bill.setCus_bill(cust);
-            cust.getBills().add(bill);
+    /**
+     * Fill out our Customer!
+     *
+     * @param bill
+     * @return
+     */
+    public Bill fillCustomer(Bill bill) {
+        Customer cust = bill.getCus_bill();
+        if (cust.getName() != null && !cust.getName().equals("")) {
+            logger.info("Trying to fill in Customer with name "+cust.getName());
+            cust = customerDAO.getByName(cust.getName());
+        } else {
+            logger.info("Trying to fill in Customer with id "+cust.getId());
+            cust = customerDAO.get(cust.getId());
         }
-        if(addShoppingitem){
+        bill.setCus_bill(cust);
+        return bill;
+    }
+
+    public Bill fillBill(Bill bill, boolean addShoppingitem, boolean saveBill) {
+        if (addShoppingitem) {
             ShoppingItem item = new ShoppingItem();
             item.setBill(bill);
             bill.getShopping_items().add(item);
-            Product p = new Product();            
+            Product p = new Product();
             item.setProduct(p);
             p.getShopi().add(item);
-        } if(saveBill){
+        }
+        if (saveBill) {
             billingDAO.save(bill);
         }
         return bill;

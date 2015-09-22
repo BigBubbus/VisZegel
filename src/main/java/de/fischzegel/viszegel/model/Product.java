@@ -5,6 +5,7 @@
  */
 package de.fischzegel.viszegel.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +40,7 @@ public class Product extends AbstractModel {
         this.shopi = shopi;
     }
     @Id
-    @GeneratedValue
-    @Column(name = "product_id", unique = true, nullable = false)
+    @Column(name = "product_id", unique = false, nullable = false)
     private int product_id;
 
     @Column(name = "Beschreibung")
@@ -56,6 +56,7 @@ public class Product extends AbstractModel {
     private String btwCategory;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")
+    @JsonManagedReference
     private List<ShoppingItem> shopi = new ArrayList<>();
 
     /**

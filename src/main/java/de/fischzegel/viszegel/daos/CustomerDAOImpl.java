@@ -10,7 +10,6 @@ import de.fischzegel.viszegel.model.Customer;
 import java.util.List;
 import javax.transaction.Transactional;
 
-
 /**
  *
  * @author tnowicki
@@ -35,10 +34,22 @@ public class CustomerDAOImpl extends AbstractDAO implements CustomerDAO {
     }
 
     @Override
+    public List<String> getByPartName(String name) {        
+        String newName = "%"+name+"%";
+        logger.info("retrieving Customer with name : " + newName);
+        return (List<String>) this.sessionFactory.getCurrentSession().createQuery("select c.name from Customer c where str(c.name) like :cname").setParameter("cname", newName).list();
+    }
+
+    @Override
     public Customer get(int id) {
         logger.info("retrieving Customer with id : " + id);
         return (Customer) this.sessionFactory.getCurrentSession().get(Customer.class, id);
 
+    }
+
+    @Override
+    public Customer getByName(String name) {
+       return (Customer) this.sessionFactory.getCurrentSession().createQuery("from Customer c where str(c.name) = :cname").setParameter("cname", name).uniqueResult();
     }
 
 }

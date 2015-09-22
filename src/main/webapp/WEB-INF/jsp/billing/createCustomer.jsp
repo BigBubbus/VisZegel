@@ -73,7 +73,7 @@
         $.ajax({
             type: "POST",
             data: str,
-            url: "/create_customer_result"
+            url: "/create_customer_result_save"
         }).done(function (data) {
             alert("Success!");
             $("#mainContent").html(data);

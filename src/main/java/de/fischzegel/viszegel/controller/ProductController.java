@@ -28,15 +28,15 @@ public class ProductController extends AbstractController {
     ProductDAO productDAO;
 
     @RequestMapping(value = "/create_product_result", method = {RequestMethod.GET, RequestMethod.POST})
-    //public String add_customer(@RequestParam Map<String, String> allParams, Model model) {
     public String add_product(Product prod, Model mod) {
-        productDAO.save(prod);
+        if (prod.getBtwCategory() != null) {
+            productDAO.save(prod);
+        }
         mod.addAttribute("productEntity", new Product());
         return "billing/createProduct";
     }
 
     /**
-     *
      * @param cus
      * @param mod
      * @return
@@ -48,11 +48,10 @@ public class ProductController extends AbstractController {
     }
 
     /**
-     * 
      * @param prod
      * @param mod
      * @param mode
-     * @return 
+     * @return
      */
     @RequestMapping(value = "/change_delete_result_product", method = RequestMethod.POST)
     public String change_customer(@ModelAttribute Product prod, Model mod, @RequestParam(value = "mode", required = false) String mode) {
@@ -61,6 +60,8 @@ public class ProductController extends AbstractController {
             productDAO.save(prod);
         }
         if (mode.equals("delete")) {
+            // ShoppingItems are not passed by form so we have to load
+            prod = productDAO.get(prod.getProduct_id());
             productDAO.delete(prod);
         }
         mod.addAttribute("products", productDAO.list());

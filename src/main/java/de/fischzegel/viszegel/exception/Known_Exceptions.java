@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.fischzegel.viszegel.model;
-
-import java.io.Serializable;
+package de.fischzegel.viszegel.exception;
 
 /**
  *
  * @author tnowicki
  */
-public class AbstractModel implements Serializable{
-    
+public final class Known_Exceptions {
+    public final static String NO_SUCH_CUSTOMER = "Fehler beim Eintragen des Kunden";
 }

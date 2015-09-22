@@ -1,5 +1,6 @@
 package de.fischzegel.viszegel.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -31,6 +32,7 @@ public class Customer extends AbstractModel {
     private int btw_number;
     private int btw_number_final;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true, mappedBy = "cus_bill")
+    @JsonManagedReference
     private List<Bill> bills = new ArrayList<>();
 
     public int getId() {
