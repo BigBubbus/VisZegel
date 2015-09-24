@@ -5,6 +5,7 @@
  */
 package de.fischzegel.viszegel.controller;
 
+import de.fischzegel.viszegel.model.Status;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,19 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class MainController extends AbstractController {
+
+    @RequestMapping(value = "/billingIndex", method = RequestMethod.GET)
+    public String billingMain(HttpServletRequest request, @RequestParam(value = "mode", required = false) String mode,
+            Model model) {
+        Status state = new Status("OK", "");
+        model.addAttribute("status", state);
+        if (mode == null) {
+            return "billingIndex";
+        } else {
+            return "login";
+        }
+
+    }
 
     @RequestMapping(value = "/operation", method = RequestMethod.GET)
     public String superAdminPage(HttpServletRequest request,
@@ -51,6 +65,9 @@ public class MainController extends AbstractController {
         if (mode.toLowerCase().equals("viewproducts")) {
             return "redirect:/view_products";
         }
+
+        Status state = new Status("OK", "");
+        model.addAttribute("status", state);
         return "login";
 
     }

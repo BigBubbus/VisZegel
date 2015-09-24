@@ -8,6 +8,7 @@ package de.fischzegel.viszegel.controller;
 import de.fischzegel.viszegel.daos.interfaces.ProductDAO;
 import de.fischzegel.viszegel.model.Customer;
 import de.fischzegel.viszegel.model.Product;
+import de.fischzegel.viszegel.model.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -57,14 +57,16 @@ public class ProductController extends AbstractController {
     @RequestMapping(value = "/change_delete_result_product", method = RequestMethod.POST)
     public String change_customer(@ModelAttribute Product prod, Model mod, @RequestParam(value = "mode", required = false) String mode) {
         logger.info("--> Change Product, Mode is set to : " + mode);
+        Status state = new Status("OK",mode);
         if (mode.equals("edit")) {
             productDAO.save(prod);
         }
         if (mode.equals("delete")) {
             // ShoppingItems are not passed by form so we have to load
-            prod = productDAO.get(prod.getProduct_id());
+            prod = productDAO.get(prod.getId());
             productDAO.delete(prod);
         }
+        mod.addAttribute("status", state);
         mod.addAttribute("products", productDAO.list());
         return "billing/view_products";
     }

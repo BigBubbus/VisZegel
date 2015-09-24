@@ -12,6 +12,7 @@
             <td>Beschreibung</td> 
             <td>Preis</td>  
             <td>btwKategorie</td> 
+            <td>Einheit</td> 
             <td>Edit</td> 
             <td>Delete</td> 
         </tr>
@@ -28,6 +29,7 @@
     <table class="customer_table">
         <tbody>
             <tr>
+                <form:hidden path="id"></form:hidden>
                 <td><form:input path="product_id"></form:input></td> 
                 <td><form:input path="description"></form:input></td>  
 
@@ -36,6 +38,7 @@
 
 
                     <td><form:input path="btwCategory"></form:input></td>  
+                <td><form:input path="unitType"></form:input></td> 
                     <td><input type="submit" class="subbiButt" name="edit" value="Edit" /></td>
                     <td><input type="submit" class="subbiButt" name="delete" value="Delete" /></td>
                 </tr>
@@ -66,6 +69,8 @@
             data: str,
             url: "/change_delete_result_product"
         }).done(function (data) {
+            
+            
             alert("Success!");
             $("#mainContent").html(data);
         });

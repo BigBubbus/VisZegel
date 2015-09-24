@@ -30,23 +30,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class BillingController extends AbstractController {
-    
+
     @Autowired
     BillingService billingService;
     @Autowired
     CustomerDAO customerDAO;
-    
-    @RequestMapping(value = "/billingIndex", method = RequestMethod.GET)
-    public String billingMain(HttpServletRequest request, @RequestParam(value = "mode", required = false) String mode,
-            Model model) {
-        if (mode == null) {
-            return "billingIndex";
-        } else {
-            return "login";
-        }
-        
-    }
-    
+
     @RequestMapping(value = "/viewBill", method = {RequestMethod.GET, RequestMethod.POST})
     //public String add_customer(@RequestParam Map<String, String> allParams, Model model) {
     public String viewBill(@RequestParam(value = "billID", required = false) Integer billID, HttpServletResponse response, HttpServletRequest httpServletRequest) {
@@ -56,7 +45,7 @@ public class BillingController extends AbstractController {
             String pdfResult = httpServletRequest.getSession().getServletContext().getRealPath("/WEB-INF/report/temporary.pdf");
             JasperPrint test = billingService.generateBill(billID, pdfResult);
             ByteArrayOutputStream out = new ByteArrayOutputStream();
-            
+
             JasperExportManager.exportReportToPdfStream(test, out);
             byte[] data = out.toByteArray();
 
@@ -80,9 +69,9 @@ public class BillingController extends AbstractController {
             Logger.getLogger(BillingController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-        
+
     }
-    
+
     @RequestMapping(value = "/checkbill", method = {RequestMethod.GET, RequestMethod.POST})
     //public String add_customer(@RequestParam Map<String, String> allParams, Model model) {
     public String checkBill(@RequestParam(value = "billID", required = false) Integer billID, HttpServletResponse response, HttpServletRequest httpServletRequest) {
@@ -97,11 +86,11 @@ public class BillingController extends AbstractController {
         cus.getBills().add(test);
         logger.info(test.getBill_id() + " OUR BILL IDDDD");
         billingService.saveBill(test);
-        
+
         return "billing/checkBill";
-        
+
     }
-    
+
     @RequestMapping(value = "/createbill", method = {RequestMethod.GET, RequestMethod.POST})
     public String createBill(Model model) throws ParseException {
         logger.info("Creating a new Bill");
@@ -115,9 +104,9 @@ public class BillingController extends AbstractController {
         item.setProduct(p);
         bill.getShopping_items().add(item);
         model.addAttribute("billEntity", bill);
-        
+
         return "billing/createBill";
-        
+
     }
 
     /**
@@ -134,7 +123,7 @@ public class BillingController extends AbstractController {
         List<String> lili = customerDAO.getByPartName(cusName);
         return lili;
     }
-    
+
     @RequestMapping(value = "/fill_customer", method = {RequestMethod.GET, RequestMethod.POST})
     public String createBill(Bill bill, Model model) throws ParseException {
         logger.info("Filling Customer!");
@@ -146,15 +135,27 @@ public class BillingController extends AbstractController {
         model.addAttribute("billEntity", bill);
         return "billing/createBill";
     }
-    
+
+    @RequestMapping(value = "/fill_bill", method = {RequestMethod.GET, RequestMethod.POST})
+    public String fillBill(Bill bill, Model model) throws ParseException {
+        model.addAttribute("billEntity", billingService.getBill(bill));
+        return "billing/createBill";
+    }
+
+    @RequestMapping(value = "/fill_bill_products", method = {RequestMethod.GET, RequestMethod.POST})
+    public String fillBillProducts(Bill bill, Model model) throws ParseException {
+        model.addAttribute("billEntity", billingService.getBillProducts(bill));
+        return "billing/createBill";
+    }
+
     @RequestMapping(value = "/createbill_result", method = {RequestMethod.GET, RequestMethod.POST})
     public String createBill(Bill bill, Model model, @RequestParam(value = "addShoppingItem", required = false) boolean addShoppingItem, @RequestParam(value = "saveBill", required = false) boolean saveBill) throws ParseException {
         logger.info("Bill received" + bill.getDate());
         logger.info(addShoppingItem);
         bill = billingService.fillBill(bill, addShoppingItem, saveBill);
         model.addAttribute("billEntity", bill);
-        
+
         return "billing/createBill";
-        
+
     }
 }

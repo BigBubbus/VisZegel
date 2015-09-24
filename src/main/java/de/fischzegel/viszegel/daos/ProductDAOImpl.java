@@ -27,6 +27,18 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
         this.sessionFactory.getCurrentSession().delete(p);
     }
 
+    @Override
+    public Product getByProductId(int id) {
+        List<Product> prods = this.sessionFactory.getCurrentSession()
+                .createQuery("from Product p WHERE p.product_id = :prodid ")
+                .setParameter("prodid", id).list();
+        if (prods.size() > 0) {
+            return prods.get(0);
+        } else {
+            return null;
+        }
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public List<Product> list() {

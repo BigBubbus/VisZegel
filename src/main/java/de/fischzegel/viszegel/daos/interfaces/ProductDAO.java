@@ -15,6 +15,7 @@ import java.util.List;
  */
 public interface ProductDAO {
     public Product get(int id);
+    public Product getByProductId(int id);
     public void save(Product p);
     public void delete(Product p);
     public List<Product> list();

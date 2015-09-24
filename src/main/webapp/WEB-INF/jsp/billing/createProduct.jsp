@@ -33,12 +33,17 @@
                 <td><form:input path="btwCategory"></form:input></td> 
 
                 </tr> 
+                <tr>
+                    <td><form:label path="unitType">Einheit:</form:label></td>  
+                <td><form:input path="unitType"></form:input></td> 
+
+                </tr> 
             </tbody>
         </table>
 </form:form>
 
 
-<div id="button" class="menuPoint">CLICK ME ON READY</div>
+<div id="button" class="menuPoint">Produkt hinzufügen</div>
 <div id="product_add_result"></div>
 
 <script type="text/javascript">
@@ -53,7 +58,6 @@
             data: str,
             url: "/create_product_result"
         }).done(function (data) {
-            alert("Success!");
             $("#mainContent").html(data);
         });
     });

@@ -12,5 +12,8 @@ import de.fischzegel.viszegel.model.Bill;
  * @author tnowicki
  */
 public interface BillDAO {
-     public void save(Bill b);
+
+    public Bill getBill(int id);
+
+    public void save(Bill b);
 }

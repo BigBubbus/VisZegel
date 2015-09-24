@@ -7,6 +7,7 @@ package de.fischzegel.viszegel.services;
 
 import de.fischzegel.viszegel.daos.interfaces.BillDAO;
 import de.fischzegel.viszegel.daos.interfaces.CustomerDAO;
+import de.fischzegel.viszegel.daos.interfaces.ProductDAO;
 import de.fischzegel.viszegel.model.Bill;
 import de.fischzegel.viszegel.model.Customer;
 import de.fischzegel.viszegel.model.Product;
@@ -64,9 +65,32 @@ public class BillingService extends AbstractService {
     @Autowired
     CustomerDAO customerDAO;
 
+    @Autowired
+    ProductDAO prodDAO;
+
     public void saveBill(Bill bill) {
         logger.info("Got a bill with name:" + bill.getPayment_method());
         billingDAO.save(bill);
+    }
+
+    public Bill getBill(Bill bill) {
+        logger.info("Got a bill with name:" + bill.getPayment_method());
+        return billingDAO.getBill(bill.getBill_id());
+    }
+
+    public Bill getBillProducts(Bill bill) {
+        logger.info(" Filling up Products ");
+        for (ShoppingItem item : bill.getShopping_items()) {
+            logger.info(item.getProduct().getProduct_id());
+            Product p = prodDAO.getByProductId(item.getProduct().getProduct_id());
+            if (p != null) {
+                logger.info("SETTING PRODUCT FOR BILL!");
+                item.setProduct(p);
+            } else 
+                logger.info("Product was null :(");
+        }
+
+        return bill;
     }
 
     /**
@@ -78,10 +102,10 @@ public class BillingService extends AbstractService {
     public Bill fillCustomer(Bill bill) {
         Customer cust = bill.getCus_bill();
         if (cust.getName() != null && !cust.getName().equals("")) {
-            logger.info("Trying to fill in Customer with name "+cust.getName());
+            logger.info("Trying to fill in Customer with name " + cust.getName());
             cust = customerDAO.getByName(cust.getName());
         } else {
-            logger.info("Trying to fill in Customer with id "+cust.getId());
+            logger.info("Trying to fill in Customer with id " + cust.getId());
             cust = customerDAO.get(cust.getId());
         }
         bill.setCus_bill(cust);

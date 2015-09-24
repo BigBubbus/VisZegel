@@ -41,13 +41,17 @@ public class Product extends AbstractModel {
     }
     @Column(name = "product_id", unique = false, nullable = false)
     private int product_id;
-    @Id
+    
     @Column(name = "Beschreibung")
     private String description;
     @Column(name = "Preis")
     private BigDecimal price;
     @Column(name = "Gültig")
     private boolean valid;
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
+    private int id;
 
     @Column(name = "BTWKategorie")
     private String btwCategory;
@@ -140,6 +144,20 @@ public class Product extends AbstractModel {
      */
     public void setUnitType(String unitType) {
         this.unitType = unitType;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

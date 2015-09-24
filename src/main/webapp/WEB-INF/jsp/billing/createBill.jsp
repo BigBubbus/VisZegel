@@ -1,11 +1,17 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:out value="${status}"/>
 <form:form  id="add_customer_form" class="inclass" method="post" modelAttribute="billEntity" action="/createbill_result">  
 
     <table class="customer_table">
         <tr>
-            <td><b>Datum:</b></td>
-            <td><form:input id="billDate" path="date"></form:input></td>
+            <td><b>FillBill</b></td>
+            <td><form:input id="fillBill" path="bill_id"></form:input><input id="billButtFill" type="submit" class="subbiButt"  value="Rechnung füllen" /></td>
+
+            </tr>
+            <tr>
+                <td><b>Datum:</b></td>
+                <td><form:input id="billDate" path="date"></form:input></td>
 
             </tr>
             <tr>
@@ -50,7 +56,7 @@
             </thead>
             <tbody>
                 <tr>             
-                <td><form:input class ="add_input" path="cus_bill.adress"></form:input></td>  
+                    <td><form:input class ="add_input" path="cus_bill.adress"></form:input></td>  
                 <td><form:input class ="add_input" path="cus_bill.extra_rules"></form:input></td>  
                 <td><form:input class ="add_input" path="cus_bill.house_number"></form:input></td>   
                 <td><form:input class ="add_input" path="cus_bill.postcode"></form:input></td>   
@@ -75,9 +81,11 @@
         -->
         <div class="seperator30"></div>
         <input id="billButt" type="submit" class="subbiButt" name="edit" value="Produkt hinzufügen" />
+         <input id="billButtFillProd" type="submit" name="edit" value="Produkte füllen" />
         <table class="customer_table">
             <thead>
                 <tr>
+                    <td>Product ID</td>
                     <td>Liefertext</td> 
                     <td>Produktbeschreibung</td>
                     <td>BTWKategorie</td>
@@ -88,8 +96,11 @@
 
             <c:forEach items="${billEntity.shopping_items}" var="allnames" varStatus="pStatus">  
                 <tr>
-                    <td>   <form:input class ="add_input" path="shopping_items[${pStatus.index}].delivery_text"></form:input>       </td>         
-                    <td>   <form:input class ="add_input" path="shopping_items[${pStatus.index}].product.description"></form:input>    </td> 
+                  
+                    <td><form:input path="shopping_items[${pStatus.index}].product.product_id"></form:input></td>
+                    <td><form:input class ="add_input" path="shopping_items[${pStatus.index}].delivery_text"></form:input>       </td>         
+                    <td><form:input class ="add_input" path="shopping_items[${pStatus.index}].product.description"></form:input> 
+                        </td> 
                     <td><form:input path="shopping_items[${pStatus.index}].product.btwCategory"></form:input></td>  
                     <td><form:input path="shopping_items[${pStatus.index}].product.price"></form:input></td>  
                     </tr>
@@ -137,6 +148,30 @@
 
         });
     });
+    $("#billButtFill").click(function (event) {
+        event.preventDefault();
+        var str = $("#add_customer_form").serialize();
+        $.ajax({
+            type: "POST",
+            data: str,
+            url: "/fill_bill"
+        }).done(function (data) {
+            $("#mainContent").html(data);
+
+        });
+    });
+    $("#billButtFillProd").click(function (event) {
+        event.preventDefault();
+        var str = $("#add_customer_form").serialize();
+        $.ajax({
+            type: "POST",
+            data: str,
+            url: "/fill_bill_products"
+        }).done(function (data) {
+            $("#mainContent").html(data);
+
+        });
+    });
 
 
 
@@ -177,7 +212,7 @@
                 cusNameArr.push(obj[i])
             }
             $("#cusNameChange").autocomplete({
-                delay : 0,
+                delay: 0,
                 source: cusNameArr
             });
         });

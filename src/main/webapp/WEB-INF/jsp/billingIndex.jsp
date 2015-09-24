@@ -12,53 +12,65 @@
         <title>BillingIndex</title>
         <link href="<c:url value='/resources/css/billing.css' />"
               rel="stylesheet" type="text/css" />
-                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
     </head>
 
     <body>
-        <div id="heading">
-            <img src="<c:url value='/resources/images/fischzegel.jpg' />"/>
-        </div>
-        <!--  This is where all modules will paste their results due to our ajax calls! -->
-        <div id="menuPointWrapper">
-            <div id="createCustomer" class="menuPoint" style="cursor: pointer;">Klant
-                toevogen</div>
-            <div id="viewCustomers" class="menuPoint" style="cursor: pointer;">Klanten bekijken</div>
-            <div id="createProduct" class="menuPoint" style="cursor: pointer;">Product toevoegen</div>
-            <div id="viewProducts" class="menuPoint" style="cursor: pointer;">Producten bekijken</div>
-            <div id="createBill" class="menuPoint" style="cursor: pointer;">Rekenining
-                bekijken</div>
+        <div id="status">
+            <table class="customer_table">
+                <tr>
+                    <td><b>Status<b></td>
+                                <td><b>Nachricht<b></td>
+                                            </tr>
+                                            <tr>
+                                                <td><c:out value="${status.status}"/></td>
+                                                <td><c:out value="${status.reason}"/></td>
+                                            </tr>
+
+                                            </table> 
+                                            </div>
+                                            <div id="heading">
+                                               <!-- <img height="100px" src="<c:url value='/resources/images/viszegel.png' />"/>-->
+                                            </div>
+                                            <!--  This is where all modules will paste their results due to our ajax calls! -->
+                                            <div id="menuPointWrapper">
+                                                <div id="createCustomer" class="menuPoint" style="cursor: pointer;">Klant
+                                                    toevogen</div>
+                                                <div id="viewCustomers" class="menuPoint" style="cursor: pointer;">Klanten bekijken</div>
+                                                <div id="createProduct" class="menuPoint" style="cursor: pointer;">Product toevoegen</div>
+                                                <div id="viewProducts" class="menuPoint" style="cursor: pointer;">Producten bekijken</div>
+                                                <div id="createBill" class="menuPoint" style="cursor: pointer;">Rekening
+                                                    herstellen</div>
 
 
-        </div>
-        <br>
+                                            </div>
 
 
 
+                                            <div id="mainContent">
+                                                Bitte einen Menüeintrag auswählen
+                                            </div>
 
-        <div id="mainContent">
-            Bitte einen Menüeintrag auswählen
-        </div>
-        <script>
-            // Lets get our Attribute here and pass on to another jsp submodule in /billing
-
-
-            $(".menuPoint").on('click', function () {
-
-                $.ajax({
-                    type: "GET",
-                    data: "mode=" + $(this).attr("id"),
-                    url: "/operation"
-                }).done(function (data) {
+                                            <script>
+                                                // Lets get our Attribute here and pass on to another jsp submodule in /billing
 
 
-                    $("#mainContent").html(data);
+                                                $(".menuPoint").on('click', function () {
 
-                });
-            });
-        </script>
-    </body>
-</html>
+                                                    $.ajax({
+                                                        type: "GET",
+                                                        data: "mode=" + $(this).attr("id"),
+                                                        url: "/operation"
+                                                    }).done(function (data) {
+
+
+                                                        $("#mainContent").html(data);
+
+                                                    });
+                                                });
+                                            </script>
+                                            </body>
+                                            </html>
