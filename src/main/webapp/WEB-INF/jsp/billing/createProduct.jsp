@@ -14,7 +14,12 @@
         </thead>
         <tbody>
             <tr>
-                <td><form:label path="description">Beschreibung:</form:label></td>  
+                <td><form:label path="product_id">Produkt ID:</form:label></td>  
+                <td><form:input path="product_id"></form:input></td>  
+
+                </tr>
+                <tr>
+                    <td><form:label path="description">Beschreibung:</form:label></td>  
                 <td><form:input path="description"></form:input></td>  
 
                 </tr>
@@ -25,11 +30,11 @@
                 </tr>
                 <tr>
                     <td><form:label path="btwCategory">BTWKategorie:</form:label></td>  
-                  <td><form:input path="btwCategory"></form:input></td> 
+                <td><form:input path="btwCategory"></form:input></td> 
 
-            </tr> 
-        </tbody>
-    </table>
+                </tr> 
+            </tbody>
+        </table>
 </form:form>
 
 
@@ -39,8 +44,8 @@
 <script type="text/javascript">
     // Lets get our Attribute here and pass on to another jsp submodule in /billing
 
-    
-       $("#button").click(function (event) {
+
+    $("#button").click(function (event) {
         event.preventDefault();
         var str = $("#add_product_form").serialize();
         $.ajax({

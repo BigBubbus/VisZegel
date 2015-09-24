@@ -39,22 +39,21 @@ public class Product extends AbstractModel {
     public void setShopi(List<ShoppingItem> shopi) {
         this.shopi = shopi;
     }
-    @Id
     @Column(name = "product_id", unique = false, nullable = false)
     private int product_id;
-
+    @Id
     @Column(name = "Beschreibung")
     private String description;
-
     @Column(name = "Preis")
     private BigDecimal price;
-
     @Column(name = "Gültig")
     private boolean valid;
 
     @Column(name = "BTWKategorie")
     private String btwCategory;
 
+    @Column(name = "Einheit")
+    private String unitType;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")
     @JsonManagedReference
     private List<ShoppingItem> shopi = new ArrayList<>();
@@ -127,6 +126,20 @@ public class Product extends AbstractModel {
      */
     public void setBtwCategory(String btwCategory) {
         this.btwCategory = btwCategory;
+    }
+
+    /**
+     * @return the unitType
+     */
+    public String getUnitType() {
+        return unitType;
+    }
+
+    /**
+     * @param unitType the unitType to set
+     */
+    public void setUnitType(String unitType) {
+        this.unitType = unitType;
     }
 
 }

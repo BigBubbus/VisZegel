@@ -123,7 +123,6 @@ public class BillingController extends AbstractController {
     /**
      * Called from createBill.jsp
      *
-     * @param bill
      * @param model
      * @return
      * @throws ParseException
@@ -134,7 +133,6 @@ public class BillingController extends AbstractController {
         logger.info(cusName);
         List<String> lili = customerDAO.getByPartName(cusName);
         return lili;
-        
     }
     
     @RequestMapping(value = "/fill_customer", method = {RequestMethod.GET, RequestMethod.POST})

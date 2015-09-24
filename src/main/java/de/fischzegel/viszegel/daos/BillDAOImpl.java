@@ -37,7 +37,6 @@ public class BillDAOImpl extends AbstractDAO implements BillDAO {
         }      
         b.getCus_bill().getBills().add(b);
         logger.info("SAVING BILL !!! FOR :  " +b.getCus_bill().getName());
-        logger.info("SAVING BILL !!! FOR :  " +b.getCus_bill().getId());
         session.saveOrUpdate(b);
         tx.commit();
         session.close();
