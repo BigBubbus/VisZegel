@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-09-24T22:36:03 -->
+<!-- 2015-10-23T21:16:40 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Fisch_Zegel" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43610763-ab21-4f7f-ba3c-f91c99be7e5f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="VisZegel"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
@@ -37,10 +37,11 @@
 	</subDataset>
 	<parameter name="billId" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM `VisZegel`.`Rechnungen`,`VisZegel`.Produkt,`VisZegel`.Rechnungsprodukt
+		<![CDATA[SELECT * FROM `VisZegel`.`Rechnungen`,`VisZegel`.Produkt_Rechnung_Log,`VisZegel`.Rechnungsprodukt,`VisZegel`.Kunden
  WHERE `VisZegel`.`Rechnungen`.`bill_id` = $P{billId}
  AND `VisZegel`.Rechnungsprodukt.`rechnungs_id` = $P{billId} 
- AND `VisZegel`.Produkt.id = `VisZegel`.Rechnungsprodukt.`product_id`
+ AND `VisZegel`.Produkt_Rechnung_Log.id = `VisZegel`.Rechnungsprodukt.`product_id`
+ AND VisZegel.Rechnungen.kunden_id = `VisZegel`.Kunden.id
  ORDER BY `VisZegel`.`Rechnungen`.Datum ASC]]>
 	</queryString>
 	<field name="bill_id" class="java.lang.Integer">
@@ -53,6 +54,9 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="Datum" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="product_id" class="java.lang.Integer">
@@ -70,16 +74,51 @@
 	<field name="BTWKategorie" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="id" class="java.lang.Integer">
+	<field name="Einheit" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="COLUMN_12" class="java.lang.Integer"/>
 	<field name="rechnungs_id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="Liefertext" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="COLUMN_13" class="java.lang.Integer"/>
+	<field name="COLUMN_15" class="java.lang.Integer"/>
+	<field name="COLUMN_16" class="java.lang.Integer"/>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="adress" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="house_number" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="postcode" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="location" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="extra_rules" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="country" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="website" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="btw_number" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="btw_number_final" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<variable name="Preis1" class="java.math.BigDecimal" resetType="Group" resetGroup="GroupDatum" calculation="Sum">
 		<variableExpression><![CDATA[$F{Preis}]]></variableExpression>
 	</variable>
@@ -123,7 +162,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="100" splitType="Stretch">
+		<band height="110" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<staticText>
 				<reportElement x="0" y="0" width="148" height="16" uuid="94aa07a8-102c-4e6c-8a6d-cc509ab8174c"/>
@@ -162,6 +201,18 @@
 				</textElement>
 				<text><![CDATA[RechnungsId:]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="0" y="70" width="100" height="20" uuid="0c4c22c1-76b9-4548-a4bf-8d94bd334188"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="55" width="100" height="15" uuid="fecfe3d2-37ce-4c42-b2c6-0a15de08fb3d"/>
+				<text><![CDATA[Kundenname:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="90" width="100" height="20" uuid="b4352601-9a6e-4df6-b0cb-f57d607da83d"/>
+				<textFieldExpression><![CDATA[$F{location}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>

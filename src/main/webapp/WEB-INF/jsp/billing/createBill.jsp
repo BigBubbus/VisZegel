@@ -105,14 +105,15 @@
 			<c:forEach items="${billEntity.shopping_items}" var="allnames"
 				varStatus="pStatus">
 				<tr>
-					<form:hidden path="shopping_items[${pStatus.index}].product.id"></form:hidden>
+
+
 					<td><form:input name="${pStatus.index}"
-							class="shopping_item_name"
 							path="shopping_items[${pStatus.index}].product.product_id"></form:input></td>
 					<td><form:input class="add_input"
 							path="shopping_items[${pStatus.index}].delivery_text"></form:input>
 					</td>
-					<td><form:input class="add_input"
+					<td><form:input class="shopping_item_name"
+							name="item_${pStatus.index}"
 							path="shopping_items[${pStatus.index}].product.description"></form:input>
 					</td>
 					<td><form:input
@@ -146,6 +147,10 @@
 	$('#billDate').datepicker({
 		dateFormat : 'yy-mm-dd'
 	});
+	$("#billButt").click(function(event) {
+		event.preventDefault();
+		submitForm("&addShoppingItem=true&saveBill=false");
+	});
 	$("#billButtCus").click(function(event) {
 		event.preventDefault();
 		var str = $("#add_customer_form").serialize();
@@ -167,6 +172,7 @@
 			url : "/fill_bill"
 		}).done(function(data) {
 			$("#mainContent").html(data);
+
 		});
 	});
 	$("#billButtFillProd").click(function(event) {
@@ -178,7 +184,28 @@
 			url : "/fill_bill_products"
 		}).done(function(data) {
 			$("#mainContent").html(data);
+
 		});
+	});
+
+	function fillCustomer() {
+		submitForm();
+	}
+	function submitForm(addparam) {
+		var str = $("#add_customer_form").serialize() + addparam;
+		$.ajax({
+			type : "POST",
+			data : str,
+			url : "/createbill_result"
+		}).done(function(data) {
+			$("#mainContent").html(data);
+
+		});
+	}
+	// Lets get our Attribute here and pass on to another jsp submodule in /billing
+	$("#button").click(function() {
+		alert("BUTTON CLICKED");
+		submitForm();
 	});
 
 	// ------------------------------------
@@ -203,7 +230,23 @@
 		});
 	});
 	$(".shopping_item_name").keyup(function(event) {
-		alert($(this).attr('name'));
+
+	});
+	$(document).unbind('keyup').bind('keyup', function(e) {
+		$focused = $(':focus');
+		e.preventDefault();
+		if (e.altKey || e.keyCode == 18) {
+			var str = $("#add_customer_form").serialize();
+			$.ajax({
+				type : "POST",
+				data : str,
+				url : "/createbill_result"
+			}).done(function(data) {
+				$("#mainContent").html(data);
+				$focused.click();
+
+			});
+		}
 
 	});
 </script>

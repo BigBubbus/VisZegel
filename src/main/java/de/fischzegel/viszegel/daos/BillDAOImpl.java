@@ -28,6 +28,12 @@ public class BillDAOImpl extends AbstractDAOImpl implements BillDAO {
 
     @Override
     public void save(Bill b) {
+    	// Needed because bill cannot be saved in jsp?
+    	for (ShoppingItem item : b.getShopping_items() ){
+    		item.setBill(b);
+    		logger.info(item.getProduct().getDescription());
+    	}
+    	
     	this.sessionFactory.getCurrentSession().save(b);
     }
 

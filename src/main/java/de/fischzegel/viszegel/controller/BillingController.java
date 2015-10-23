@@ -147,8 +147,7 @@ public class BillingController extends AbstractController {
 			@RequestParam(value = "addShoppingItem", required = false) boolean addShoppingItem,
 			@RequestParam(value = "saveBill", required = false) boolean saveBill) throws ParseException {
 		logger.info("Bill received" + bill.getDate());
-		logger.info(addShoppingItem);
-		bill = billingService.fillBill(bill, addShoppingItem, saveBill);
+		bill = billingService.fillBill(bill, true, saveBill);
 		model.addAttribute("billEntity", bill);
 
 		return "billing/createBill";
