@@ -25,7 +25,13 @@ import javax.persistence.Table;
 @Table(name = "Rechnungsprodukt")
 public class ShoppingItem extends AbstractModel{
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5449445995914352882L;
+
+
+	@Id
     @GeneratedValue
     @Column(name = "id")
     private int id;
@@ -42,7 +48,7 @@ public class ShoppingItem extends AbstractModel{
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     @JsonBackReference
-    private Product product;
+    private ProductVariable productVariable;
 
     /**
      * @return the delivery_text
@@ -87,16 +93,16 @@ public class ShoppingItem extends AbstractModel{
     }
 
     /**
-     * @return the product
+     * @return the ProductBase
      */
-    public Product getProduct() {
-        return product;
+    public ProductVariable getProduct() {
+        return productVariable;
     }
 
     /**
-     * @param product the product to set
+     * @param ProductBase the ProductBase to set
      */
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProduct(ProductVariable productVariable) {
+        this.productVariable =  productVariable;
     }
 }

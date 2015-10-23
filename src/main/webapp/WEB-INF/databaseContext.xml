@@ -9,7 +9,7 @@
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://192.168.12.152:3306/VisZegel" />
+        <property name="url" value="jdbc:mysql://192.168.2.112:3306/VisZegel" />
         <property name="username" value="root" />
         <property name="password" value="Vis1114" />
     </bean>
@@ -22,7 +22,9 @@
                 <value>de.fischzegel.viszegel.model.Customer</value>
                 <value>de.fischzegel.viszegel.model.Bill</value>
                 <value>de.fischzegel.viszegel.model.ShoppingItem</value>
-                <value>de.fischzegel.viszegel.model.Product</value>
+                <value>de.fischzegel.viszegel.model.ProductBase</value>
+                <value>de.fischzegel.viszegel.model.ProductVariable</value>
+                <value>de.fischzegel.viszegel.model.ProductConstant</value>
             </list>
         </property>
         <property name="hibernateProperties">

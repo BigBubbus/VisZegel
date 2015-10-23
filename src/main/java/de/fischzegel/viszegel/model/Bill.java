@@ -46,7 +46,7 @@ public class Bill extends AbstractModel {
     private List<ShoppingItem> shopping_items = new ArrayList<>();
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "kunden_id")
+    @JoinColumn(name = "kunden_id",updatable = false)
     @JsonBackReference
     private Customer cus_bill;
 

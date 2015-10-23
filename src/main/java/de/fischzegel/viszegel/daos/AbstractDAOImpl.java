@@ -5,6 +5,8 @@
  */
 package de.fischzegel.viszegel.daos;
 
+import java.io.Serializable;
+
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author tnowicki
  */
-public class AbstractDAO {
-
-    protected Logger logger = Logger.getLogger(AbstractDAO.class);
+public class AbstractDAOImpl{
+    protected Logger logger = Logger.getLogger(getClass());
     @Autowired
     protected SessionFactory sessionFactory;
 

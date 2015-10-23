@@ -16,7 +16,11 @@ import javax.persistence.Table;
 @Table(name = "Kunden")
 public class Customer extends AbstractModel {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3365576486812426843L;
+	@Id
     @GeneratedValue
     @Column(name = "id")
     private int id;
@@ -31,10 +35,11 @@ public class Customer extends AbstractModel {
     private String website;
     private int btw_number;
     private int btw_number_final;
+    /*
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true, mappedBy = "cus_bill")
     @JsonManagedReference
     private List<Bill> bills = new ArrayList<>();
-
+*/
     public int getId() {
         return id;
     }
@@ -133,16 +138,17 @@ public class Customer extends AbstractModel {
 
     /**
      * @return the bills
-     */
+    
     public List<Bill> getBills() {
         return bills;
     }
 
     /**
      * @param bills the bills to set
-     */
+    
     public void setBills(List<Bill> bills) {
         this.bills = bills;
     }
+     */
 
 }

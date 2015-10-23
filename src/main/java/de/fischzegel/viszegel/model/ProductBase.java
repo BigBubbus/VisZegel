@@ -5,62 +5,58 @@
  */
 package de.fischzegel.viszegel.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  *
  * @author tnowicki
  */
-@Entity
-@Table(name = "Produkt")
-public class Product extends AbstractModel {
+@MappedSuperclass
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+public abstract class ProductBase extends AbstractModel {
 
-    /**
-     * @return the shopi
-     */
-    public List<ShoppingItem> getShopi() {
-        return shopi;
-    }
+	private static final long serialVersionUID = -8636670412904181908L;
 
-    /**
-     * @param shopi the shopi to set
-     */
-    public void setShopi(List<ShoppingItem> shopi) {
-        this.shopi = shopi;
-    }
+
     @Column(name = "product_id", unique = false, nullable = false)
-    private int product_id;
+    protected int product_id;
     
     @Column(name = "Beschreibung")
-    private String description;
+    protected String description;
     @Column(name = "Preis")
-    private BigDecimal price;
+    protected BigDecimal price;
     @Column(name = "Gültig")
-    private boolean valid;
+    protected boolean valid;
     @Id
-    @GeneratedValue
+    
+    @TableGenerator(name = "hibernate_sequences", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "hibernate_sequences")
     @Column(name = "id")
-    private int id;
+    protected int id;
 
     @Column(name = "BTWKategorie")
-    private String btwCategory;
+    protected String btwCategory;
 
     @Column(name = "Einheit")
-    private String unitType;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")
-    @JsonManagedReference
-    private List<ShoppingItem> shopi = new ArrayList<>();
+    protected String unitType;
+
 
     /**
      * @return the product_id

@@ -6,7 +6,7 @@
 package de.fischzegel.viszegel.daos;
 
 import de.fischzegel.viszegel.daos.interfaces.ProductDAO;
-import de.fischzegel.viszegel.model.Product;
+import de.fischzegel.viszegel.model.ProductConstant;
 import java.util.List;
 import javax.transaction.Transactional;
 
@@ -15,22 +15,23 @@ import javax.transaction.Transactional;
  * @author tnowicki
  */
 @Transactional
-public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
+public class ProductDAOImpl extends AbstractDAOImpl implements ProductDAO {
 
     @Override
-    public void save(Product p) {
+    public void save(ProductConstant p) {
         this.sessionFactory.getCurrentSession().saveOrUpdate(p);
     }
 
     @Override
-    public void delete(Product p) {
+    public void delete(ProductConstant p) {
         this.sessionFactory.getCurrentSession().delete(p);
     }
 
     @Override
-    public Product getByProductId(int id) {
-        List<Product> prods = this.sessionFactory.getCurrentSession()
-                .createQuery("from Product p WHERE p.product_id = :prodid ")
+    public ProductConstant getByProductId(int id) {
+        @SuppressWarnings("unchecked")
+		List<ProductConstant> prods = this.sessionFactory.getCurrentSession()
+                .createQuery("from ProductConstant p WHERE p.product_id = :prodid ")
                 .setParameter("prodid", id).list();
         if (prods.size() > 0) {
             return prods.get(0);
@@ -41,14 +42,14 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Product> list() {
-        return this.sessionFactory.getCurrentSession().createQuery("from Product").list();
+    public List<ProductConstant> list() {
+        return this.sessionFactory.getCurrentSession().createQuery("from ProductConstant").list();
     }
 
     @Override
-    public Product get(int id) {
+    public ProductConstant get(int id) {
         logger.info("retrieving Product with id : " + id);
-        return (Product) this.sessionFactory.getCurrentSession().get(Product.class, id);
+        return (ProductConstant) this.sessionFactory.getCurrentSession().get(ProductConstant.class, id);
 
     }
 

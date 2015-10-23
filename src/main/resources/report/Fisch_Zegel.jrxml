@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-08-27T18:16:06 -->
+<!-- 2015-09-24T22:36:03 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Fisch_Zegel" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43610763-ab21-4f7f-ba3c-f91c99be7e5f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="VisZegel"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
@@ -37,23 +37,56 @@
 	</subDataset>
 	<parameter name="billId" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT *
-FROM `VisZegel`.`Rechnungen`
-ORDER BY `VisZegel`.`Rechnungen`.Datum ASC]]>
+		<![CDATA[SELECT * FROM `VisZegel`.`Rechnungen`,`VisZegel`.Produkt,`VisZegel`.Rechnungsprodukt
+ WHERE `VisZegel`.`Rechnungen`.`bill_id` = $P{billId}
+ AND `VisZegel`.Rechnungsprodukt.`rechnungs_id` = $P{billId} 
+ AND `VisZegel`.Produkt.id = `VisZegel`.Rechnungsprodukt.`product_id`
+ ORDER BY `VisZegel`.`Rechnungen`.Datum ASC]]>
 	</queryString>
+	<field name="bill_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Bezahlart" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kunden_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Datum" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="product_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Beschreibung" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Preis" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Gültig" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BTWKategorie" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="Datum" class="java.sql.Date">
+	<field name="rechnungs_id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="Produktname" class="java.lang.String">
+	<field name="Liefertext" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="COLUMN_13" class="java.lang.Integer"/>
+	<variable name="Preis1" class="java.math.BigDecimal" resetType="Group" resetGroup="GroupDatum" calculation="Sum">
+		<variableExpression><![CDATA[$F{Preis}]]></variableExpression>
+	</variable>
 	<group name="GroupDatum">
 		<groupExpression><![CDATA[$F{Datum}]]></groupExpression>
 		<groupHeader>
-			<band height="28">
+			<band height="39">
 				<textField>
 					<reportElement x="0" y="0" width="554" height="28" uuid="2f7a3847-0e4e-400e-989c-d9846f52ba33"/>
 					<textElement>
@@ -64,6 +97,25 @@ ORDER BY `VisZegel`.`Rechnungen`.Datum ASC]]>
 			</band>
 		</groupHeader>
 		<groupFooter>
+			<band height="54">
+				<textField>
+					<reportElement x="380" y="0" width="100" height="30" uuid="83240598-bb30-4487-be4d-091edb1fd4f0"/>
+					<textFieldExpression><![CDATA[$V{Preis1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="290" y="0" width="80" height="30" uuid="17997dbc-8937-46b5-b380-1c293d37ed77"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement markup="none">
+						<paragraph lineSpacing="1_1_2"/>
+					</textElement>
+					<text><![CDATA[Summe:]]></text>
+				</staticText>
+			</band>
 			<band height="50"/>
 		</groupFooter>
 	</group>
@@ -74,7 +126,7 @@ ORDER BY `VisZegel`.`Rechnungen`.Datum ASC]]>
 		<band height="100" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<staticText>
-				<reportElement x="160" y="50" width="148" height="16" uuid="94aa07a8-102c-4e6c-8a6d-cc509ab8174c"/>
+				<reportElement x="0" y="0" width="148" height="16" uuid="94aa07a8-102c-4e6c-8a6d-cc509ab8174c"/>
 				<box>
 					<topPen lineWidth="0.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -87,8 +139,28 @@ ORDER BY `VisZegel`.`Rechnungen`.Datum ASC]]>
 				<text><![CDATA[Zegel Kerkrade GmbH ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="407" y="20" width="148" height="16" uuid="c6513ac6-1420-4e47-b2d1-aa2400ef15c7"/>
-				<text><![CDATA[tel. :]]></text>
+				<reportElement x="406" y="0" width="148" height="16" uuid="c6513ac6-1420-4e47-b2d1-aa2400ef15c7"/>
+				<text><![CDATA[tel. : 00-Fisch-00]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="20" width="100" height="30" uuid="174291f1-f025-4e48-9477-9a193a504398"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{bill_id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="80" height="30" uuid="64dd5b88-735c-454b-ba25-d092e4c962ea"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="none">
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[RechnungsId:]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -118,34 +190,45 @@ ORDER BY `VisZegel`.`Rechnungen`.Datum ASC]]>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<text><![CDATA[Artikel]]></text>
+				<text><![CDATA[Liefertext]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="278" y="0" width="92" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="29f328d2-1413-48c9-b90f-271be99cc036"/>
+				<reportElement mode="Opaque" x="270" y="0" width="100" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="29f328d2-1413-48c9-b90f-271be99cc036"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Produktname]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="380" y="0" width="92" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="bd400dc1-f682-4919-b3eb-8c9b244ee47c"/>
+				<reportElement mode="Opaque" x="470" y="0" width="92" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="bd400dc1-f682-4919-b3eb-8c9b244ee47c"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Nummer]]></text>
 			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="380" y="0" width="60" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="db67ba64-ee2d-464b-9156-9d5b5b08cb32"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Preis]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="30" splitType="Stretch">
+		<band height="64" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
 			<textField>
-				<reportElement x="278" y="0" width="101" height="30" uuid="49252ca9-9053-4a1b-a3aa-3c13ccab6cd3"/>
-				<textFieldExpression><![CDATA[$F{Produktname}]]></textFieldExpression>
+				<reportElement x="270" y="0" width="100" height="64" uuid="d0eadf66-7090-4218-933c-170ba7d34479"/>
+				<textFieldExpression><![CDATA[$F{Beschreibung}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="0" width="175" height="30" uuid="402bf8fb-7b04-4d33-a98c-ae73661e238e"/>
-				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+				<reportElement x="380" y="0" width="60" height="64" uuid="4303d622-7220-4212-a412-797c2d5072f4"/>
+				<textFieldExpression><![CDATA[$F{Preis}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="259" height="64" uuid="3cfad7a3-ead6-4184-b2e5-5bd296b52a8c"/>
+				<textFieldExpression><![CDATA[$F{Liefertext}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

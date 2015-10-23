@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
-<%@page import="de.fischzegel.viszegel.model.Product"%>
+<%@page import="de.fischzegel.viszegel.model.ProductConstant"%>
 <%@page import="java.util.List"%>
 
 
@@ -19,9 +19,9 @@
     </thead>
 </table>
 <%
-    List<Product> prods = ((List<Product>) request.getAttribute("products"));
+    List<ProductConstant> prods = ((List<ProductConstant>) request.getAttribute("products"));
     for (int i = 0; i < prods.size(); i++) {
-        Product cust = prods.get(i);
+        ProductConstant cust = prods.get(i);
         request.setAttribute("temp_prod", cust);
 %>
 

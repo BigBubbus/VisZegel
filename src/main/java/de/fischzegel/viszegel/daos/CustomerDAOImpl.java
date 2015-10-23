@@ -15,7 +15,7 @@ import javax.transaction.Transactional;
  * @author tnowicki
  */
 @Transactional
-public class CustomerDAOImpl extends AbstractDAO implements CustomerDAO {
+public class CustomerDAOImpl extends AbstractDAOImpl implements CustomerDAO {
 
     @Override
     public void save(Customer p) {
