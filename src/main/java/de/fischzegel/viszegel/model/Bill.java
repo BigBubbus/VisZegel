@@ -5,22 +5,24 @@
  */
 package de.fischzegel.viszegel.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.FetchMode;
-import org.hibernate.annotations.Fetch;
+import javax.persistence.TableGenerator;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  *
@@ -30,7 +32,8 @@ import org.hibernate.annotations.Fetch;
 @Table(name = "Rechnungen")
 public class Bill extends AbstractModel {
     @Id
-    @GeneratedValue
+    @TableGenerator(name = "hibernate_sequences", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "hibernate_sequences")
     @Column(name = "bill_id", unique = true, nullable = false)
     private int bill_id;
 

@@ -49,4 +49,7 @@
     <bean id="productDAO" class="de.fischzegel.viszegel.daos.ProductDAOImpl">
         <property name="sessionFactory" ref="hibernate4sessionFactory" />
     </bean>
+        <bean id="sequenceDAO" class="de.fischzegel.viszegel.daos.HibernateSequenceDAO">
+        <property name="sessionFactory" ref="hibernate4sessionFactory" />
+    </bean>
 </beans>

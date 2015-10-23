@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import de.fischzegel.viszegel.daos.HibernateSequenceDAO;
 import de.fischzegel.viszegel.daos.interfaces.BillDAO;
 import de.fischzegel.viszegel.daos.interfaces.CustomerDAO;
 import de.fischzegel.viszegel.exception.Known_Exceptions;
@@ -41,6 +42,8 @@ public class BillingController extends AbstractController {
 	BillDAO billingDAO;
 	@Autowired
 	CustomerDAO customerDAO;
+	@Autowired
+	HibernateSequenceDAO sequenceDAO;
 
 	@RequestMapping(value = "/viewBill", method = { RequestMethod.GET,
 			RequestMethod.POST }, produces = "application/pdf")
@@ -88,12 +91,12 @@ public class BillingController extends AbstractController {
 	public String createBill(Model model) throws ParseException {
 		logger.info("Creating a new Bill");
 		Bill bill = new Bill();
+		bill.setBill_id(sequenceDAO.getCurrentId().intValue());
 		Date myDate = new Date();
 		bill.setDate(new SimpleDateFormat("yyyy-MM-dd").format(myDate));
 		ShoppingItem item = new ShoppingItem();
 		item.setDelivery_text("TESTINGDELIVERY");
 		ProductVariable p = new ProductVariable();
-		p.setDescription("SOMETHING NICE");
 		item.setProduct(p);
 		bill.getShopping_items().add(item);
 		model.addAttribute("billEntity", bill);
