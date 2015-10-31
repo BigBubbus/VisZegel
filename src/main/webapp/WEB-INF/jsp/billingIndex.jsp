@@ -56,7 +56,7 @@
 
                                             <script>
                                                 // Lets get our Attribute here and pass on to another jsp submodule in /billing
-
+var focused;
 
                                                 $(".menuPoint").on('click', function () {
 

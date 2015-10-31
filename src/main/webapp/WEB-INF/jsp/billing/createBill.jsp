@@ -233,7 +233,6 @@
 
 	});
 	$(document).unbind('keyup').bind('keyup', function(e) {
-		$focused = $(':focus');
 		e.preventDefault();
 		if (e.altKey || e.keyCode == 18) {
 			var str = $("#add_customer_form").serialize();
@@ -243,10 +242,10 @@
 				url : "/createbill_result"
 			}).done(function(data) {
 				$("#mainContent").html(data);
-				$focused.click();
+				
 
 			});
 		}
 
-	});
+	});	
 </script>
