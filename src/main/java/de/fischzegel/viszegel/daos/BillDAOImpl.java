@@ -34,7 +34,7 @@ public class BillDAOImpl extends AbstractDAOImpl implements BillDAO {
     		logger.info(item.getProduct().getDescription());
     	}
     	
-    	this.sessionFactory.getCurrentSession().saveOrUpdate(b);
+    	this.sessionFactory.getCurrentSession().save(b);
     }
 
 }
