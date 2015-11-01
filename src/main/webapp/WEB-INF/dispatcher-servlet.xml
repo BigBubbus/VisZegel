@@ -12,13 +12,10 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
                               http://www.springframework.org/schema/security
                         http://www.springframework.org/schema/security/spring-security-4.0.xsd">
-	<tx:annotation-driven />
-	<context:component-scan base-package="de.fischzegel.viszegel" />
+	
+	
 
-	<mvc:resources mapping="/favicon.ico" location="/resources/images/favicon.ico" />
-	<mvc:resources mapping="/resources/**" location="/resources/" />
-
-	<mvc:annotation-driven />
+	
 	<bean name="starter" init-method="start"
 		class="de.fischzegel.viszegel.configuration.PropertyLoader" />
 

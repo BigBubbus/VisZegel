@@ -6,6 +6,7 @@
 package de.fischzegel.viszegel.daos;
 
 import de.fischzegel.viszegel.daos.interfaces.ProductDAO;
+import de.fischzegel.viszegel.model.Customer;
 import de.fischzegel.viszegel.model.ProductConstant;
 import java.util.List;
 import javax.transaction.Transactional;
@@ -19,7 +20,7 @@ public class ProductDAOImpl extends AbstractDAOImpl implements ProductDAO {
 
     @Override
     public void save(ProductConstant p) {
-        this.sessionFactory.getCurrentSession().saveOrUpdate(p);
+        this.sessionFactory.getCurrentSession().save(p);
     }
 
     @Override
@@ -39,7 +40,13 @@ public class ProductDAOImpl extends AbstractDAOImpl implements ProductDAO {
             return null;
         }
     }
-
+    @SuppressWarnings("unchecked")
+	@Override
+    public List<String> getByPartDesc(String product_description) {        
+        String newName = "%"+product_description+"%";
+        logger.info("retrieving Customer with name : " + newName);
+        return (List<String>) this.sessionFactory.getCurrentSession().createQuery("select p.description from ProductConstant p where str(p.description) like :cname").setParameter("cname", newName).list();
+    }
     @SuppressWarnings("unchecked")
     @Override
     public List<ProductConstant> list() {
@@ -52,5 +59,8 @@ public class ProductDAOImpl extends AbstractDAOImpl implements ProductDAO {
         return (ProductConstant) this.sessionFactory.getCurrentSession().get(ProductConstant.class, id);
 
     }
-
+    @Override
+    public ProductConstant getByName(String name) {
+       return (ProductConstant) this.sessionFactory.getCurrentSession().createQuery("from ProductConstant p where str(p.description) = :cname").setParameter("cname", name).list().get(0);
+    }
 }

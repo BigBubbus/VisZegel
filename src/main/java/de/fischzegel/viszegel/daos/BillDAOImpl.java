@@ -5,12 +5,14 @@
  */
 package de.fischzegel.viszegel.daos;
 
-import de.fischzegel.viszegel.daos.interfaces.BillDAO;
-import de.fischzegel.viszegel.model.Bill;
-import de.fischzegel.viszegel.model.ShoppingItem;
 import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import de.fischzegel.viszegel.daos.interfaces.BillDAO;
+import de.fischzegel.viszegel.model.Bill;
 
 /**
  *
@@ -19,22 +21,44 @@ import org.hibernate.Transaction;
 @Transactional
 public class BillDAOImpl extends AbstractDAOImpl implements BillDAO {
 
+	@Override
+	public Bill getBill(int id) {
+		logger.info("retrieving Bill with id : " + id);
+		return (Bill) this.sessionFactory.getCurrentSession().get(Bill.class, id);
+	}
 
 	@Override
-    public Bill getBill(int id) {
-        logger.info("retrieving Bill with id : " + id);
-        return (Bill) this.sessionFactory.getCurrentSession().get(Bill.class, id);
-    }
+	public void saveOrUpdate(Bill b) {
+		logger.info("OPENING SESSION");
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			logger.info("SAVING");
+			if (getBill(b.getBill_id()) != null)
+				session.merge(b);
+			else
+				session.save(b);
+			logger.info("SAVED");
+			tx.commit();
 
-    @Override
-    public void save(Bill b) {
-    	// Needed because bill cannot be saved in jsp?
-    	for (ShoppingItem item : b.getShopping_items() ){
-    		item.setBill(b);
-    		logger.info(item.getProduct().getDescription());
-    	}
-    	
-    	this.sessionFactory.getCurrentSession().save(b);
-    }
+		} catch (RuntimeException ex) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw ex;
+		} finally {
+			session.close();
+		}
+		// logger.info(dataSource.);
+		//
+
+		/*
+		 * logger.info("Saving or Updating bill : " + b.getBill_id()); Bill temp
+		 * = getBill(b.getBill_id()); if(temp!= null){
+		 * this.sessionFactory.getCurrentSession().merge(b); } else {
+		 * this.sessionFactory.getCurrentSession().save(b); }
+		 */
+	}
 
 }

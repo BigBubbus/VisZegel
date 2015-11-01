@@ -15,5 +15,5 @@ public interface BillDAO {
 
     public Bill getBill(int id);
 
-    public void save(Bill b);
+    public void saveOrUpdate(Bill b);
 }

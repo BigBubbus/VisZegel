@@ -95,15 +95,19 @@
 			<tr>
 				<td>Product ID</td>
 				<td>Liefertext</td>
+				<td>Gewicht</td>
 				<td>Produktbeschreibung</td>
 				<td>BTWKategorie</td>
 				<td>Preis</td>
+				<td>Löschen</td>
 			</tr>
 		</thead>
 		<tbody>
 
 			<c:forEach items="${billEntity.shopping_items}" var="allnames"
 				varStatus="pStatus">
+				<form:hidden path="shopping_items[${pStatus.index}].id"></form:hidden>
+
 				<tr>
 
 
@@ -111,6 +115,10 @@
 							path="shopping_items[${pStatus.index}].product.product_id"></form:input></td>
 					<td><form:input class="add_input"
 							path="shopping_items[${pStatus.index}].delivery_text"></form:input>
+
+					</td>
+					<td><form:input class="add_input"
+							path="shopping_items[${pStatus.index}].product.unitType"></form:input>
 					</td>
 					<td><form:input class="shopping_item_name"
 							name="item_${pStatus.index}"
@@ -120,6 +128,8 @@
 							path="shopping_items[${pStatus.index}].product.btwCategory"></form:input></td>
 					<td><form:input
 							path="shopping_items[${pStatus.index}].product.price"></form:input></td>
+					<td><input type="submit" class="removeShoppingItem"
+						id="${pStatus.index}" name="delete" value="Löschen" /></td>
 				</tr>
 			</c:forEach>
 
@@ -187,7 +197,20 @@
 
 		});
 	});
+	$(".removeShoppingItem").click(
+			function(event) {
+				event.preventDefault();
+				var str = $("#add_customer_form").serialize()
+						+ "&shoppingItemId=" + this.id;
+				$.ajax({
+					type : "POST",
+					data : str,
+					url : "/delete_bill_product"
+				}).done(function(data) {
+					$("#mainContent").html(data);
 
+				});
+			});
 	function fillCustomer() {
 		submitForm();
 	}
@@ -229,12 +252,36 @@
 			});
 		});
 	});
+		// ------------------------------------
+	// On Product Description Change 
+	// ------------------------------------
 	$(".shopping_item_name").keyup(function(event) {
-
+		var str = "" + $('#cusNameChange').val();
+		$.ajax({
+			type : "POST",
+			data : "shoppingItemName=" + str,
+			url : "/product_description_change"
+		}).done(function(data) {
+			var productArr = [];
+			var obj = data;
+			for (var i = 0; i < obj.length; i++) {
+				productArr.push(obj[i])
+			}
+			$(".shopping_item_name").autocomplete({
+				delay : 0,
+				source : productArr
+			});
+		});
 	});
+
+	
+	
+	/*
+	Functionalities for adding shopping items or new Dates
+	*/
 	$(document).unbind('keyup').bind('keyup', function(e) {
 		e.preventDefault();
-		if (e.altKey || e.keyCode == 18) {
+		if (e.keyCode == 113) {
 			var str = $("#add_customer_form").serialize();
 			$.ajax({
 				type : "POST",
@@ -242,10 +289,8 @@
 				url : "/createbill_result"
 			}).done(function(data) {
 				$("#mainContent").html(data);
-				
-
 			});
 		}
+	});
 
-	});	
 </script>

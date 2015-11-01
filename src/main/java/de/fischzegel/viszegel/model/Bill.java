@@ -40,7 +40,7 @@ public class Bill extends AbstractModel {
     @Column(name = "Bezahlart")
     private String payment_method;
     
-    
+
     @Column(name = "Datum")
     private String date;
 

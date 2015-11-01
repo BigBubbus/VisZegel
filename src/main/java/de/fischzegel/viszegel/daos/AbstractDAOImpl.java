@@ -5,7 +5,7 @@
  */
 package de.fischzegel.viszegel.daos;
 
-import java.io.Serializable;
+import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author tnowicki
  */
+@Transactional
 public class AbstractDAOImpl{
     protected Logger logger = Logger.getLogger(getClass());
     @Autowired

@@ -3,8 +3,6 @@ package de.fischzegel.viszegel.controller;
 import java.io.ByteArrayOutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,13 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import de.fischzegel.viszegel.daos.HibernateSequenceDAO;
 import de.fischzegel.viszegel.daos.interfaces.BillDAO;
 import de.fischzegel.viszegel.daos.interfaces.CustomerDAO;
+import de.fischzegel.viszegel.daos.interfaces.ProductDAO;
 import de.fischzegel.viszegel.exception.Known_Exceptions;
 import de.fischzegel.viszegel.model.Bill;
-import de.fischzegel.viszegel.model.Customer;
-import de.fischzegel.viszegel.model.ProductBase;
 import de.fischzegel.viszegel.model.ProductVariable;
 import de.fischzegel.viszegel.model.ShoppingItem;
 import de.fischzegel.viszegel.services.BillingService;
@@ -43,8 +39,11 @@ public class BillingController extends AbstractController {
 	@Autowired
 	CustomerDAO customerDAO;
 	@Autowired
-	HibernateSequenceDAO sequenceDAO;
+	ProductDAO prodDAO;
 
+
+	@Autowired
+	com.mchange.v2.c3p0.ComboPooledDataSource dataSource;
 	@RequestMapping(value = "/viewBill", method = { RequestMethod.GET,
 			RequestMethod.POST }, produces = "application/pdf")
 	@ResponseBody
@@ -53,16 +52,15 @@ public class BillingController extends AbstractController {
 		String pdfPath = null;
 		try {
 			logger.info("--> Checking bills start");
-			billingDAO.save(bill);
+			billingService.saveBill(bill);
 			pdfPath = httpServletRequest.getSession().getServletContext()
 					.getRealPath("/WEB-INF/report/temporary.pdf");
-			JasperPrint test = billingService.generateBill(bill.getBill_id(), pdfPath);
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			JasperExportManager.exportReportToPdfStream(test, out);
-			data = out.toByteArray();
+			data = billingService.generateBill(bill.getBill_id(), pdfPath);
 		} catch (Exception ex) {
-			Logger.getLogger(BillingController.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(BillingController.class.getName()).log(Level.INFO, null, ex);
 		}
+		
+		dataSource.resetPoolManager();
 		return data;
 
 	}
@@ -73,14 +71,6 @@ public class BillingController extends AbstractController {
 	public String checkBill(@RequestParam(value = "billID", required = false) Integer billID,
 			HttpServletResponse response, HttpServletRequest httpServletRequest) {
 		Bill test = new Bill();
-		ShoppingItem st = new ShoppingItem();
-		st.setDelivery_text("YO");
-		st.setBill(test);
-		test.getShopping_items().add(st);
-		Customer cus = new Customer();
-		cus.setName("FritzCascadus");
-		test.setCus_bill(cus);
-		logger.info(test.getBill_id() + " OUR BILL IDDDD");
 		billingService.saveBill(test);
 
 		return "billing/checkBill";
@@ -89,18 +79,8 @@ public class BillingController extends AbstractController {
 
 	@RequestMapping(value = "/createbill", method = { RequestMethod.GET, RequestMethod.POST })
 	public String createBill(Model model) throws ParseException {
-		logger.info("Creating a new Bill");
-		Bill bill = new Bill();
-		bill.setBill_id(sequenceDAO.getCurrentId().intValue());
-		Date myDate = new Date();
-		bill.setDate(new SimpleDateFormat("yyyy-MM-dd").format(myDate));
-		ShoppingItem item = new ShoppingItem();
-		item.setDelivery_text("TESTINGDELIVERY");
-		ProductVariable p = new ProductVariable();
-		item.setProduct(p);
-		bill.getShopping_items().add(item);
-		model.addAttribute("billEntity", bill);
-
+		logger.info("Creating a new Bill");		
+		model.addAttribute("billEntity", billingService.initBill());
 		return "billing/createBill";
 
 	}
@@ -116,11 +96,18 @@ public class BillingController extends AbstractController {
 	@ResponseBody
 	public List<String> changeCustomerName(Model model, @RequestParam(value = "cusName") String cusName)
 			throws ParseException {
-		logger.info(cusName);
-		List<String> lili = customerDAO.getByPartName(cusName);
-		return lili;
+		logger.info("--> customer_name_change detected");
+		List<String> customersList = customerDAO.getByPartName(cusName);
+		return customersList;
 	}
-
+	@RequestMapping(value = "/product_description_change", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public List<String> changeProductDescriptionName(Model model, @RequestParam(value = "shoppingItemName") String shoppingItemName)
+			throws ParseException {
+		logger.info("--> product_description_change detected");
+		List<String> productList = prodDAO.getByPartDesc(shoppingItemName);
+		return productList;
+	}
 	@RequestMapping(value = "/fill_customer", method = { RequestMethod.GET, RequestMethod.POST })
 	public String createBill(Bill bill, Model model) throws ParseException {
 		logger.info("Filling Customer!");
@@ -153,6 +140,16 @@ public class BillingController extends AbstractController {
 		bill = billingService.fillBill(bill, true, saveBill);
 		model.addAttribute("billEntity", bill);
 
+		return "billing/createBill";
+
+	}
+	
+	@RequestMapping(value = "/delete_bill_product", method = { RequestMethod.GET, RequestMethod.POST })
+	public String deleteShoppingItem(Bill bill, Model model,
+			@RequestParam(value = "shoppingItemId", required = true) int shoppingItemId) throws ParseException {
+		logger.info("Removing Shopping Item: " + bill.getShopping_items().get(shoppingItemId).getProduct().getDescription());
+		bill.getShopping_items().remove(shoppingItemId);
+		model.addAttribute("billEntity", bill);
 		return "billing/createBill";
 
 	}

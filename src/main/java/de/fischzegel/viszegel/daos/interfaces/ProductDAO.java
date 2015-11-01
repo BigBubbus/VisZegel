@@ -16,7 +16,9 @@ import de.fischzegel.viszegel.model.ProductConstant;
 public interface ProductDAO {
     public ProductConstant get(int id);
     public ProductConstant getByProductId(int id);
+    public ProductConstant getByName(String name);
     public void save(ProductConstant p);
     public void delete(ProductConstant p);
     public List<ProductConstant> list();
+    public List<String> getByPartDesc(String name);
 }
