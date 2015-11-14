@@ -35,8 +35,9 @@ public class BillDAOImpl extends AbstractDAOImpl implements BillDAO {
 		try {
 			tx = session.beginTransaction();
 			logger.info("SAVING");
-			if (getBill(b.getBill_id()) != null)
+			if (getBill(b.getBill_id()) != null){
 				session.merge(b);
+			}
 			else
 				session.save(b);
 			logger.info("SAVED");

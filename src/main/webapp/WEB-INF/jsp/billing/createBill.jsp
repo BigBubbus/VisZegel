@@ -97,6 +97,7 @@
 				<td>Product ID</td>
 				<td>Liefertext</td>
 				<td>Gewicht</td>
+				<td>Anzahl</td>
 				<td>Produktbeschreibung</td>
 				<td>BTWKategorie</td>
 				<td>Preis</td>
@@ -117,11 +118,12 @@
 							path="shopping_items[${pStatus.index}].product.product_id"></form:input></td>
 					<td><form:input class="add_input"
 							path="shopping_items[${pStatus.index}].delivery_text"></form:input>
-
 					</td>
 					<td><form:input class="add_input"
 							path="shopping_items[${pStatus.index}].product.unitType"></form:input>
-					</td>
+					</td>					
+					<td><form:input
+							path="shopping_items[${pStatus.index}].product.amount"></form:input></td>
 					<td><form:input class="shopping_item_name"
 							name="item_${pStatus.index}"
 							path="shopping_items[${pStatus.index}].product.description"></form:input>
@@ -261,7 +263,7 @@
 	// On Product Description Change 
 	// ------------------------------------
 	$(".shopping_item_name").keyup(function(event) {
-		var str = "" + $('#cusNameChange').val();
+		var str = "" + $(this).val();
 		$.ajax({
 			type : "POST",
 			data : "shoppingItemName=" + str,

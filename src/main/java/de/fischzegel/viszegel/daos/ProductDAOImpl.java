@@ -44,7 +44,7 @@ public class ProductDAOImpl extends AbstractDAOImpl implements ProductDAO {
 	@Override
     public List<String> getByPartDesc(String product_description) {        
         String newName = "%"+product_description+"%";
-        logger.info("retrieving Customer with name : " + newName);
+        logger.info("retrieving Product with name : " + newName);
         return (List<String>) this.sessionFactory.getCurrentSession().createQuery("select p.description from ProductConstant p where str(p.description) like :cname").setParameter("cname", newName).list();
     }
     @SuppressWarnings("unchecked")

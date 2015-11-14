@@ -1,5 +1,6 @@
 package de.fischzegel.viszegel.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +47,14 @@ public class ProductVariable extends ProductBase{
     public void setShopi(List<ShoppingItem> shopi) {
         this.shopi = shopi;
     }
+    @Column(name = "Anzahl")
+    private double amount = 1;
+	public double getAmount() {
+		return amount;
+	}
 
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
 
 }

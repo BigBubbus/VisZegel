@@ -8,7 +8,9 @@ package de.fischzegel.viszegel.services;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,6 +31,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
+import de.fischzegel.viszegel.Util.Consts;
 import de.fischzegel.viszegel.daos.HibernateSequenceDAO;
 import de.fischzegel.viszegel.daos.interfaces.BillDAO;
 import de.fischzegel.viszegel.daos.interfaces.CustomerDAO;
@@ -89,12 +92,12 @@ public class BillingService extends AbstractService {
 		String curr_date = null;
 		List<ShoppingItem> remove = new ArrayList<>();
 		for (ShoppingItem item : bill.getShopping_items()) {
-			if (item.getDatum() != null && !item.getDatum().isEmpty()){
-				logger.info("Setting Datum for products : " +  item.getDatum());
+			if (item.getDatum() != null && !item.getDatum().isEmpty()) {
+				logger.info("Setting Datum for products : " + item.getDatum());
 				curr_date = item.getDatum();
 				remove.add(item);
 			} else {
-				logger.info("No Datum");
+				logger.info("No Date");
 				item.setBill(bill);
 				item.setDatum(curr_date);
 				ProductVariable var = item.getProduct();
@@ -128,7 +131,7 @@ public class BillingService extends AbstractService {
 			sessionFactory.getCurrentSession().evict(p);
 			BeanUtils.copyProperties(copiedEntity, p);
 			if (p != null) {
-				logger.info("SETTING PRODUCT FOR BILL : "+p.getDescription());
+				logger.info("SETTING PRODUCT FOR BILL : " + p.getDescription());
 				item.setProduct(copiedEntity);
 			} else
 				logger.info("Product was null");
@@ -171,7 +174,45 @@ public class BillingService extends AbstractService {
 		return bill;
 	}
 
-	public byte[] generateBill(int id, String path) {
+	/**
+	 * Fills up the Bill's parameters
+	 * 
+	 * @param id
+	 * @param bill
+	 *            the bill required to find out the vat sum for the bill
+	 * @throws IOException
+	 */
+	private void fillParameters(Map<String, Object> parameters, int id, Bill bill) throws IOException {
+		
+		String billid = Consts.BILL_PARAMETER_BILL_ID;
+		parameters.put("bill_path", new ClassPathResource(Consts.BILL_SUBREPORT_PATH).getFile().getPath());
+		parameters.put(billid, id);
+		BigDecimal priceNoVat = new BigDecimal(0);
+		BigDecimal priceVat19 = new BigDecimal(0);
+		BigDecimal priceVat7 = new BigDecimal(0);
+		BigDecimal priceTotal = new BigDecimal(0);
+		for (ShoppingItem item : bill.getShopping_items()) {
+			ProductVariable productPrice = item.getProduct();
+			// No Vat
+			BigDecimal operationVat = productPrice.getPrice();
+			operationVat = operationVat.multiply(new BigDecimal(productPrice.getAmount()));
+			priceNoVat = priceNoVat.add(operationVat);
+			// Vat 19
+			BigDecimal operationVat19 = productPrice.getPrice();
+			operationVat19 = operationVat19.multiply(new BigDecimal(productPrice.getAmount()));
+			operationVat19 = operationVat19.multiply(new BigDecimal(0.19));
+			priceVat19 = priceVat19.add(operationVat19);
+			// Price Total
+			priceTotal = priceTotal.add(priceNoVat);
+			priceTotal = priceTotal.add(priceVat19);
+		}
+		parameters.put(Consts.BILL_PARAMETER_PRICE_NOMWST, priceNoVat);
+		parameters.put(Consts.BILL_PARAMETER_PRICE_NOMWST, priceNoVat);
+		parameters.put(Consts.BILL_PARAMETER_PRICE_NOMWST, priceNoVat);
+
+	}
+
+	public byte[] generateBill(int id, String path, Bill bill) {
 		try {
 			// logger.info(servletContext.getContext(null));
 			logger.trace("-> start");
@@ -193,11 +234,9 @@ public class BillingService extends AbstractService {
 				logger.debug("---> loaded template and list");
 
 				Map<String, Object> parameters = new HashMap<>();
-				String billid = "bill_id";
-				logger.debug(billid +" " +id);
-				
-				parameters.put("bill_path", new ClassPathResource("report/Bills.jasper").getFile().getPath());
-				parameters.put(billid, id);
+				fillParameters(parameters, id, bill);
+				logger.debug("---> Processed Parameters");
+
 				// parameters.put("vat_number", payment.getVatNo());
 
 				JasperPrint print = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());

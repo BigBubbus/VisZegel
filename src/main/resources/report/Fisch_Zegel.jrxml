@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-11-03T19:58:02 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Fisch_Zegel" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43610763-ab21-4f7f-ba3c-f91c99be7e5f">
+<!-- 2015-11-14T19:48:40 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Fisch_Zegel" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="43610763-ab21-4f7f-ba3c-f91c99be7e5f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="VisZegel"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -37,59 +46,25 @@
 	</subDataset>
 	<parameter name="bill_id" class="java.lang.String"/>
 	<parameter name="bill_path" class="java.lang.String"/>
+	<parameter name="mwstOhne" class="java.math.BigDecimal"/>
+	<parameter name="mwst19" class="java.math.BigDecimal"/>
+	<parameter name="mwstTotal" class="java.math.BigDecimal"/>
 	<queryString>
-		<![CDATA[SELECT * FROM `VisZegel`.`Rechnungen`,`VisZegel`.Produkt_Rechnung_Log,`VisZegel`.Rechnungsprodukt,`VisZegel`.Kunden
+		<![CDATA[SELECT Datum,bill_id, -- Rechnung
+			name,adress,house_number,postcode,location, -- Customer
+			Datum_ReProdukt FROM `VisZegel`.`Rechnungen`,`VisZegel`.Produkt_Rechnung_Log,VisZegel.Rechnungsprodukt,`VisZegel`.Kunden,VisZegel.Produkt
  WHERE `VisZegel`.`Rechnungen`.`bill_id` = $P{bill_id} AND `VisZegel`.Rechnungsprodukt.`rechnungs_id` = $P{bill_id}
  AND `VisZegel`.Produkt_Rechnung_Log.id = `VisZegel`.Rechnungsprodukt.`product_id` 
  AND VisZegel.Rechnungen.kunden_id = `VisZegel`.Kunden.id  
  GROUP BY `VisZegel`.`Rechnungsprodukt`.Datum_ReProdukt
  ORDER BY `VisZegel`.`Rechnungsprodukt`.Datum_ReProdukt ASC]]>
 	</queryString>
-	<field name="bill_id" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Bezahlart" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="kunden_id" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<field name="Datum" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="id" class="java.lang.Integer">
+	<field name="bill_id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="product_id" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Beschreibung" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Preis" class="java.lang.Float">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Gültig" class="java.lang.Boolean">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="BTWKategorie" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Einheit" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="COLUMN_12" class="java.lang.Integer"/>
-	<field name="rechnungs_id" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="Liefertext" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="COLUMN_15" class="java.lang.Integer"/>
-	<field name="Datum_ReProdukt" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="COLUMN_17" class="java.lang.Integer"/>
 	<field name="name" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -105,162 +80,128 @@
 	<field name="location" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="extra_rules" class="java.lang.String">
+	<field name="Datum_ReProdukt" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="country" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="email" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="website" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="btw_number" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="btw_number_final" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<variable name="Preis1" class="java.math.BigDecimal" resetType="Group" resetGroup="GroupDatum" calculation="Sum">
-		<variableExpression><![CDATA[$F{Preis}]]></variableExpression>
-	</variable>
-	<variable name="Preis2" class="java.lang.Float" resetType="Group" resetGroup="GroupDatum" calculation="Sum">
-		<variableExpression><![CDATA[$F{Preis}]]></variableExpression>
-	</variable>
-	<group name="GroupDatum">
-		<groupExpression><![CDATA[$F{Datum}]]></groupExpression>
-		<groupHeader>
-			<band height="41"/>
-		</groupHeader>
-		<groupFooter>
-			<band height="216"/>
-			<band height="50"/>
-		</groupFooter>
-	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="150" splitType="Stretch">
+		<band splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
-			<staticText>
-				<reportElement x="0" y="0" width="148" height="16" uuid="94aa07a8-102c-4e6c-8a6d-cc509ab8174c"/>
-				<box>
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.0"/>
-					<bottomPen lineWidth="0.0"/>
-					<rightPen lineWidth="0.0"/>
-				</box>
-				<textElement markup="none">
-					<paragraph lineSpacing="1_1_2"/>
-				</textElement>
-				<text><![CDATA[Zegel Kerkrade GmbH ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="406" y="0" width="148" height="90" uuid="c6513ac6-1420-4e47-b2d1-aa2400ef15c7"/>
-				<textElement markup="html"/>
-				<text><![CDATA[tel. : 00-Fisch-00 <br>]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="80" y="20" width="100" height="30" uuid="174291f1-f025-4e48-9477-9a193a504398"/>
-				<textElement>
-					<font size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{bill_id}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="0" y="20" width="80" height="30" uuid="64dd5b88-735c-454b-ba25-d092e4c962ea"/>
-				<box>
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.0"/>
-					<bottomPen lineWidth="0.0"/>
-					<rightPen lineWidth="0.0"/>
-				</box>
-				<textElement markup="none">
-					<paragraph lineSpacing="1_1_2"/>
-				</textElement>
-				<text><![CDATA[RechnungsId:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="0" y="70" width="100" height="20" uuid="0c4c22c1-76b9-4548-a4bf-8d94bd334188"/>
-				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="0" y="55" width="100" height="15" uuid="fecfe3d2-37ce-4c42-b2c6-0a15de08fb3d"/>
-				<text><![CDATA[Kundenname:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="0" y="130" width="100" height="20" uuid="b4352601-9a6e-4df6-b0cb-f57d607da83d"/>
-				<textFieldExpression><![CDATA[$F{location}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="110" width="100" height="20" uuid="abc9f5fe-7b36-41c0-b0ed-9167b52d187c"/>
-				<textFieldExpression><![CDATA[$F{house_number}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="90" width="100" height="20" uuid="77edad51-1012-4a5f-81a7-8125fbc330bd"/>
-				<textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
-			</textField>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="40">
+		<band height="346">
+			<textField>
+				<reportElement x="130" y="210" width="100" height="20" uuid="738e1530-6f24-4158-b823-9b46cc39dbe6"/>
+				<textFieldExpression><![CDATA[$F{house_number}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="0" y="0" width="278" height="40" uuid="7b68296d-014c-4f5c-a190-e1c6319d6c11"/>
+				<reportElement x="40" y="316" width="160" height="30" uuid="45036e2a-062f-4d6d-869d-557f72dcef03"/>
 				<box>
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.0"/>
-					<bottomPen lineWidth="0.0"/>
-					<rightPen lineWidth="0.0"/>
+					<topPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<leftPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<rightPen lineWidth="0.4" lineColor="#D1CDCD"/>
 				</box>
-				<textElement markup="none">
-					<font size="14" isBold="true"/>
-					<paragraph lineSpacing="1_1_2"/>
-				</textElement>
-				<text><![CDATA[RESTAURANT NOWICKI]]></text>
-			</staticText>
-		</band>
-	</pageHeader>
-	<columnHeader>
-		<band height="20" splitType="Stretch">
-			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
-			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="259" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="f6cfffea-19f7-4e77-b42b-ba9ef0adee56"/>
 				<textElement>
-					<font size="14"/>
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Liefertext]]></text>
+				<text><![CDATA[Bezeichnung]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="270" y="0" width="100" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="29f328d2-1413-48c9-b90f-271be99cc036"/>
+				<reportElement x="200" y="316" width="100" height="30" uuid="8c5b65f2-3c4f-43ea-8835-0cf8eaad244a"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+					<leftPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+					<rightPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+				</box>
 				<textElement>
-					<font size="14"/>
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Produktname]]></text>
+				<text><![CDATA[Menge/Einheit]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="230" width="100" height="20" uuid="b140926e-67f8-4a2d-b4fc-9bd8c9493567"/>
+				<textFieldExpression><![CDATA[$F{postcode}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="360" y="192" width="100" height="30" uuid="b6282ef5-d818-4e47-8b6e-a896b4899d43"/>
+				<text><![CDATA[Rechnungsdatum :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="230" width="100" height="20" uuid="a3473cc5-6d75-42a2-9176-c5c9ff0c85a8"/>
+				<textFieldExpression><![CDATA[$F{location}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="270" width="100" height="37" uuid="99066ee1-ab0a-4e35-b9ff-bf41412e9d1e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rechnung]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="470" y="0" width="92" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="bd400dc1-f682-4919-b3eb-8c9b244ee47c"/>
+				<reportElement positionType="Float" x="360" y="222" width="100" height="20" uuid="0521e9f2-137b-47b3-a727-f73636829888"/>
+				<text><![CDATA[Rechnungsnummer :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="192" width="100" height="30" uuid="1a9c96bb-420a-4dc6-b2d0-84cc9e8f49ca"/>
+				<textFieldExpression><![CDATA[$F{Datum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="222" width="100" height="20" uuid="7495cdc5-456b-4c51-a633-6735c96afae9"/>
+				<textFieldExpression><![CDATA[$F{bill_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="210" width="100" height="20" uuid="9cb84ed8-7feb-4c05-9f77-9d05b256c706"/>
+				<textFieldExpression><![CDATA[$F{adress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="192" width="100" height="20" uuid="a8966b74-7a00-4b41-839a-134257f43b5d">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="316" width="100" height="30" uuid="09f78da5-a674-4c8e-8d47-2096f42a07af"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+					<leftPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+					<rightPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+				</box>
 				<textElement>
-					<font size="14"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nummer]]></text>
+				<text><![CDATA[Anzahl]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="380" y="0" width="60" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="db67ba64-ee2d-464b-9156-9d5b5b08cb32"/>
+				<reportElement x="400" y="316" width="100" height="30" uuid="82ab8c07-f1dd-45df-9ca4-21b612367a13"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+					<leftPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+					<rightPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+				</box>
 				<textElement>
-					<font size="14"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Preis]]></text>
 			</staticText>
 		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="63" splitType="Stretch">
-			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
-			<subreport>
-				<reportElement x="0" y="30" width="278" height="33" uuid="018625e2-d133-458b-8e2a-96db1e2befff"/>
+		<band height="198" splitType="Immediate">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<subreport runToBottom="true" overflowType="NoStretch">
+				<reportElement key="" positionType="Float" stretchType="RelativeToBandHeight" x="40" y="0" width="460" height="198" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="018625e2-d133-458b-8e2a-96db1e2befff"/>
 				<subreportParameter name="bill_id_subreport">
 					<subreportParameterExpression><![CDATA[$F{bill_id}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -271,9 +212,125 @@
 				<subreportExpression><![CDATA[$P{bill_path}]]></subreportExpression>
 			</subreport>
 			<textField>
-				<reportElement x="0" y="0" width="277" height="30" uuid="c6a587bf-41bd-43ab-8834-3bc966050c9f"/>
+				<reportElement positionType="Float" x="500" y="0" width="95" height="40" isPrintWhenDetailOverflows="true" uuid="ccc9cb1b-eb58-4b3d-8619-8cd540958ac0"/>
+				<box>
+					<topPen lineWidth="0.0" lineColor="#D1CDCD"/>
+					<leftPen lineWidth="0.0" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="0.0" lineColor="#D1CDCD"/>
+					<rightPen lineWidth="0.0" lineColor="#D1CDCD"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="false" isItalic="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Datum_ReProdukt}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="297" splitType="Immediate">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField evaluationTime="Report">
+				<reportElement x="50" y="267" width="100" height="30" uuid="4a2657e3-09d5-4586-bc16-a477d0c0041f"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" von " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="267" width="50" height="30" uuid="95c1f0db-d8f7-4e10-bdb9-b61499876aeb"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Seite " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="297">
+			<textField evaluationTime="Report">
+				<reportElement x="50" y="267" width="100" height="30" uuid="563fdc20-00d0-43c5-8fd6-3bdaf3986eb1"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" von " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="267" width="50" height="30" uuid="99f1ea1c-aa59-4d63-b3ac-fd4acdddb563"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Seite " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="160" y="6" width="160" height="24" uuid="aaf4518e-4951-4416-8d97-100e25237c49"/>
+				<box>
+					<topPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<leftPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<rightPen lineWidth="0.4" lineColor="#D1CDCD"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Summe vor Steuern:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="30" width="160" height="24" uuid="7ab2c36f-73d6-40e4-a589-aabda6f99fdf"/>
+				<box>
+					<topPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<leftPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<rightPen lineWidth="0.4" lineColor="#D1CDCD"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MwSt 19%:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="53" width="160" height="24" uuid="61c1959f-e429-4fd9-959b-cc1ea02d541d"/>
+				<box>
+					<topPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<leftPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<rightPen lineWidth="0.4" lineColor="#D1CDCD"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gesamtsumme :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="320" y="6" width="100" height="24" uuid="60aa9eea-f25a-49ea-894a-8ed8a647dea4"/>
+				<box>
+					<topPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<leftPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<rightPen lineWidth="0.4" lineColor="#D1CDCD"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mwstOhne}+"€"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="30" width="100" height="24" uuid="9bdaa3bc-2c0e-4676-8428-1862f3275785"/>
+				<box>
+					<topPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<leftPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<rightPen lineWidth="0.4" lineColor="#D1CDCD"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mwst19}+"€"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="53" width="100" height="24" uuid="7baf29b8-ca5a-4293-8ac6-1779428d67d7"/>
+				<box>
+					<topPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<leftPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<rightPen lineWidth="0.4" lineColor="#D1CDCD"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mwstTotal}+"€"]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
 </jasperReport>
