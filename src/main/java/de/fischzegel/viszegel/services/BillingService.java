@@ -10,8 +10,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,6 +66,7 @@ public class BillingService extends AbstractService {
 
 	@Autowired
 	ProductDAO prodDAO;
+
 	public BillingService() {
 
 	}
@@ -81,15 +84,24 @@ public class BillingService extends AbstractService {
 		return bill;
 	}
 
-
-
 	public void saveBill(Bill bill) {
 		logger.info("Got a bill with name:" + bill.getPayment_method());
-		for(ShoppingItem item : bill.getShopping_items()){
-			item.setBill(bill);
-			ProductVariable var = item.getProduct();
-			var.getShopi().add(item);
+		String curr_date = null;
+		List<ShoppingItem> remove = new ArrayList<>();
+		for (ShoppingItem item : bill.getShopping_items()) {
+			if (item.getDatum() != null && !item.getDatum().isEmpty()){
+				logger.info("Setting Datum for products : " +  item.getDatum());
+				curr_date = item.getDatum();
+				remove.add(item);
+			} else {
+				logger.info("No Datum");
+				item.setBill(bill);
+				item.setDatum(curr_date);
+				ProductVariable var = item.getProduct();
+				var.getShopi().add(item);
+			}
 		}
+		bill.getShopping_items().removeAll(remove);
 		billingDAO.saveOrUpdate(bill);
 	}
 
@@ -100,28 +112,26 @@ public class BillingService extends AbstractService {
 
 	@Autowired
 	protected SessionFactory sessionFactory;
+
 	@Transactional
 	public Bill getBillProducts(Bill bill) throws IllegalAccessException, InvocationTargetException {
-		logger.info(" Filling up Products and resetting ID");
+		logger.info("Filling up Products and resetting ID");
 		for (ShoppingItem item : bill.getShopping_items()) {
 			ProductVariable pitem = item.getProduct();
-			logger.info(pitem.getProduct_id());
 			ProductBase p = null;
-			if(pitem.getId()>0){
+			if (pitem.getProduct_id() > 0) {
 				p = prodDAO.getByProductId(pitem.getProduct_id());
 			} else {
 				p = prodDAO.getByName(pitem.getDescription());
 			}
 			ProductVariable copiedEntity = new ProductVariable();
-			logger.info("EVICTING OBJECT!!!");
 			sessionFactory.getCurrentSession().evict(p);
-			p.setId(0);
 			BeanUtils.copyProperties(copiedEntity, p);
 			if (p != null) {
-				logger.info("SETTING PRODUCT FOR BILL : !" + p.getId());
+				logger.info("SETTING PRODUCT FOR BILL : "+p.getDescription());
 				item.setProduct(copiedEntity);
 			} else
-				logger.info("Product was null :(");
+				logger.info("Product was null");
 		}
 
 		return bill;
@@ -183,10 +193,15 @@ public class BillingService extends AbstractService {
 				logger.debug("---> loaded template and list");
 
 				Map<String, Object> parameters = new HashMap<>();
-				parameters.put("billId", id);
+				String billid = "bill_id";
+				logger.debug(billid +" " +id);
+				
+				parameters.put("bill_path", new ClassPathResource("report/Bills.jasper").getFile().getPath());
+				parameters.put(billid, id);
 				// parameters.put("vat_number", payment.getVatNo());
 
 				JasperPrint print = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+				logger.debug("---> Creating Printable Bill");
 				JasperExportManager.exportReportToPdfFile(print, outDir);
 				logger.debug("---> generated output");
 				ByteArrayOutputStream out = new ByteArrayOutputStream();

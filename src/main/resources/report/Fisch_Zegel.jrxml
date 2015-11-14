@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-10-31T14:04:04 -->
+<!-- 2015-11-03T19:58:02 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Fisch_Zegel" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43610763-ab21-4f7f-ba3c-f91c99be7e5f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="VisZegel"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
@@ -35,14 +35,15 @@
 			<![CDATA[]]>
 		</queryString>
 	</subDataset>
-	<parameter name="billId" class="java.lang.String"/>
+	<parameter name="bill_id" class="java.lang.String"/>
+	<parameter name="bill_path" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT * FROM `VisZegel`.`Rechnungen`,`VisZegel`.Produkt_Rechnung_Log,`VisZegel`.Rechnungsprodukt,`VisZegel`.Kunden
- WHERE `VisZegel`.`Rechnungen`.`bill_id` = $P{billId}
- AND `VisZegel`.Rechnungsprodukt.`rechnungs_id` = $P{billId} 
- AND `VisZegel`.Produkt_Rechnung_Log.id = `VisZegel`.Rechnungsprodukt.`product_id`
- AND VisZegel.Rechnungen.kunden_id = `VisZegel`.Kunden.id
- ORDER BY `VisZegel`.`Rechnungen`.Datum ASC]]>
+ WHERE `VisZegel`.`Rechnungen`.`bill_id` = $P{bill_id} AND `VisZegel`.Rechnungsprodukt.`rechnungs_id` = $P{bill_id}
+ AND `VisZegel`.Produkt_Rechnung_Log.id = `VisZegel`.Rechnungsprodukt.`product_id` 
+ AND VisZegel.Rechnungen.kunden_id = `VisZegel`.Kunden.id  
+ GROUP BY `VisZegel`.`Rechnungsprodukt`.Datum_ReProdukt
+ ORDER BY `VisZegel`.`Rechnungsprodukt`.Datum_ReProdukt ASC]]>
 	</queryString>
 	<field name="bill_id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -65,7 +66,7 @@
 	<field name="Beschreibung" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="Preis" class="java.math.BigDecimal">
+	<field name="Preis" class="java.lang.Float">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="Gültig" class="java.lang.Boolean">
@@ -85,7 +86,10 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="COLUMN_15" class="java.lang.Integer"/>
-	<field name="COLUMN_16" class="java.lang.Integer"/>
+	<field name="Datum_ReProdukt" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COLUMN_17" class="java.lang.Integer"/>
 	<field name="name" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -122,39 +126,16 @@
 	<variable name="Preis1" class="java.math.BigDecimal" resetType="Group" resetGroup="GroupDatum" calculation="Sum">
 		<variableExpression><![CDATA[$F{Preis}]]></variableExpression>
 	</variable>
+	<variable name="Preis2" class="java.lang.Float" resetType="Group" resetGroup="GroupDatum" calculation="Sum">
+		<variableExpression><![CDATA[$F{Preis}]]></variableExpression>
+	</variable>
 	<group name="GroupDatum">
 		<groupExpression><![CDATA[$F{Datum}]]></groupExpression>
 		<groupHeader>
-			<band height="39">
-				<textField>
-					<reportElement x="0" y="0" width="554" height="28" uuid="2f7a3847-0e4e-400e-989c-d9846f52ba33"/>
-					<textElement>
-						<font size="12" isBold="true" isItalic="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{Datum}]]></textFieldExpression>
-				</textField>
-			</band>
+			<band height="41"/>
 		</groupHeader>
 		<groupFooter>
-			<band height="54">
-				<textField>
-					<reportElement x="380" y="24" width="100" height="30" uuid="83240598-bb30-4487-be4d-091edb1fd4f0"/>
-					<textFieldExpression><![CDATA[$V{Preis1}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="290" y="24" width="80" height="30" uuid="17997dbc-8937-46b5-b380-1c293d37ed77"/>
-					<box>
-						<topPen lineWidth="0.0"/>
-						<leftPen lineWidth="0.0"/>
-						<bottomPen lineWidth="0.0"/>
-						<rightPen lineWidth="0.0"/>
-					</box>
-					<textElement markup="none">
-						<paragraph lineSpacing="1_1_2"/>
-					</textElement>
-					<text><![CDATA[Summe:]]></text>
-				</staticText>
-			</band>
+			<band height="216"/>
 			<band height="50"/>
 		</groupFooter>
 	</group>
@@ -276,19 +257,22 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="64" splitType="Stretch">
+		<band height="63" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<subreport>
+				<reportElement x="0" y="30" width="278" height="33" uuid="018625e2-d133-458b-8e2a-96db1e2befff"/>
+				<subreportParameter name="bill_id_subreport">
+					<subreportParameterExpression><![CDATA[$F{bill_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="datum">
+					<subreportParameterExpression><![CDATA[$F{Datum_ReProdukt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{bill_path}]]></subreportExpression>
+			</subreport>
 			<textField>
-				<reportElement x="270" y="0" width="100" height="64" uuid="d0eadf66-7090-4218-933c-170ba7d34479"/>
-				<textFieldExpression><![CDATA[$F{Beschreibung}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="380" y="0" width="60" height="64" uuid="4303d622-7220-4212-a412-797c2d5072f4"/>
-				<textFieldExpression><![CDATA[$F{Preis}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="0" width="259" height="64" uuid="3cfad7a3-ead6-4184-b2e5-5bd296b52a8c"/>
-				<textFieldExpression><![CDATA[$F{Liefertext}]]></textFieldExpression>
+				<reportElement x="0" y="0" width="277" height="30" uuid="c6a587bf-41bd-43ab-8834-3bc966050c9f"/>
+				<textFieldExpression><![CDATA[$F{Datum_ReProdukt}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

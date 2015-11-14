@@ -49,8 +49,19 @@ public class ShoppingItem extends AbstractModel{
     @JoinColumn(name = "product_id")
     @JsonBackReference
     private ProductVariable productVariable;
+    
+    @Column(name = "Datum_ReProdukt")
+    private String datum;
 
-    /**
+    public String getDatum() {
+		return datum;
+	}
+
+	public void setDatum(String datum) {
+		this.datum = datum;
+	}
+
+	/**
      * @return the delivery_text
      */
     public String getDelivery_text() {

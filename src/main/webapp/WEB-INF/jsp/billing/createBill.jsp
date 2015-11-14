@@ -93,6 +93,7 @@
 	<table class="customer_table">
 		<thead>
 			<tr>
+				<td>Datum</td>
 				<td>Product ID</td>
 				<td>Liefertext</td>
 				<td>Gewicht</td>
@@ -110,7 +111,8 @@
 
 				<tr>
 
-
+					<td><form:input class="shopping_datum"
+							path="shopping_items[${pStatus.index}].datum"></form:input>
 					<td><form:input name="${pStatus.index}"
 							path="shopping_items[${pStatus.index}].product.product_id"></form:input></td>
 					<td><form:input class="add_input"
@@ -155,6 +157,9 @@
 <div id="customer_name_result"></div>
 <script type="text/javascript">
 	$('#billDate').datepicker({
+		dateFormat : 'yy-mm-dd'
+	});
+		$('.shopping_datum').datepicker({
 		dateFormat : 'yy-mm-dd'
 	});
 	$("#billButt").click(function(event) {
