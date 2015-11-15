@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -100,6 +101,9 @@ public class BillingService extends AbstractService {
 				logger.info("No Date");
 				item.setBill(bill);
 				item.setDatum(curr_date);
+				BigDecimal amountItem = item.getProduct().getPrice();
+				amountItem = amountItem.multiply(new BigDecimal(item.getProduct().getAmount()));
+				item.getProduct().setPrice(amountItem);
 				ProductVariable var = item.getProduct();
 				var.getShopi().add(item);
 			}
@@ -183,32 +187,42 @@ public class BillingService extends AbstractService {
 	 * @throws IOException
 	 */
 	private void fillParameters(Map<String, Object> parameters, int id, Bill bill) throws IOException {
-		
+
 		String billid = Consts.BILL_PARAMETER_BILL_ID;
 		parameters.put("bill_path", new ClassPathResource(Consts.BILL_SUBREPORT_PATH).getFile().getPath());
 		parameters.put(billid, id);
-		BigDecimal priceNoVat = new BigDecimal(0);
-		BigDecimal priceVat19 = new BigDecimal(0);
-		BigDecimal priceVat7 = new BigDecimal(0);
-		BigDecimal priceTotal = new BigDecimal(0);
+		BigDecimal priceNoVat = BigDecimal.ZERO;
+		BigDecimal priceVat19 = BigDecimal.ZERO;
+		BigDecimal priceVat7 = BigDecimal.ZERO;
+		BigDecimal priceTotal = BigDecimal.ZERO;
 		for (ShoppingItem item : bill.getShopping_items()) {
 			ProductVariable productPrice = item.getProduct();
 			// No Vat
 			BigDecimal operationVat = productPrice.getPrice();
-			operationVat = operationVat.multiply(new BigDecimal(productPrice.getAmount()));
 			priceNoVat = priceNoVat.add(operationVat);
+			// Vat 7
+			if (productPrice.getBtwCategory().equals("laag")) {
+				BigDecimal operationVat7 = productPrice.getPrice();
+				operationVat7 = operationVat7.multiply(new BigDecimal(0.07));
+				priceVat7 = priceVat7.add(operationVat7);
+			}
 			// Vat 19
-			BigDecimal operationVat19 = productPrice.getPrice();
-			operationVat19 = operationVat19.multiply(new BigDecimal(productPrice.getAmount()));
-			operationVat19 = operationVat19.multiply(new BigDecimal(0.19));
-			priceVat19 = priceVat19.add(operationVat19);
-			// Price Total
-			priceTotal = priceTotal.add(priceNoVat);
-			priceTotal = priceTotal.add(priceVat19);
+			if (productPrice.getBtwCategory().equals("hoog")) {
+				BigDecimal operationVat19 = productPrice.getPrice();
+				operationVat19 = operationVat19.multiply(new BigDecimal(0.19));
+				priceVat19 = priceVat19.add(operationVat19);
+			}
+
 		}
-		parameters.put(Consts.BILL_PARAMETER_PRICE_NOMWST, priceNoVat);
-		parameters.put(Consts.BILL_PARAMETER_PRICE_NOMWST, priceNoVat);
-		parameters.put(Consts.BILL_PARAMETER_PRICE_NOMWST, priceNoVat);
+		// Price Total
+		logger.debug("Calculation of Vats done " + priceNoVat);
+		priceTotal = priceTotal.add(priceNoVat);
+		priceTotal = priceTotal.add(priceVat7);
+		priceTotal = priceTotal.add(priceVat19);
+		parameters.put(Consts.BILL_PARAMETER_PRICE_NOMWST, priceNoVat.setScale(2, RoundingMode.CEILING));
+		parameters.put(Consts.BILL_PARAMETER_PRICE_7, priceVat7.setScale(2, RoundingMode.CEILING));
+		parameters.put(Consts.BILL_PARAMETER_PRICE_19, priceVat19.setScale(2, RoundingMode.CEILING));
+		parameters.put(Consts.BILL_PARAMETER_PRICE_TOTAL, priceTotal.setScale(2, RoundingMode.CEILING));
 
 	}
 

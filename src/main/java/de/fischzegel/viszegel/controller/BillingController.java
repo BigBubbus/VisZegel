@@ -54,7 +54,7 @@ public class BillingController extends AbstractController {
 			logger.info("--> Checking bills start");
 			billingService.saveBill(bill);
 			pdfPath = httpServletRequest.getSession().getServletContext()
-					.getRealPath("/WEB-INF/report/temporary.pdf");
+					.getRealPath("/WEB-INF/report/"+bill.getBill_id()+".pdf");
 			data = billingService.generateBill(bill.getBill_id(), pdfPath,bill);
 		} catch (Exception ex) {
 			Logger.getLogger(BillingController.class.getName()).log(Level.INFO, null, ex);
