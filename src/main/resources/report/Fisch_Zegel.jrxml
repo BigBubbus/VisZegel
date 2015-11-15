@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-11-15T11:13:22 -->
+<!-- 2015-11-15T12:38:50 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Fisch_Zegel" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="43610763-ab21-4f7f-ba3c-f91c99be7e5f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="VisZegel"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -191,6 +191,16 @@
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="370" y="250" width="100" height="20" uuid="fca402c0-0593-4194-a031-b3c54ca246a9"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" von " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="250" width="50" height="20" uuid="9e5bd41e-896c-4403-871b-afbfd14b8cf1"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Seite " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -202,7 +212,7 @@
 		<band height="198" splitType="Immediate">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<subreport runToBottom="true" overflowType="NoStretch">
-				<reportElement key="" positionType="Float" stretchType="RelativeToBandHeight" x="100" y="0" width="400" height="198" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="018625e2-d133-458b-8e2a-96db1e2befff"/>
+				<reportElement key="" positionType="Float" stretchType="RelativeToBandHeight" x="100" y="48" width="400" height="62" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="018625e2-d133-458b-8e2a-96db1e2befff"/>
 				<subreportParameter name="bill_id_subreport">
 					<subreportParameterExpression><![CDATA[$F{bill_id}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -213,7 +223,7 @@
 				<subreportExpression><![CDATA[$P{bill_path}]]></subreportExpression>
 			</subreport>
 			<textField>
-				<reportElement positionType="Float" x="500" y="0" width="95" height="40" isPrintWhenDetailOverflows="true" uuid="ccc9cb1b-eb58-4b3d-8619-8cd540958ac0"/>
+				<reportElement positionType="Float" x="100" y="8" width="95" height="40" isPrintWhenDetailOverflows="true" uuid="ccc9cb1b-eb58-4b3d-8619-8cd540958ac0"/>
 				<box>
 					<topPen lineWidth="0.0" lineColor="#D1CDCD"/>
 					<leftPen lineWidth="0.0" lineColor="#D1CDCD"/>
@@ -230,16 +240,6 @@
 	<pageFooter>
 		<band height="297" splitType="Immediate">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-			<textField evaluationTime="Report">
-				<reportElement x="50" y="267" width="100" height="30" uuid="4a2657e3-09d5-4586-bc16-a477d0c0041f"/>
-				<textElement textAlignment="Left"/>
-				<textFieldExpression><![CDATA[" von " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="267" width="50" height="30" uuid="95c1f0db-d8f7-4e10-bdb9-b61499876aeb"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Seite " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
 		</band>
 	</pageFooter>
 	<lastPageFooter>
@@ -304,7 +304,7 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{mwstOhne}+"€"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["€ "+$P{mwstOhne}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="320" y="54" width="100" height="24" uuid="9bdaa3bc-2c0e-4676-8428-1862f3275785"/>
@@ -317,7 +317,7 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{mwst19}+"€"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["€ "+$P{mwst19}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="320" y="78" width="100" height="24" uuid="7baf29b8-ca5a-4293-8ac6-1779428d67d7"/>
@@ -330,7 +330,7 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{mwstTotal}+"€"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["€+ "+$P{mwstTotal}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="160" y="30" width="160" height="24" uuid="49dc00ce-8c30-4c21-9cdd-93df96a7d74f"/>
@@ -356,7 +356,7 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{mwst7}+"€"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["€ "+$P{mwst7}]]></textFieldExpression>
 			</textField>
 		</band>
 	</lastPageFooter>
