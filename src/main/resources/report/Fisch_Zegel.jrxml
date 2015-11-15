@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-11-15T12:38:50 -->
+<!-- 2015-11-15T12:51:14 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Fisch_Zegel" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="43610763-ab21-4f7f-ba3c-f91c99be7e5f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="VisZegel"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -212,7 +212,7 @@
 		<band height="198" splitType="Immediate">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<subreport runToBottom="true" overflowType="NoStretch">
-				<reportElement key="" positionType="Float" stretchType="RelativeToBandHeight" x="100" y="48" width="400" height="62" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="018625e2-d133-458b-8e2a-96db1e2befff"/>
+				<reportElement key="" positionType="Float" stretchType="RelativeToBandHeight" x="100" y="48" width="400" height="150" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="018625e2-d133-458b-8e2a-96db1e2befff"/>
 				<subreportParameter name="bill_id_subreport">
 					<subreportParameterExpression><![CDATA[$F{bill_id}]]></subreportParameterExpression>
 				</subreportParameter>
