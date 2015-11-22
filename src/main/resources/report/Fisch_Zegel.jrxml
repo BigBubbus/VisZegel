@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-11-22T16:31:15 -->
+<!-- 2015-11-22T19:47:48 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Fisch_Zegel" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="43610763-ab21-4f7f-ba3c-f91c99be7e5f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="VisZegel"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -96,7 +96,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="346">
+		<band height="351">
 			<textField>
 				<reportElement x="179" y="210" width="100" height="20" uuid="738e1530-6f24-4158-b823-9b46cc39dbe6"/>
 				<textElement>
@@ -105,7 +105,7 @@
 				<textFieldExpression><![CDATA[$F{house_number}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="70" y="326" width="113" height="20" uuid="45036e2a-062f-4d6d-869d-557f72dcef03">
+				<reportElement mode="Opaque" x="70" y="326" width="113" height="20" backcolor="#B8B2B2" uuid="45036e2a-062f-4d6d-869d-557f72dcef03">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
@@ -113,22 +113,22 @@
 				<box>
 					<topPen lineWidth="0.4" lineColor="#D1CDCD"/>
 					<leftPen lineWidth="0.4" lineColor="#D1CDCD"/>
-					<bottomPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="2.0" lineColor="#000000"/>
 					<rightPen lineWidth="0.4" lineColor="#D1CDCD"/>
 				</box>
 				<textElement verticalAlignment="Middle">
 					<font fontName="ClanOT-News" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Bezeichnung]]></text>
+				<text><![CDATA[Artikel]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="296" y="326" width="113" height="20" uuid="8c5b65f2-3c4f-43ea-8835-0cf8eaad244a">
+				<reportElement mode="Opaque" x="296" y="326" width="113" height="20" backcolor="#B8B2B2" uuid="8c5b65f2-3c4f-43ea-8835-0cf8eaad244a">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
 					<leftPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
-					<bottomPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
 				</box>
 				<textElement verticalAlignment="Middle">
@@ -203,14 +203,14 @@
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="409" y="326" width="113" height="20" uuid="82ab8c07-f1dd-45df-9ca4-21b612367a13">
+				<reportElement mode="Opaque" x="460" y="326" width="61" height="20" backcolor="#B8B2B2" uuid="82ab8c07-f1dd-45df-9ca4-21b612367a13">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
 					<leftPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
-					<bottomPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
 				</box>
 				<textElement verticalAlignment="Middle">
@@ -233,50 +233,14 @@
 				<textFieldExpression><![CDATA["Seite " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="79" y="174" width="120" height="7" forecolor="#BAB6B6" uuid="d994e1aa-eeda-486b-b166-284369fb178a">
-					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-				</reportElement>
-				<textElement markup="styled">
-					<font fontName="ClanOT-Book" size="5"/>
-				</textElement>
-				<text><![CDATA[Fisch Zegel Burtscheid Gmbh, 52066 Aachen]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="438" y="101" width="120" height="7" forecolor="#BAB6B6" uuid="c4fab901-289a-4809-808b-fdc253a23f11">
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-				</reportElement>
-				<textElement>
-					<font fontName="ClanOT-Book" size="5"/>
-				</textElement>
-				<text><![CDATA[Info@zegel-burtscheid.de]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="438" y="140" width="120" height="7" forecolor="#BAB6B6" uuid="6661297c-891f-4d40-a617-b48b12d3857f">
-					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-				</reportElement>
-				<textElement>
-					<font fontName="ClanOT-Book" size="5"/>
-				</textElement>
-				<text><![CDATA[www.fischzegel-burtscheid.de]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="410" y="67" width="120" height="12" forecolor="#BAB6B6" uuid="a661f402-7386-4932-9170-56aec03cbf6a">
-					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-				</reportElement>
-				<textElement>
-					<font fontName="ClanOT-Book" size="8"/>
-				</textElement>
-				<text><![CDATA[Tel.: +49(0)151-57223193]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="183" y="326" width="113" height="20" uuid="44615511-8457-4fb8-b71d-088831432836">
+				<reportElement mode="Opaque" x="183" y="326" width="113" height="20" backcolor="#B8B2B2" uuid="44615511-8457-4fb8-b71d-088831432836">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
 					<leftPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
-					<bottomPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
 				</box>
 				<textElement verticalAlignment="Middle">
@@ -291,6 +255,22 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Bezahlart}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="409" y="326" width="50" height="20" backcolor="#B8B2B2" uuid="01d96f09-b19c-4c8a-97d1-d71aba5739b3">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+					<leftPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="ClanOT-News" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mwst]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -315,7 +295,7 @@
 				<subreportExpression><![CDATA[$P{bill_path}]]></subreportExpression>
 			</subreport>
 			<textField>
-				<reportElement positionType="Float" x="70" y="0" width="113" height="20" isPrintWhenDetailOverflows="true" uuid="ccc9cb1b-eb58-4b3d-8619-8cd540958ac0">
+				<reportElement positionType="Float" mode="Opaque" x="70" y="0" width="452" height="20" isPrintWhenDetailOverflows="true" backcolor="#EDE8E8" uuid="ccc9cb1b-eb58-4b3d-8619-8cd540958ac0">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
@@ -330,63 +310,16 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Datum_ReProdukt}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="183" y="0" width="113" height="20" uuid="09f78da5-a674-4c8e-8d47-2096f42a07af">
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-				</reportElement>
-				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<topPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
-					<leftPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
-					<bottomPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
-					<rightPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
-				</box>
-				<textElement>
-					<font fontName="ClanOT-News" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="409" y="0" width="113" height="20" uuid="b80bdba6-6c16-4bd8-a923-77932ed81077">
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-				</reportElement>
-				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<topPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
-					<leftPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
-					<bottomPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
-					<rightPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
-				</box>
-				<textElement>
-					<font fontName="ClanOT-News" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="296" y="0" width="113" height="20" uuid="1396f2a9-fd2f-45ae-8232-dddf67b2a10a">
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-				</reportElement>
-				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<topPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
-					<leftPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
-					<bottomPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
-					<rightPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
-				</box>
-				<textElement>
-					<font fontName="ClanOT-News" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="355" splitType="Immediate"/>
+		<band height="255" splitType="Immediate"/>
 	</pageFooter>
 	<lastPageFooter>
-		<band height="297">
+		<band height="255">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<staticText>
-				<reportElement x="70" y="16" width="160" height="16" uuid="aaf4518e-4951-4416-8d97-100e25237c49">
+				<reportElement mode="Opaque" x="70" y="16" width="148" height="16" backcolor="#EDE8E8" uuid="aaf4518e-4951-4416-8d97-100e25237c49">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
@@ -396,28 +329,28 @@
 					<bottomPen lineWidth="0.4" lineColor="#D1CDCD"/>
 					<rightPen lineWidth="0.4" lineColor="#D1CDCD"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="ClanOT-News" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Summe vor Steuern:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="70" y="48" width="160" height="16" uuid="7ab2c36f-73d6-40e4-a589-aabda6f99fdf">
+				<reportElement mode="Opaque" x="70" y="48" width="148" height="16" backcolor="#EDE8E8" uuid="7ab2c36f-73d6-40e4-a589-aabda6f99fdf">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<box>
-					<topPen lineWidth="0.4" lineColor="#D1CDCD"/>
-					<leftPen lineWidth="0.4" lineColor="#D1CDCD"/>
-					<bottomPen lineWidth="0.4" lineColor="#D1CDCD"/>
-					<rightPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<topPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+					<leftPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#080000"/>
+					<rightPen lineWidth="0.4" lineStyle="Solid" lineColor="#D1CDCD"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="ClanOT-News" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MwSt 19%:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="70" y="64" width="160" height="16" uuid="61c1959f-e429-4fd9-959b-cc1ea02d541d">
+				<reportElement mode="Opaque" x="70" y="66" width="148" height="16" backcolor="#EDE8E8" uuid="61c1959f-e429-4fd9-959b-cc1ea02d541d">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<box>
@@ -426,13 +359,13 @@
 					<bottomPen lineWidth="0.4" lineColor="#D1CDCD"/>
 					<rightPen lineWidth="0.4" lineColor="#D1CDCD"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="ClanOT-News" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Gesamtsumme :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="230" y="16" width="100" height="16" uuid="60aa9eea-f25a-49ea-894a-8ed8a647dea4">
+				<reportElement mode="Opaque" x="230" y="16" width="100" height="16" backcolor="#FFFFFF" uuid="60aa9eea-f25a-49ea-894a-8ed8a647dea4">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
@@ -442,7 +375,7 @@
 					<bottomPen lineWidth="0.4" lineColor="#D1CDCD"/>
 					<rightPen lineWidth="0.4" lineColor="#D1CDCD"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="ClanOT-Book" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["€ "+$P{mwstOhne}]]></textFieldExpression>
@@ -454,16 +387,16 @@
 				<box>
 					<topPen lineWidth="0.4" lineColor="#D1CDCD"/>
 					<leftPen lineWidth="0.4" lineColor="#D1CDCD"/>
-					<bottomPen lineWidth="0.4" lineColor="#D1CDCD"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.4" lineColor="#D1CDCD"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="ClanOT-Book" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["€ "+$P{mwst19}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="230" y="64" width="100" height="16" uuid="7baf29b8-ca5a-4293-8ac6-1779428d67d7">
+				<reportElement x="230" y="66" width="100" height="16" uuid="7baf29b8-ca5a-4293-8ac6-1779428d67d7">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<box>
@@ -472,13 +405,13 @@
 					<bottomPen lineWidth="0.4" lineColor="#D1CDCD"/>
 					<rightPen lineWidth="0.4" lineColor="#D1CDCD"/>
 				</box>
-				<textElement>
-					<font fontName="ClanOT-Book" size="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="ClanOT-Book" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["€ "+$P{mwstTotal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="70" y="32" width="160" height="16" uuid="49dc00ce-8c30-4c21-9cdd-93df96a7d74f">
+				<reportElement mode="Opaque" x="70" y="32" width="148" height="16" backcolor="#EDE8E8" uuid="49dc00ce-8c30-4c21-9cdd-93df96a7d74f">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
@@ -488,7 +421,7 @@
 					<bottomPen lineWidth="0.4" lineColor="#D1CDCD"/>
 					<rightPen lineWidth="0.4" lineColor="#D1CDCD"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="ClanOT-News" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MwSt 7%:]]></text>
@@ -503,7 +436,7 @@
 					<bottomPen lineWidth="0.4" lineColor="#D1CDCD"/>
 					<rightPen lineWidth="0.4" lineColor="#D1CDCD"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="ClanOT-Book" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["€ "+$P{mwst7}]]></textFieldExpression>
@@ -515,7 +448,7 @@
 				<textElement>
 					<font fontName="ClanOT-Book"/>
 				</textElement>
-				<text><![CDATA[Wir danken Ihnen für ihren Einkauf und hoffen Sie bald wieder beliefern zu dürfen.]]></text>
+				<text><![CDATA[Wir danken Ihnen für Ihren Einkauf und hoffen Sie bald wieder beliefern zu dürfen.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="70" y="130" width="430" height="20" uuid="651cfbda-4889-42e9-ac43-57d1403f0e86">
@@ -524,7 +457,7 @@
 				<textElement>
 					<font fontName="ClanOT-Book"/>
 				</textElement>
-				<text><![CDATA[Mit freundlichen Grüßen]]></text>
+				<text><![CDATA[Mit freundlichen Grüßen,]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="70" y="150" width="430" height="20" uuid="2031cfc9-b271-4d83-8989-b0de516c2633">
@@ -533,7 +466,7 @@
 				<textElement>
 					<font fontName="ClanOT-Book"/>
 				</textElement>
-				<text><![CDATA[Jan Wilhelmus Zegel & Kevin Zegel]]></text>
+				<text><![CDATA[Zegel Burtscheid]]></text>
 			</staticText>
 		</band>
 	</lastPageFooter>
