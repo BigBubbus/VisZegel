@@ -5,3 +5,4 @@ target/
 .settings/
 
 src/main/webapp/WEB-INF/report/
+src/main/webapp/WEB-INF/databaseContext.xml
