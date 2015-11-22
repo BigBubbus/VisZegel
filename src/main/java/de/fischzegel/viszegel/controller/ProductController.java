@@ -59,6 +59,7 @@ public class ProductController extends AbstractController {
         logger.info("--> Change Product, Mode is set to : " + mode);
         Status state = new Status("OK",mode);
         if (mode.equals("edit")) {
+        	logger.info("Saving Product with id : "+prod.getId());
             productDAO.save(prod);
         }
         if (mode.equals("delete")) {

@@ -20,7 +20,7 @@ public class ProductDAOImpl extends AbstractDAOImpl implements ProductDAO {
 
     @Override
     public void save(ProductConstant p) {
-        this.sessionFactory.getCurrentSession().save(p);
+        this.sessionFactory.getCurrentSession().saveOrUpdate(p);
     }
 
     @Override

@@ -33,8 +33,8 @@ public class Customer extends AbstractModel {
     private String country;
     private String email;
     private String website;
-    private int btw_number;
-    private int btw_number_final;
+    private String btw_number;
+    private String btw_number_final;
     /*
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true, mappedBy = "cus_bill")
     @JsonManagedReference
@@ -120,19 +120,19 @@ public class Customer extends AbstractModel {
         this.website = website;
     }
 
-    public int getBtw_number() {
+    public String getBtw_number() {
         return btw_number;
     }
 
-    public void setBtw_number(int btw_number) {
+    public void setBtw_number(String btw_number) {
         this.btw_number = btw_number;
     }
 
-    public int getBtw_number_final() {
+    public String getBtw_number_final() {
         return btw_number_final;
     }
 
-    public void setBtw_number_final(int btw_number_final) {
+    public void setBtw_number_final(String btw_number_final) {
         this.btw_number_final = btw_number_final;
     }
 
