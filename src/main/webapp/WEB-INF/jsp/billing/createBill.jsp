@@ -109,7 +109,7 @@
 			<c:forEach items="${billEntity.shopping_items}" var="allnames"
 				varStatus="pStatus">
 				<form:hidden path="shopping_items[${pStatus.index}].id"></form:hidden>
-
+				<form:hidden path="shopping_items[${pStatus.index}].product.id"></form:hidden>
 				<tr>
 
 					<td><form:input class="shopping_datum"
@@ -121,7 +121,7 @@
 					</td>
 					<td><form:input class="add_input"
 							path="shopping_items[${pStatus.index}].product.unitType"></form:input>
-					</td>					
+					</td>
 					<td><form:input
 							path="shopping_items[${pStatus.index}].product.amount"></form:input></td>
 					<td><form:input class="shopping_item_name"
@@ -161,7 +161,7 @@
 	$('#billDate').datepicker({
 		dateFormat : 'yy-mm-dd'
 	});
-		$('.shopping_datum').datepicker({
+	$('.shopping_datum').datepicker({
 		dateFormat : 'yy-mm-dd'
 	});
 	$("#billButt").click(function(event) {
@@ -259,7 +259,7 @@
 			});
 		});
 	});
-		// ------------------------------------
+	// ------------------------------------
 	// On Product Description Change 
 	// ------------------------------------
 	$(".shopping_item_name").keyup(function(event) {
@@ -281,11 +281,9 @@
 		});
 	});
 
-	
-	
 	/*
 	Functionalities for adding shopping items or new Dates
-	*/
+	 */
 	$(document).unbind('keyup').bind('keyup', function(e) {
 		e.preventDefault();
 		if (e.keyCode == 113) {
@@ -299,5 +297,4 @@
 			});
 		}
 	});
-
 </script>

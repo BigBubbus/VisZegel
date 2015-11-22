@@ -29,8 +29,13 @@ public class ShoppingItem extends AbstractModel{
 	 * 
 	 */
 	private static final long serialVersionUID = 5449445995914352882L;
+	public ShoppingItem(){
+		
+	}
 
-
+	public ShoppingItem(String date){
+		this.setDatum(date);
+	}
 	@Id
     @GeneratedValue
     @Column(name = "id")

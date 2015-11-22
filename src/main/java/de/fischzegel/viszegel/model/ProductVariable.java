@@ -31,7 +31,7 @@ public class ProductVariable extends ProductBase{
 	 */
 	private static final long serialVersionUID = 7216038917701689934L;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "productVariable")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval=true, mappedBy = "productVariable")
     @JsonManagedReference
     protected List<ShoppingItem> shopi = new ArrayList<>();
 	/**

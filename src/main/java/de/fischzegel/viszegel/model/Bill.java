@@ -44,7 +44,7 @@ public class Bill extends AbstractModel {
     @Column(name = "Datum")
     private String date;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "bill")
+    @OneToMany(cascade = {CascadeType.ALL,CascadeType.REMOVE}, fetch = FetchType.EAGER, mappedBy = "bill",orphanRemoval=true)
     @JsonManagedReference
     private List<ShoppingItem> shopping_items = new ArrayList<>();
 

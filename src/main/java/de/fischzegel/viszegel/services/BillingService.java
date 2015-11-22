@@ -71,13 +71,14 @@ public class BillingService extends AbstractService {
 	@Autowired
 	ProductDAO prodDAO;
 
-	public BillingService() {
-
-	}
-
+	/**
+	 * Initialize a fresh bill
+	 * 
+	 * @return Bill with shopping item dependencies
+	 */
 	public Bill initBill() {
+		logger.info("--> Initializing Bill");
 		Bill bill = new Bill();
-		bill.setBill_id(sequenceDAO.getCurrentId().intValue());
 		Date myDate = new Date();
 		bill.setDate(new SimpleDateFormat("yyyy-MM-dd").format(myDate));
 		ShoppingItem item = new ShoppingItem();
@@ -88,8 +89,8 @@ public class BillingService extends AbstractService {
 		return bill;
 	}
 
-	public void saveBill(Bill bill) {
-		logger.info("Got a bill with name:" + bill.getPayment_method());
+	public Bill saveBill(Bill bill) {
+		logger.info("--> Saving a bill with Method:" + bill.getPayment_method());
 		String curr_date = null;
 		List<ShoppingItem> remove = new ArrayList<>();
 		for (ShoppingItem item : bill.getShopping_items()) {
@@ -99,6 +100,8 @@ public class BillingService extends AbstractService {
 				remove.add(item);
 			} else {
 				logger.info("No Date");
+				logger.info(item.getId() + " IDIDIDIDIDID");
+				logger.info(item.getProduct().getId());
 				item.setBill(bill);
 				item.setDatum(curr_date);
 				BigDecimal amountItem = item.getProduct().getPrice();
@@ -106,15 +109,36 @@ public class BillingService extends AbstractService {
 				item.getProduct().setPrice(amountItem);
 				ProductVariable var = item.getProduct();
 				var.getShopi().add(item);
+				
 			}
 		}
+		logger.info("--> Removing all Date Items");
 		bill.getShopping_items().removeAll(remove);
+		logger.info("<-- Items Removed");
 		billingDAO.saveOrUpdate(bill);
+		logger.info("Bill Saved");
+		return bill;
 	}
 
 	public Bill getBill(Bill bill) {
 		logger.info("Got a bill with name:" + bill.getPayment_method());
-		return billingDAO.getBill(bill.getBill_id());
+		Bill fillableBill = billingDAO.getBill(bill.getBill_id());
+		String checkDate = "xxx";
+		// ShoppingItem dateInsert = new ShoppingItem(checkDate);
+		// fillableBill.getShopping_items().add(0, dateInsert);
+		for (int i = 0; i < fillableBill.getShopping_items().size(); i++) {
+			ShoppingItem billItem = fillableBill.getShopping_items().get(i);
+			if (!billItem.getDatum().equals(checkDate)) {
+				checkDate = billItem.getDatum();
+				ShoppingItem dateInsert = new ShoppingItem(checkDate);
+				dateInsert.setBill(fillableBill);
+				fillableBill.getShopping_items().add(i, dateInsert);
+			} else {
+				billItem.setDatum("");
+			}
+
+		}
+		return fillableBill;
 	}
 
 	@Autowired
@@ -124,7 +148,10 @@ public class BillingService extends AbstractService {
 	public Bill getBillProducts(Bill bill) throws IllegalAccessException, InvocationTargetException {
 		logger.info("Filling up Products and resetting ID");
 		for (ShoppingItem item : bill.getShopping_items()) {
+			if(item.getDatum() != null && !item.getDatum().equals(""))
+				continue;
 			ProductVariable pitem = item.getProduct();
+			
 			ProductBase p = null;
 			if (pitem.getProduct_id() > 0) {
 				p = prodDAO.getByProductId(pitem.getProduct_id());
@@ -134,9 +161,11 @@ public class BillingService extends AbstractService {
 			ProductVariable copiedEntity = new ProductVariable();
 			sessionFactory.getCurrentSession().evict(p);
 			BeanUtils.copyProperties(copiedEntity, p);
+			copiedEntity.setId(0);
 			if (p != null) {
 				logger.info("SETTING PRODUCT FOR BILL : " + p.getDescription());
 				item.setProduct(copiedEntity);
+				
 			} else
 				logger.info("Product was null");
 		}

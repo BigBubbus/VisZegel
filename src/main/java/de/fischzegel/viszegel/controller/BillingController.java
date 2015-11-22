@@ -1,6 +1,5 @@
 package de.fischzegel.viszegel.controller;
 
-import java.io.ByteArrayOutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.util.List;
@@ -23,11 +22,7 @@ import de.fischzegel.viszegel.daos.interfaces.CustomerDAO;
 import de.fischzegel.viszegel.daos.interfaces.ProductDAO;
 import de.fischzegel.viszegel.exception.Known_Exceptions;
 import de.fischzegel.viszegel.model.Bill;
-import de.fischzegel.viszegel.model.ProductVariable;
-import de.fischzegel.viszegel.model.ShoppingItem;
 import de.fischzegel.viszegel.services.BillingService;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperPrint;
 
 @Controller
 public class BillingController extends AbstractController {
@@ -148,6 +143,7 @@ public class BillingController extends AbstractController {
 	public String deleteShoppingItem(Bill bill, Model model,
 			@RequestParam(value = "shoppingItemId", required = true) int shoppingItemId) throws ParseException {
 		logger.info("Removing Shopping Item: " + bill.getShopping_items().get(shoppingItemId).getProduct().getDescription());
+		bill.getShopping_items().get(shoppingItemId).setBill(null);
 		bill.getShopping_items().remove(shoppingItemId);
 		model.addAttribute("billEntity", bill);
 		return "billing/createBill";

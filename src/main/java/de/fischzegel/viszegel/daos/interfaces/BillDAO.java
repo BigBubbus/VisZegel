@@ -13,7 +13,9 @@ import de.fischzegel.viszegel.model.Bill;
  */
 public interface BillDAO {
 
-    public Bill getBill(int id);
+	public Bill getBill(int id);
 
-    public void saveOrUpdate(Bill b);
+	public void saveOrUpdate(Bill b);
+
+	public void delete(Bill b);
 }

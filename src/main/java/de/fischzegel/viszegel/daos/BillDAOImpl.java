@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import de.fischzegel.viszegel.daos.interfaces.BillDAO;
 import de.fischzegel.viszegel.model.Bill;
+import de.fischzegel.viszegel.model.Customer;
 
 /**
  *
@@ -28,20 +29,18 @@ public class BillDAOImpl extends AbstractDAOImpl implements BillDAO {
 	}
 
 	@Override
+	public void delete(Bill b) {
+		this.sessionFactory.getCurrentSession().delete(b);
+	}
+
+	@Override
 	public void saveOrUpdate(Bill b) {
-		logger.info("OPENING SESSION");
+		logger.info("--> Saving Bill with id : "+b.getBill_id());
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Bill temp = getBill(b.getBill_id());
-			if (temp != null){
-				logger.info("Performing Update on Bill");
-				session.update(b);
-			}
-			else
-				session.save(b);
-			logger.info("SAVED");
+			session.saveOrUpdate(b);
 			tx.commit();
 
 		} catch (RuntimeException ex) {
@@ -52,15 +51,6 @@ public class BillDAOImpl extends AbstractDAOImpl implements BillDAO {
 		} finally {
 			session.close();
 		}
-		// logger.info(dataSource.);
-		//
-
-		/*
-		 * logger.info("Saving or Updating bill : " + b.getBill_id()); Bill temp
-		 * = getBill(b.getBill_id()); if(temp!= null){
-		 * this.sessionFactory.getCurrentSession().merge(b); } else {
-		 * this.sessionFactory.getCurrentSession().save(b); }
-		 */
 	}
 
 }
