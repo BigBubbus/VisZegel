@@ -100,7 +100,6 @@ public class BillingService extends AbstractService {
 				remove.add(item);
 			} else {
 				logger.info("No Date");
-				logger.info(item.getId() + " IDIDIDIDIDID");
 				logger.info(item.getProduct().getId());
 				item.setBill(bill);
 				item.setDatum(curr_date);
@@ -245,6 +244,11 @@ public class BillingService extends AbstractService {
 		}
 		// Price Total
 		logger.debug("Calculation of Vats done " + priceNoVat);
+		String btw_number = bill.getCus_bill().getBtw_number();
+		if(btw_number == null || btw_number.equals("")){
+			priceVat7 = BigDecimal.ZERO;
+			priceVat19 = BigDecimal.ZERO;
+		}
 		priceTotal = priceTotal.add(priceNoVat);
 		priceTotal = priceTotal.add(priceVat7);
 		priceTotal = priceTotal.add(priceVat19);

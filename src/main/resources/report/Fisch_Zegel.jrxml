@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-11-22T19:47:48 -->
+<!-- 2015-11-26T07:36:09 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Fisch_Zegel" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="43610763-ab21-4f7f-ba3c-f91c99be7e5f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="VisZegel"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -52,7 +52,7 @@
 	<parameter name="mwst7" class="java.math.BigDecimal"/>
 	<queryString>
 		<![CDATA[SELECT Datum,bill_id, -- Rechnung
-			name,adress,house_number,postcode,location, -- Customer
+			name,adress,house_number,postcode,location,country,btw_number, -- Customer
 			Datum_ReProdukt,Bezahlart FROM `VisZegel`.`Rechnungen`,`VisZegel`.Produkt_Rechnung_Log,VisZegel.Rechnungsprodukt,`VisZegel`.Kunden,VisZegel.Produkt
  WHERE `VisZegel`.`Rechnungen`.`bill_id` = $P{bill_id} AND `VisZegel`.Rechnungsprodukt.`rechnungs_id` = $P{bill_id}
  AND `VisZegel`.Produkt_Rechnung_Log.id = `VisZegel`.Rechnungsprodukt.`product_id` 
@@ -79,6 +79,12 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="location" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="country" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="btw_number" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="Datum_ReProdukt" class="java.lang.String">
@@ -137,7 +143,7 @@
 				<text><![CDATA[Preis pro kg/st.]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="79" y="228" width="100" height="20" uuid="b140926e-67f8-4a2d-b4fc-9bd8c9493567"/>
+				<reportElement x="79" y="228" width="61" height="20" uuid="b140926e-67f8-4a2d-b4fc-9bd8c9493567"/>
 				<textElement>
 					<font fontName="ClanOT-Book"/>
 				</textElement>
@@ -151,19 +157,12 @@
 				<text><![CDATA[Rechnungsdatum :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="179" y="228" width="100" height="20" uuid="a3473cc5-6d75-42a2-9176-c5c9ff0c85a8"/>
+				<reportElement x="140" y="228" width="139" height="20" uuid="a3473cc5-6d75-42a2-9176-c5c9ff0c85a8"/>
 				<textElement>
 					<font fontName="ClanOT-Book"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{location}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="76" y="270" width="100" height="37" uuid="99066ee1-ab0a-4e35-b9ff-bf41412e9d1e"/>
-				<textElement>
-					<font fontName="ClanOT-News" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Rechnung]]></text>
-			</staticText>
 			<staticText>
 				<reportElement positionType="Float" x="360" y="228" width="100" height="20" uuid="0521e9f2-137b-47b3-a727-f73636829888"/>
 				<textElement>
@@ -271,6 +270,20 @@
 				</textElement>
 				<text><![CDATA[Mwst]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="79" y="249" width="100" height="20" uuid="280297c2-bb08-4e24-9094-9e59cc18c8c4"/>
+				<textElement>
+					<font fontName="ClanOT-Book"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="310" width="100" height="16" uuid="758fd296-7f92-435f-b3be-2315af1ec820"/>
+				<textElement>
+					<font fontName="ClanOT-Book"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{btw_number}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
