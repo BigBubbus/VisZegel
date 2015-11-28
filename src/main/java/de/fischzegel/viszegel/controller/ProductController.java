@@ -60,6 +60,7 @@ public class ProductController extends AbstractController {
     public String change_customer(@ModelAttribute ProductConstant prod, Model mod, @RequestParam(value = "mode", required = false) String mode) {
         logger.info("--> Change Product, Mode is set to : " + mode);
         Status state = new Status("OK",mode);
+        logger.info(prod.getDescription());
         if (mode.equals("edit")) {
         	logger.info("Saving Product with id : "+prod.getId());
             productDAO.save(prod);
