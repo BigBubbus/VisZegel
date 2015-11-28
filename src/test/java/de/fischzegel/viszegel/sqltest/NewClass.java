@@ -8,6 +8,10 @@ package de.fischzegel.viszegel.sqltest;
 import de.fischzegel.viszegel.model.Bill;
 import de.fischzegel.viszegel.model.ShoppingItem;
 import de.fischzegel.viszegel.services.BillingService;
+import junit.framework.Assert;
+
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,6 +31,12 @@ public class NewClass {
         shopi.setBill(billy);
         billy.getShopping_items().add(shopi);
         billingService.saveBill(billy);
+        
+    }
+        
+        @Test
+    public void stupidtest() throws Exception {
+       assertTrue(true == true);
         
     }
 }
