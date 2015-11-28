@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-11-28T19:39:49 -->
+<!-- 2015-11-28T19:42:32 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Fisch_Zegel" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="43610763-ab21-4f7f-ba3c-f91c99be7e5f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="VisZegel"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -270,7 +270,7 @@
 				<textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="61" y="310" width="108" height="16" uuid="758fd296-7f92-435f-b3be-2315af1ec820"/>
+				<reportElement x="60" y="310" width="109" height="16" uuid="758fd296-7f92-435f-b3be-2315af1ec820"/>
 				<textElement>
 					<font fontName="ClanOT-Book"/>
 				</textElement>
@@ -296,7 +296,7 @@
 		<band height="40" splitType="Immediate">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<subreport overflowType="Stretch">
-				<reportElement key="" positionType="Float" stretchType="RelativeToTallestObject" x="61" y="20" width="461" height="20" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="018625e2-d133-458b-8e2a-96db1e2befff">
+				<reportElement key="" positionType="Float" stretchType="RelativeToTallestObject" x="60" y="20" width="461" height="20" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="018625e2-d133-458b-8e2a-96db1e2befff">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<subreportParameter name="bill_id_subreport">
