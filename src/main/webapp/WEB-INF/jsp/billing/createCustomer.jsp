@@ -1,4 +1,5 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <form:form class="inclass" id="add_customer_form" method="post" modelAttribute="customer-entity" action="/create_customer_result">  
     <table id="customer_table" style="width: 442px;">
@@ -56,7 +57,7 @@
             </tbody>
         </table>
 </form:form>
-<div id="button" class="menuPoint">Kunde hinzufügen</div>
+<div id="button" class="menuPoint">Kunde hinzufÃ¼gen</div>
 <div id="customer_add_result"></div>
 <script type="text/javascript">
     // Lets get our Attribute here and pass on to another jsp submodule in /billing

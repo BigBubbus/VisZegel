@@ -149,6 +149,9 @@ public class BillingService extends AbstractService {
 		for (ShoppingItem item : bill.getShopping_items()) {
 			if(item.getDatum() != null && !item.getDatum().equals(""))
 				continue;
+			// Product already filled
+			if(!item.getProduct().getDescription().isEmpty() && !item.getProduct().getBtwCategory().isEmpty())
+				continue;
 			ProductVariable pitem = item.getProduct();
 			
 			ProductBase p = null;
@@ -231,22 +234,24 @@ public class BillingService extends AbstractService {
 			// Vat 7
 			if (productPrice.getBtwCategory().equals("laag")) {
 				BigDecimal operationVat7 = productPrice.getPrice();
-				operationVat7 = operationVat7.multiply(new BigDecimal(0.07));
 				priceVat7 = priceVat7.add(operationVat7);
 			}
 			// Vat 19
 			if (productPrice.getBtwCategory().equals("hoog")) {
 				BigDecimal operationVat19 = productPrice.getPrice();
-				operationVat19 = operationVat19.multiply(new BigDecimal(0.19));
 				priceVat19 = priceVat19.add(operationVat19);
 			}
 
 		}
+		logger.debug(priceVat7);
+		priceVat7 = priceVat7.multiply(new BigDecimal(0.07)).setScale(2, BigDecimal.ROUND_HALF_UP);
+		priceVat19 = priceVat19.multiply(new BigDecimal(0.19)).setScale(2, BigDecimal.ROUND_HALF_UP);
 		// Price Total
 		logger.debug("Calculation of Vats done " + priceNoVat);
 		String btw_number = bill.getCus_bill().getBtw_number();
+		logger.debug(btw_number);
 		// If a customer has no btw Number
-		if(btw_number == null || btw_number.equals("")){
+		if(btw_number != null && !btw_number.equals("")){
 			priceVat7 = BigDecimal.ZERO;
 			priceVat19 = BigDecimal.ZERO;
 		}
@@ -289,6 +294,7 @@ public class BillingService extends AbstractService {
 
 				JasperPrint print = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
 				logger.debug("---> Creating Printable Bill");
+				
 				JasperExportManager.exportReportToPdfFile(print, outDir);
 				logger.debug("---> generated output");
 				ByteArrayOutputStream out = new ByteArrayOutputStream();

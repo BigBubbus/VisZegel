@@ -1,6 +1,7 @@
 
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
 
@@ -43,7 +44,7 @@
 </form:form>
 
 
-<div id="button" class="menuPoint">Produkt hinzufügen</div>
+<div id="button" class="menuPoint">Produkt hinzufÃ¼gen</div>
 <div id="product_add_result"></div>
 
 <script type="text/javascript">

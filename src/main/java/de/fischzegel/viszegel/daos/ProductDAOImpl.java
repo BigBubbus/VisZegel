@@ -5,11 +5,13 @@
  */
 package de.fischzegel.viszegel.daos;
 
-import de.fischzegel.viszegel.daos.interfaces.ProductDAO;
-import de.fischzegel.viszegel.model.Customer;
-import de.fischzegel.viszegel.model.ProductConstant;
+import java.nio.charset.Charset;
 import java.util.List;
+
 import javax.transaction.Transactional;
+
+import de.fischzegel.viszegel.daos.interfaces.ProductDAO;
+import de.fischzegel.viszegel.model.ProductConstant;
 
 /**
  *
@@ -44,6 +46,7 @@ public class ProductDAOImpl extends AbstractDAOImpl implements ProductDAO {
 	@Override
     public List<String> getByPartDesc(String product_description) {        
         String newName = "%"+product_description+"%";
+        Charset.forName("UTF-8").encode(newName);
         logger.info("retrieving Product with name : " + newName);
         return (List<String>) this.sessionFactory.getCurrentSession().createQuery("select p.description from ProductConstant p where str(p.description) like :cname").setParameter("cname", newName).list();
     }

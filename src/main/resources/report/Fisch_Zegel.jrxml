@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-11-26T08:17:39 -->
+<!-- 2015-11-28T16:44:15 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Fisch_Zegel" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="43610763-ab21-4f7f-ba3c-f91c99be7e5f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="VisZegel"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -101,9 +101,8 @@
 	<pageHeader>
 		<band height="351">
 			<staticText>
-				<reportElement mode="Opaque" x="70" y="326" width="113" height="20" backcolor="#B8B2B2" uuid="45036e2a-062f-4d6d-869d-557f72dcef03">
+				<reportElement mode="Opaque" x="70" y="326" width="210" height="20" backcolor="#B8B2B2" uuid="45036e2a-062f-4d6d-869d-557f72dcef03">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<box>
@@ -118,7 +117,7 @@
 				<text><![CDATA[Artikel]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="296" y="326" width="113" height="20" backcolor="#B8B2B2" uuid="8c5b65f2-3c4f-43ea-8835-0cf8eaad244a">
+				<reportElement mode="Opaque" x="329" y="326" width="101" height="20" backcolor="#B8B2B2" uuid="8c5b65f2-3c4f-43ea-8835-0cf8eaad244a">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -133,66 +132,69 @@
 				<text><![CDATA[Preis pro kg/st.]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="79" y="228" width="61" height="20" uuid="b140926e-67f8-4a2d-b4fc-9bd8c9493567"/>
+				<reportElement x="60" y="208" width="41" height="12" uuid="b140926e-67f8-4a2d-b4fc-9bd8c9493567"/>
 				<textElement>
-					<font fontName="ClanOT-Book"/>
+					<font fontName="ClanOT-Book" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{postcode}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="360" y="210" width="100" height="20" uuid="b6282ef5-d818-4e47-8b6e-a896b4899d43"/>
+				<reportElement x="360" y="201" width="100" height="20" uuid="b6282ef5-d818-4e47-8b6e-a896b4899d43"/>
 				<textElement>
 					<font fontName="ClanOT-Book"/>
 				</textElement>
 				<text><![CDATA[Rechnungsdatum :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="140" y="228" width="139" height="20" uuid="a3473cc5-6d75-42a2-9176-c5c9ff0c85a8"/>
+				<reportElement stretchType="RelativeToTallestObject" x="101" y="208" width="200" height="12" uuid="a3473cc5-6d75-42a2-9176-c5c9ff0c85a8"/>
 				<textElement>
-					<font fontName="ClanOT-Book"/>
+					<font fontName="ClanOT-Book" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{location}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="360" y="228" width="100" height="20" uuid="0521e9f2-137b-47b3-a727-f73636829888"/>
+				<reportElement positionType="Float" x="360" y="219" width="100" height="20" uuid="0521e9f2-137b-47b3-a727-f73636829888"/>
 				<textElement>
 					<font fontName="ClanOT-Book"/>
 				</textElement>
 				<text><![CDATA[Rechnungsnummer :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="460" y="210" width="100" height="20" uuid="1a9c96bb-420a-4dc6-b2d0-84cc9e8f49ca"/>
+				<reportElement x="460" y="201" width="100" height="20" uuid="1a9c96bb-420a-4dc6-b2d0-84cc9e8f49ca"/>
 				<textElement>
 					<font fontName="ClanOT-Book"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Datum}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="460" y="228" width="100" height="20" uuid="7495cdc5-456b-4c51-a633-6735c96afae9"/>
+				<reportElement x="460" y="219" width="100" height="20" uuid="7495cdc5-456b-4c51-a633-6735c96afae9"/>
 				<textElement>
 					<font fontName="ClanOT-Book"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{bill_id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="79" y="208" width="200" height="20" uuid="9cb84ed8-7feb-4c05-9f77-9d05b256c706"/>
+				<reportElement x="60" y="196" width="241" height="12" uuid="9cb84ed8-7feb-4c05-9f77-9d05b256c706">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
 				<textElement>
-					<font fontName="ClanOT-Book"/>
+					<font fontName="ClanOT-Book" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{adress}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="79" y="192" width="100" height="20" uuid="a8966b74-7a00-4b41-839a-134257f43b5d">
+				<reportElement x="61" y="183" width="240" height="13" uuid="a8966b74-7a00-4b41-839a-134257f43b5d">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement>
-					<font fontName="ClanOT-Book"/>
+					<font fontName="ClanOT-Book" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="460" y="326" width="61" height="20" backcolor="#B8B2B2" uuid="82ab8c07-f1dd-45df-9ca4-21b612367a13">
+				<reportElement mode="Opaque" x="459" y="326" width="62" height="20" backcolor="#B8B2B2" uuid="82ab8c07-f1dd-45df-9ca4-21b612367a13">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
@@ -208,22 +210,21 @@
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<textField evaluationTime="Report">
-				<reportElement x="390" y="248" width="100" height="22" uuid="fca402c0-0593-4194-a031-b3c54ca246a9"/>
+				<reportElement x="394" y="239" width="100" height="22" uuid="fca402c0-0593-4194-a031-b3c54ca246a9"/>
 				<textElement textAlignment="Left">
 					<font fontName="ClanOT-Book"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" von " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="340" y="248" width="50" height="22" uuid="9e5bd41e-896c-4403-871b-afbfd14b8cf1"/>
+				<reportElement x="360" y="239" width="34" height="22" uuid="9e5bd41e-896c-4403-871b-afbfd14b8cf1"/>
 				<textElement textAlignment="Right">
 					<font fontName="ClanOT-Book"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Seite " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="183" y="326" width="113" height="20" backcolor="#B8B2B2" uuid="44615511-8457-4fb8-b71d-088831432836">
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				<reportElement mode="Opaque" x="279" y="326" width="50" height="20" backcolor="#B8B2B2" uuid="44615511-8457-4fb8-b71d-088831432836">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -238,14 +239,14 @@
 				<text><![CDATA[Menge]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="360" y="192" width="200" height="18" uuid="d8391607-5924-4e07-9695-ee65994e1057"/>
+				<reportElement x="410" y="183" width="150" height="18" uuid="d8391607-5924-4e07-9695-ee65994e1057"/>
 				<textElement>
 					<font fontName="ClanOT-Book"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Bezahlart}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="409" y="326" width="50" height="20" backcolor="#B8B2B2" uuid="01d96f09-b19c-4c8a-97d1-d71aba5739b3">
+				<reportElement mode="Opaque" x="430" y="326" width="29" height="20" backcolor="#B8B2B2" uuid="01d96f09-b19c-4c8a-97d1-d71aba5739b3">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
@@ -261,9 +262,9 @@
 				<text><![CDATA[Mwst]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="79" y="249" width="100" height="20" uuid="280297c2-bb08-4e24-9094-9e59cc18c8c4"/>
+				<reportElement x="60" y="220" width="100" height="20" uuid="280297c2-bb08-4e24-9094-9e59cc18c8c4"/>
 				<textElement>
-					<font fontName="ClanOT-Book"/>
+					<font fontName="ClanOT-Book" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
 			</textField>
@@ -274,6 +275,15 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{btw_number}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="360" y="184" width="50" height="18" uuid="08b24cdb-2858-401c-b65e-9eba655575df">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="ClanOT-Book"/>
+				</textElement>
+				<text><![CDATA[Zahlung :]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>

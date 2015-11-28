@@ -1,5 +1,6 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <c:out value="${status}" />
 <form:form id="add_customer_form" class="inclass" method="post"
 	modelAttribute="billEntity" action="/viewBill" target="_blank">
@@ -9,7 +10,7 @@
 			<td><b>FillBill</b></td>
 			<td><form:input id="fillBill" path="bill_id"></form:input><input
 				id="billButtFill" type="submit" class="subbiButt"
-				value="Rechnung füllen" /></td>
+				value="Rechnung fÃ¼llen" /></td>
 
 		</tr>
 		<tr>
@@ -19,7 +20,15 @@
 		</tr>
 		<tr>
 			<td><b>Bezahlart:</b></td>
-			<td><form:input id="billDate" path="payment_method"></form:input></td>
+			<td><form:select path="payment_method">
+					<form:option value="" label="-------- Select --------" />
+					<form:option value="Bezahlt" label="Bezahlt" />
+					<form:option value="Bankeinzug" label="Bankeinzug" />
+					<form:option value="innerhalb von 7 Tagen"
+						label="innerhalb von 7 Tagen" />
+					<form:option value="innerhalb von 14 Tagen"
+						label="innerhalb von 14 Tagen" />
+				</form:select>
 		</tr>
 
 	</table>
@@ -32,18 +41,18 @@
 	<table class="customer_table">
 		<tr>
 			<td>Kunden ID :</td>
-			<td><form:input id="cusIdChange" class="add_input"
+			<td><form:input id="cusIdChange" class="kundenInput"
 					path="cus_bill.id"></form:input></td>
 		</tr>
 		<tr>
 			<td>Kunden Name :</td>
-			<td><form:input id="cusNameChange" class="add_input"
+			<td><form:input id="cusNameChange" class="kundenInput"
 					path="cus_bill.name"></form:input></td>
 		</tr>
 	</table>
 	<div>
 		<input id="billButtCus" type="submit" class="subbiButt" name="edit"
-			value="Kunde füllen" />
+			value="Kunde fÃ¼llen" />
 	</div>
 
 	<table class="customer_table">
@@ -62,7 +71,7 @@
 		<tbody>
 			<tr>
 				<td><form:input class="add_input" path="cus_bill.adress"></form:input></td>
-				<td><form:input class="add_input" path="cus_bill.extra_rules"></form:input></td>				
+				<td><form:input class="add_input" path="cus_bill.extra_rules"></form:input></td>
 				<td><form:input class="add_input" path="cus_bill.postcode"></form:input></td>
 				<td><form:input class="add_input" path="cus_bill.location"></form:input></td>
 				<td><form:input class="add_input" path="cus_bill.country"></form:input></td>
@@ -85,21 +94,22 @@
         -->
 	<div class="seperator30"></div>
 	<input id="billButt" type="submit" class="subbiButt" name="edit"
-		value="Produkt hinzufügen" />
+		value="Produkt hinzufÃ¼gen" />
+		F
 	<input id="billButtFillProd" type="submit" name="edit"
-		value="Produkte füllen" />
+		value="Produkte fÃ¼llen" />
 	<table class="customer_table">
 		<thead>
 			<tr>
 				<td>Datum</td>
 				<td>Product ID</td>
+				<td>Produktbeschreibung</td>
+				<td>Anzahl</td>
+				<td>Preis</td>
+				<td>BTWKategorie</td>
 				<td>Liefertext</td>
 				<td>Gewicht</td>
-				<td>Anzahl</td>
-				<td>Produktbeschreibung</td>
-				<td>BTWKategorie</td>
-				<td>Preis</td>
-				<td>Löschen</td>
+				<td>LÃ¶schen</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -113,25 +123,30 @@
 					<td><form:input class="shopping_datum"
 							path="shopping_items[${pStatus.index}].datum"></form:input>
 					<td><form:input name="${pStatus.index}"
-							path="shopping_items[${pStatus.index}].product.product_id"></form:input></td>
+							path="shopping_items[${pStatus.index}].product.product_id"
+							class="productId"></form:input></td>
+					<td><form:input class="shopping_item_name"
+							name="item_${pStatus.index}"
+							path="shopping_items[${pStatus.index}].product.description"></form:input>
+					</td>
+					<td><form:input
+							path="shopping_items[${pStatus.index}].product.amount"></form:input></td>
+					<td><form:input
+							path="shopping_items[${pStatus.index}].product.price"></form:input></td>
+
+					<td><form:input
+							path="shopping_items[${pStatus.index}].product.btwCategory"></form:input></td>
+
 					<td><form:input class="add_input"
 							path="shopping_items[${pStatus.index}].delivery_text"></form:input>
 					</td>
 					<td><form:input class="add_input"
 							path="shopping_items[${pStatus.index}].product.unitType"></form:input>
 					</td>
-					<td><form:input
-							path="shopping_items[${pStatus.index}].product.amount"></form:input></td>
-					<td><form:input class="shopping_item_name"
-							name="item_${pStatus.index}"
-							path="shopping_items[${pStatus.index}].product.description"></form:input>
-					</td>
-					<td><form:input
-							path="shopping_items[${pStatus.index}].product.btwCategory"></form:input></td>
-					<td><form:input
-							path="shopping_items[${pStatus.index}].product.price"></form:input></td>
 					<td><input type="submit" class="removeShoppingItem"
-						id="${pStatus.index}" name="delete" value="Löschen" /></td>
+						id="${pStatus.index}" name="delete" value="LÃ¶schen" /></td>
+
+
 				</tr>
 			</c:forEach>
 
@@ -201,6 +216,35 @@
 			$("#mainContent").html(data);
 
 		});
+	});
+	$(".productId,.shopping_item_name").keypress(function(e) {
+		focused = this;
+		if (e.keyCode == 13) {
+			var str = $("#add_customer_form").serialize();
+			$.ajax({
+				type : "POST",
+				data : str,
+				url : "/fill_bill_products"
+			}).done(function(data) {
+				$("#mainContent").html(data);
+				$(".shopping_item_name").focus();
+				
+
+			});
+		}
+	});
+	$(".kundenInput").keypress(function(e) {
+		if (e.keyCode == 13) {
+			var str = $("#add_customer_form").serialize();
+			$.ajax({
+				type : "POST",
+				data : str,
+				url : "/fill_customer"
+			}).done(function(data) {
+				$("#mainContent").html(data);
+
+			});
+		}
 	});
 	$(".removeShoppingItem").click(
 			function(event) {
@@ -292,7 +336,13 @@
 				url : "/createbill_result"
 			}).done(function(data) {
 				$("#mainContent").html(data);
+				$(".productId").focus();
+				$(".productId").select();
 			});
 		}
+	});
+
+	/* ------------ Main Routine ------------------*/
+	$(document).ready(function() {
 	});
 </script>

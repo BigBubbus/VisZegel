@@ -1,6 +1,8 @@
 package de.fischzegel.viszegel.controller;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
@@ -40,11 +42,15 @@ public class BillingController extends AbstractController {
 	@Autowired
 	com.mchange.v2.c3p0.ComboPooledDataSource dataSource;
 	@RequestMapping(value = "/viewBill", method = { RequestMethod.GET,
-			RequestMethod.POST }, produces = "application/pdf")
+			RequestMethod.POST }, produces = "application/pdf; charset=UTF-8 ")
 	@ResponseBody
-	public byte[] viewBill(Bill bill, HttpServletRequest httpServletRequest) {
+	public byte[] viewBill(Bill bill, HttpServletRequest httpServletRequest) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		byte[] data = null;
 		String pdfPath = null;
+		System.setProperty("file.encoding","UTF-8");
+		Field charset = Charset.class.getDeclaredField("defaultCharset");
+		charset.setAccessible(true);
+		charset.set(null,null);
 		try {
 			logger.info("--> Checking bills start");
 			billingService.saveBill(bill);

@@ -5,15 +5,13 @@
  */
 package de.fischzegel.viszegel.daos;
 
-import javax.transaction.Transactional;
+import java.lang.reflect.Field;
+import java.nio.charset.Charset;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.transaction.Transactional;
 
 import de.fischzegel.viszegel.daos.interfaces.BillDAO;
 import de.fischzegel.viszegel.model.Bill;
-import de.fischzegel.viszegel.model.Customer;
 
 /**
  *
@@ -36,21 +34,8 @@ public class BillDAOImpl extends AbstractDAOImpl implements BillDAO {
 	@Override
 	public void saveOrUpdate(Bill b) {
 		logger.info("--> Saving Bill with id : "+b.getBill_id());
-		Session session = this.sessionFactory.openSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			session.saveOrUpdate(b);
-			tx.commit();
 
-		} catch (RuntimeException ex) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			throw ex;
-		} finally {
-			session.close();
-		}
+		this.sessionFactory.getCurrentSession().saveOrUpdate(b);
 	}
 
 }

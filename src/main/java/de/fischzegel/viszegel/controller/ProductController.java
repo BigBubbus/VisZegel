@@ -30,8 +30,10 @@ public class ProductController extends AbstractController {
     @RequestMapping(value = "/create_product_result", method = {RequestMethod.GET, RequestMethod.POST})
     public String add_product(ProductConstant prod, Model mod) {
         logger.info("Adding a product");
+        logger.info(prod.getBtwCategory());
         if (prod.getBtwCategory() != null) {
             productDAO.save(prod);
+            logger.info("Saved the product");
         }
         mod.addAttribute("productEntity", new ProductConstant());
         return "billing/createProduct";
