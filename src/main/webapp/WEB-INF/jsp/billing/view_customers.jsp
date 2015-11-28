@@ -12,7 +12,6 @@
             <td>Name:</td>  
             <td>Adresse</td> 
             <td>Extra Regeln</td> 
-            <td>Hausnummer</td> 
             <td>Postcode</td> 
             <td>Location</td> 
             <td>Land</td> 
@@ -38,8 +37,7 @@
                 <td><form:input class ="add_input" path="id"></form:input></td>  
                 <td><form:input class ="add_input" path="name"></form:input></td>  
                 <td><form:input class ="add_input" path="adress"></form:input></td>  
-                <td><form:input class ="add_input" path="extra_rules"></form:input></td>  
-                <td><form:input class ="add_input" path="house_number"></form:input></td>   
+                <td><form:input class ="add_input" path="extra_rules"></form:input></td>                     
                 <td><form:input class ="add_input" path="postcode"></form:input></td>   
                 <td><form:input class ="add_input" path="location"></form:input></td>  
                 <td><form:input class ="add_input" path="country"></form:input></td>   

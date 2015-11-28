@@ -245,6 +245,7 @@ public class BillingService extends AbstractService {
 		// Price Total
 		logger.debug("Calculation of Vats done " + priceNoVat);
 		String btw_number = bill.getCus_bill().getBtw_number();
+		// If a customer has no btw Number
 		if(btw_number == null || btw_number.equals("")){
 			priceVat7 = BigDecimal.ZERO;
 			priceVat19 = BigDecimal.ZERO;

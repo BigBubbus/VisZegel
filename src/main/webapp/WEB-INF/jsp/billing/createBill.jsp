@@ -51,7 +51,6 @@
 			<tr>
 				<td>Adresse</td>
 				<td>Extra Regeln</td>
-				<td>Hausnummer</td>
 				<td>Postcode</td>
 				<td>Location</td>
 				<td>Land</td>
@@ -63,8 +62,7 @@
 		<tbody>
 			<tr>
 				<td><form:input class="add_input" path="cus_bill.adress"></form:input></td>
-				<td><form:input class="add_input" path="cus_bill.extra_rules"></form:input></td>
-				<td><form:input class="add_input" path="cus_bill.house_number"></form:input></td>
+				<td><form:input class="add_input" path="cus_bill.extra_rules"></form:input></td>				
 				<td><form:input class="add_input" path="cus_bill.postcode"></form:input></td>
 				<td><form:input class="add_input" path="cus_bill.location"></form:input></td>
 				<td><form:input class="add_input" path="cus_bill.country"></form:input></td>

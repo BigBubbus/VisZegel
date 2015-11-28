@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-11-26T07:36:09 -->
+<!-- 2015-11-26T08:17:39 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Fisch_Zegel" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="43610763-ab21-4f7f-ba3c-f91c99be7e5f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="VisZegel"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -52,7 +52,7 @@
 	<parameter name="mwst7" class="java.math.BigDecimal"/>
 	<queryString>
 		<![CDATA[SELECT Datum,bill_id, -- Rechnung
-			name,adress,house_number,postcode,location,country,btw_number, -- Customer
+			name,adress,postcode,location,country,btw_number, -- Customer
 			Datum_ReProdukt,Bezahlart FROM `VisZegel`.`Rechnungen`,`VisZegel`.Produkt_Rechnung_Log,VisZegel.Rechnungsprodukt,`VisZegel`.Kunden,VisZegel.Produkt
  WHERE `VisZegel`.`Rechnungen`.`bill_id` = $P{bill_id} AND `VisZegel`.Rechnungsprodukt.`rechnungs_id` = $P{bill_id}
  AND `VisZegel`.Produkt_Rechnung_Log.id = `VisZegel`.Rechnungsprodukt.`product_id` 
@@ -70,9 +70,6 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="adress" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="house_number" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="postcode" class="java.lang.String">
@@ -103,13 +100,6 @@
 	</title>
 	<pageHeader>
 		<band height="351">
-			<textField>
-				<reportElement x="179" y="210" width="100" height="20" uuid="738e1530-6f24-4158-b823-9b46cc39dbe6"/>
-				<textElement>
-					<font fontName="ClanOT-Book"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{house_number}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement mode="Opaque" x="70" y="326" width="113" height="20" backcolor="#B8B2B2" uuid="45036e2a-062f-4d6d-869d-557f72dcef03">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
@@ -185,7 +175,7 @@
 				<textFieldExpression><![CDATA[$F{bill_id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="79" y="208" width="100" height="20" uuid="9cb84ed8-7feb-4c05-9f77-9d05b256c706"/>
+				<reportElement x="79" y="208" width="200" height="20" uuid="9cb84ed8-7feb-4c05-9f77-9d05b256c706"/>
 				<textElement>
 					<font fontName="ClanOT-Book"/>
 				</textElement>

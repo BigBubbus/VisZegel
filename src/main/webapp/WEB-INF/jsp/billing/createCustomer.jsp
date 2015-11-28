@@ -25,11 +25,6 @@
                 </tr>
 
                 <tr>
-                    <td><form:label path="house_number">Hausnummer</form:label></td>  
-                <td><form:input path="house_number"></form:input></td>  
-
-                </tr>
-                <tr>
                     <td><form:label path="postcode">Postcode</form:label></td>  
                 <td><form:input path="postcode"></form:input></td>  
                 </tr>

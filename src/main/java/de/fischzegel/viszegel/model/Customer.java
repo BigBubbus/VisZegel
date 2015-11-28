@@ -27,7 +27,6 @@ public class Customer extends AbstractModel {
     private String name;
     private String extra_rules;
     private String adress;
-    private int house_number;
     private String postcode;
     private String location;
     private String country;
@@ -71,15 +70,6 @@ public class Customer extends AbstractModel {
     public void setAdress(String adress) {
         this.adress = adress;
     }
-
-    public int getHouse_number() {
-        return house_number;
-    }
-
-    public void setHouse_number(int house_number) {
-        this.house_number = house_number;
-    }
-
     public String getPostcode() {
         return postcode;
     }
