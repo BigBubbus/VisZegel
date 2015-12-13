@@ -222,10 +222,10 @@ public class BillingService extends AbstractService {
 		String billid = Consts.BILL_PARAMETER_BILL_ID;
 		parameters.put("bill_path", new ClassPathResource(Consts.BILL_SUBREPORT_PATH).getFile().getPath());
 		parameters.put(billid, id);
-		BigDecimal priceNoVat = BigDecimal.ZERO;
-		BigDecimal priceVat19 = BigDecimal.ZERO;
-		BigDecimal priceVat7 = BigDecimal.ZERO;
-		BigDecimal priceTotal = BigDecimal.ZERO;
+		BigDecimal priceNoVat = new BigDecimal("0.00");
+		BigDecimal priceVat19 =  new BigDecimal("0.00");
+		BigDecimal priceVat7 =  new BigDecimal("0.00");
+		BigDecimal priceTotal =  new BigDecimal("0.00");
 		for (ShoppingItem item : bill.getShopping_items()) {
 			ProductVariable productPrice = item.getProduct();
 			// No Vat
@@ -244,8 +244,8 @@ public class BillingService extends AbstractService {
 
 		}
 		logger.debug(priceVat7);
-		priceVat7 = priceVat7.multiply(new BigDecimal(0.07)).setScale(2, BigDecimal.ROUND_HALF_UP);
-		priceVat19 = priceVat19.multiply(new BigDecimal(0.19)).setScale(2, BigDecimal.ROUND_HALF_UP);
+		priceVat7 = priceVat7.multiply(new BigDecimal(0.07)).setScale(2, BigDecimal.ROUND_HALF_EVEN);
+		priceVat19 = priceVat19.multiply(new BigDecimal(0.19)).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		// Price Total
 		logger.debug("Calculation of Vats done " + priceNoVat);
 		String btw_number = bill.getCus_bill().getBtw_number();
@@ -258,11 +258,11 @@ public class BillingService extends AbstractService {
 		priceTotal = priceTotal.add(priceNoVat);
 		priceTotal = priceTotal.add(priceVat7);
 		priceTotal = priceTotal.add(priceVat19);
-		priceTotal = priceTotal.setScale(2, BigDecimal.ROUND_HALF_UP);
-		parameters.put(Consts.BILL_PARAMETER_PRICE_NOMWST, priceNoVat.setScale(2, RoundingMode.CEILING));
-		parameters.put(Consts.BILL_PARAMETER_PRICE_7, priceVat7.setScale(2, RoundingMode.CEILING));
-		parameters.put(Consts.BILL_PARAMETER_PRICE_19, priceVat19.setScale(2, RoundingMode.CEILING));
-		parameters.put(Consts.BILL_PARAMETER_PRICE_TOTAL, priceTotal.setScale(2, RoundingMode.CEILING));
+		priceTotal = priceTotal.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+		parameters.put(Consts.BILL_PARAMETER_PRICE_NOMWST, priceNoVat.setScale(2, RoundingMode.HALF_EVEN));
+		parameters.put(Consts.BILL_PARAMETER_PRICE_7, priceVat7.setScale(2, RoundingMode.HALF_EVEN));
+		parameters.put(Consts.BILL_PARAMETER_PRICE_19, priceVat19.setScale(2, RoundingMode.HALF_EVEN));
+		parameters.put(Consts.BILL_PARAMETER_PRICE_TOTAL, priceTotal.setScale(2, RoundingMode.HALF_EVEN));
 
 	}
 
