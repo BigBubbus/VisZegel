@@ -258,6 +258,7 @@ public class BillingService extends AbstractService {
 		priceTotal = priceTotal.add(priceNoVat);
 		priceTotal = priceTotal.add(priceVat7);
 		priceTotal = priceTotal.add(priceVat19);
+		priceTotal = priceTotal.setScale(2, BigDecimal.ROUND_HALF_UP);
 		parameters.put(Consts.BILL_PARAMETER_PRICE_NOMWST, priceNoVat.setScale(2, RoundingMode.CEILING));
 		parameters.put(Consts.BILL_PARAMETER_PRICE_7, priceVat7.setScale(2, RoundingMode.CEILING));
 		parameters.put(Consts.BILL_PARAMETER_PRICE_19, priceVat19.setScale(2, RoundingMode.CEILING));

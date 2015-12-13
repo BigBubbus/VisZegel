@@ -5,9 +5,6 @@
  */
 package de.fischzegel.viszegel.daos;
 
-import java.lang.reflect.Field;
-import java.nio.charset.Charset;
-
 import javax.transaction.Transactional;
 
 import de.fischzegel.viszegel.daos.interfaces.BillDAO;
